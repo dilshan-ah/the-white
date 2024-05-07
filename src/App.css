@@ -1,0 +1,31 @@
+.grostesk{
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.caveat{
+    font-family: "Caveat", cursive;
+}
+
+.category-item{
+    position: relative;
+}
+
+.category-item::after{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    content: '';
+    width: 0%;
+    height: 2px;
+    display: block;
+    background-color: black;
+    transition: 0.5s;
+}
+
+.category-item:hover:after{
+    width: 100%;
+}
+
+.custom-checkbox input:checked ~ span{
+    display: flex;
+}
