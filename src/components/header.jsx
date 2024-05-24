@@ -7,9 +7,12 @@ import CartSide from './CartSide';
 import { FaShippingFast } from "react-icons/fa";
 
 
-const Header = () => {
+const Header = ({absolute}) => {
+
+    const isAbsolute = absolute === 'absolute';
+
     return (
-        <div className='absolute w-full z-40'>
+        <div className={`${absolute} w-full z-40`}>
             <div className='container mx-auto flex p-5'>
                 <div className='flex-1'>
                     <Link to='/'>
@@ -43,7 +46,7 @@ const Header = () => {
             <div className='flex justify-center'>
                 <ul className='flex gap-10'>
                     <li className='category-item'>
-                        <Link className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>New arrival !</Link>
+                        <Link to='/search-result' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>New arrival !</Link>
                     </li>
                     <li className='category-item'>
                         <Link className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Best selling 🔥</Link>
@@ -56,7 +59,7 @@ const Header = () => {
                         <Link className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>About us</Link>
                     </li>
                     <li className='category-item'>
-                        <Link className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Contact Us</Link>
+                        <Link to='/contact' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Contact Us</Link>
                     </li>
 
                 </ul>

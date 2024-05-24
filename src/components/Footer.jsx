@@ -5,11 +5,16 @@ import nagad from '../assets/Nagad-Logo.png'
 import rocket from '../assets/rocket-logo.png'
 import upay from '../assets/upay_logo.png'
 
-import { FaFacebookF } from "react-icons/fa";
+import { FiFacebook } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoMdCall } from "react-icons/io";
 import { IoMdMail } from "react-icons/io";
+import { RiTiktokLine } from "react-icons/ri";
+import { FiYoutube } from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
+
+
 
 const Footer = () => {
   return (
@@ -22,15 +27,27 @@ const Footer = () => {
           <div className='flex gap-3'>
 
             <a href="https://www.facebook.com/thewhite.apparel" target='_blank'>
-              <FaFacebookF className='text-white text-xl' />
+              <FiFacebook className='text-white text-2xl' />
             </a>
 
             <a href="https://www.instagram.com/the_white.bd/?hl=en" target='_blank'>
-              <FaInstagram className='text-white text-xl' />
+              <FaInstagram className='text-white text-2xl' />
+            </a>
+
+            <a href="https://wa.me/01779744512" target='_blank'>
+              <FaWhatsapp className='text-white text-2xl' />
+            </a>
+
+            <a href="https://www.tiktok.com/@the.white.bd" target='_blank'>
+              <RiTiktokLine className='text-white text-2xl' />
+            </a>
+
+            <a href="https://www.youtube.com/@TheWHITEsquad112" target='_blank'>
+              <FiYoutube className='text-white text-2xl' />
             </a>
 
             <a href="#">
-              <FaWhatsapp className='text-white text-xl' />
+              <FaXTwitter className='text-white text-2xl' />
             </a>
 
           </div>
@@ -42,9 +59,16 @@ const Footer = () => {
             <h3 className='text-white text-xl font-bold grostesk mb-3'>Get in touch</h3>
             <ul>
               <li>
-                <a href="#" className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
+                <a href="callto:+8809697377876" className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
                   <IoMdCall />
-                  <span>+880199999999</span>
+                  <span>+8809697377876</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="callto:+8809697437299" className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
+                  <IoMdCall />
+                  <span>+8809697437299</span>
                 </a>
               </li>
 
@@ -101,7 +125,7 @@ const Footer = () => {
       </div>
 
       <div className='container mx-auto border-t-2 border-white py-5 flex justify-between items-center'>
-        <p className='text-base text-white'>Copyright © 2024 The White</p>
+        <p className='text-base text-white'>Copyright © 2024 | The White | Made with ❤️ in Bangladesh</p>
 
         <div className='flex gap-3 bg-white px-3 py-1 rounded-lg'>
           <img src={bkash} className='w-8 h-8 object-cover' alt="" />

@@ -29,3 +29,50 @@
 .custom-checkbox input:checked ~ span{
     display: flex;
 }
+
+.custom-sizes input:checked ~ span{
+    background-color: black;
+    color: white;
+}
+
+.welcome-banner{
+    background-image: url('./assets/multiverse.png');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top right;
+}
+
+.review-banner{
+    background-image: url('./assets/2148176505.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.swiper-button-prev::after,.swiper-button-next::after{
+    color: black;
+}
+
+
+.radio:checked + label {
+    border-color: #000;
+}
+
+.pay-radio:checked + label {
+    border-color: transparent;
+}
+
+.mm-mthd:checked + label {
+    border-color: #000;
+    border: 2px solid;
+}
+
+.contact-banner{
+    background-image: url('./assets/bg-overlay-2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+}
