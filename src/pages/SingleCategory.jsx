@@ -1,25 +1,31 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../components/header'
 import { FaCheck } from 'react-icons/fa'
 import ProductCard from '../components/ProductCard';
 import Footer from '../components/Footer';
-import { useParams } from 'react-router-dom';
 import { DataContext } from '../../context/Context';
+import { useParams } from 'react-router-dom';
 
-const SearchResult = () => {
+const SingleCategory = () => {
+    const { slug } = useParams();
 
-    const { string } = useParams();
+    const { allProducts, allCategories } = useContext(DataContext)
 
-    const { allProducts } = useContext(DataContext)
+    const categories = allCategories.find(category => category.slug === slug);
 
-    const filteredProducts = allProducts.filter(product =>
-        product.title.toLowerCase().includes(string?.toLowerCase())
-    );
+    const [products, setProducts] = useState([]);
 
-    const [value, setValue] = useState(0); // Initialize the value state
+    useEffect(() => {
+        if (allProducts && allProducts.length > 0) {
+            const filteredProducts = allProducts.filter(product => product.category.slug === slug);
+            setProducts(filteredProducts);
+        }
+    }, [slug, allProducts]);
+
+    const [value, setValue] = useState(0);
 
     const handleChange = (event) => {
-        setValue(event.target.value); // Update the value state when the range input changes
+        setValue(event.target.value);
     };
     return (
         <>
@@ -27,7 +33,7 @@ const SearchResult = () => {
 
 
             <div className=' container mx-auto px-5 py-20'>
-                <p className='grostesk font-semibold text-3xl mb-4	capitalize'>Showing results for "{string}"</p>
+                <p className='grostesk font-semibold text-3xl mb-4	capitalize'>Showing results for "{categories?.title}"</p>
             </div>
 
             <div className='px-5 mb-14 container mx-auto grid grid-cols-3'>
@@ -118,12 +124,33 @@ const SearchResult = () => {
 
             <div className='container mx-auto px-5 grid grid-cols-3 gap-5'>
 
-                {filteredProducts.length > 0 ? (
-                    filteredProducts.map((product, index) => (
+                {products.length > 0 ? (
+                    products.map((product, index) => (
                         <ProductCard key={index} product={product} />
                     ))
                 ) : (
-                    <p className='grostesk text-6xl font-semibold text-center block col-span-3'>No Result Found</p>
+                    <>
+                        <div className="flex flex-col gap-4 w-full">
+                            <div className="skeleton h-32 w-full h-96"></div>
+                            <div className="skeleton h-4 w-28"></div>
+                            <div className="skeleton h-4 w-full"></div>
+                            <div className="skeleton h-4 w-full"></div>
+                        </div>
+
+                        <div className="flex flex-col gap-4 w-full">
+                            <div className="skeleton h-32 w-full h-96"></div>
+                            <div className="skeleton h-4 w-28"></div>
+                            <div className="skeleton h-4 w-full"></div>
+                            <div className="skeleton h-4 w-full"></div>
+                        </div>
+
+                        <div className="flex flex-col gap-4 w-full">
+                            <div className="skeleton h-32 w-full h-96"></div>
+                            <div className="skeleton h-4 w-28"></div>
+                            <div className="skeleton h-4 w-full"></div>
+                            <div className="skeleton h-4 w-full"></div>
+                        </div>
+                    </>
                 )}
 
             </div>
@@ -133,4 +160,4 @@ const SearchResult = () => {
     )
 }
 
-export default SearchResult
+export default SingleCategory

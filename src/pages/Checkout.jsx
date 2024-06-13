@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useId, useState } from 'react'
 import SecondaryHeader from '../components/SecondaryHeader'
 import addressesData from '../api/addresses.json';
 import bkash from '../assets/bkash-logo.webp'
@@ -7,14 +7,18 @@ import rocket from '../assets/rocket-logo.png'
 import upay from '../assets/upay_logo.png'
 import blacktee from '../assets/black.png'
 import Footer from '../components/Footer';
+import { DataContext } from '../../context/Context';
+import AuthUser from '../../auth/AuthUser';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
 
+  const { http } = AuthUser();
 
-  const [selectedDivision, setSelectedDivision] = useState('');
-  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const navigate = useNavigate();
+
+
   const [divisionDistricts, setDivisionDistricts] = useState([]);
-
   const uniqueDivisions = [...new Set(addressesData.map(address => address.division))];
 
   const handleDivisionChange = (event) => {
@@ -31,9 +35,221 @@ const Checkout = () => {
     setSelectedDistrict(event.target.value);
   };
 
+  const [sDivisionDistricts, setSdivisionDistricts] = useState([]);
 
+  const handleSdivisionChange = (event) => {
+    const division = event.target.value;
+    setSelectedSdivision(division);
+
+    // Filter districts based on selected division
+    const districts = addressesData.filter(address => address.division === division);
+    setSdivisionDistricts(districts);
+    setSelectedSdistrict('');
+  };
+
+  const handleSdistrictChange = (event) => {
+    setSelectedSdistrict(event.target.value);
+  };
+
+
+  const { cart, setCart, allProducts, userData, setOrder, offers } = useContext(DataContext)
+
+  const calculateSubTotalPrice = () => {
+    const sbttl = cart.reduce((subtotal, item) => subtotal + (parseFloat(item.price) * item.quantity), 0).toFixed();
+    return sbttl;
+  };
+
+
+
+
+  const calculateTotalPrice = () => {
+    const subtotal = parseFloat(calculateSubTotalPrice());
+    const total = subtotal + parseFloat(deliveryFee) - parseFloat(discount);
+    return total.toFixed();
+  };
+
+  const handleShippingChange = (e) => {
+    setDeliveryFee(Number(e.target.value));
+
+    if (deliveryFee == 80) {
+      setShippingMethod('Dhaka city')
+    } else if (deliveryFee == 100) {
+      setShippingMethod('Dhaka division')
+    } else {
+      setShippingMethod('Outside dhaka')
+    }
+  };
+
+
+  const [differentShipping, setDiffererntShipping] = useState(false)
+
+  useEffect(() => {
+    if (userData && userData.id) {
+      setUserId(userData.id);
+    } else {
+      setUserId(1)
+    }
+  }, [userData]);
+
+  const [hasFreeDeliveryWithoutCode, setHasFreeDeliveryWithoutCode] = useState(false);
+
+  // user details
+  const [email, setEmail] = useState();
+  const [phone, setPhone] = useState();
+
+  const [userId, setUserId] = useState();
+  // shipping details
+
+  const [sfname, setSfname] = useState(null);
+  const [slname, setSlname] = useState();
+  const [sphone, setSphone] = useState();
+  const [saddress, setSaddress] = useState();
+  const [selectedSdivision, setSelectedSdivision] = useState('');
+  const [selectedSdistrict, setSelectedSdistrict] = useState('');
+  //billing  address
+  const [fname, setFname] = useState();
+  const [lname, setLname] = useState();
+  const [address, setAddress] = useState();
+  const [selectedDivision, setSelectedDivision] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  // shipping method
+  const [shippingMethod, setShippingMethod] = useState()
+  // Payment method
   const [paymentMethod, setPaymentMethod] = useState('cod')
 
+  const [mobileMethods, setMobileMethods] = useState()
+  const [transactionNumber, setTransactionNumber] = useState()
+  const [transactionId, setTransactionId] = useState()
+
+  // Order summery
+  const [subtotal, setSubtotal] = useState(calculateSubTotalPrice())
+  const [deliveryFee, setDeliveryFee] = useState(hasFreeDeliveryWithoutCode ? 0 : 80)
+  const [discount, setDiscount] = useState(0)
+  const [total, setTotal] = useState(calculateTotalPrice())
+
+
+  const headers = {
+    'Content-Type': 'multipart/form-data',
+  };
+
+  function useId() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
+
+
+  const [loyalty, setLoyalty] = useState()
+
+  const loyaltyfunc = (e) => {
+    if (e.target.value <= userData?.loyalty_points) {
+      setLoyalty(e.target.value)
+    } else {
+      setLoyalty(0)
+    }
+  }
+
+  const applyLoyalty = () => {
+    setDiscount(loyalty / 10)
+  }
+
+  const MakeOrder = async (e) => {
+    e.preventDefault();
+
+    const uniqueOrderId = useId().slice(0, 10);
+
+    const formData = new FormData();
+
+    formData.append('order_id', uniqueOrderId);
+    formData.append('name', fname + ' ' + lname);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('user_id', userId);
+    formData.append('shipping_at', shippingMethod);
+    formData.append('payment_method', paymentMethod);
+    formData.append('subtotal', subtotal);
+    formData.append('discount', discount);
+    formData.append('delivery_fee', deliveryFee);
+    formData.append('total', total);
+
+
+    formData.append('address', address);
+    formData.append('district', selectedDistrict);
+    formData.append('division', selectedDivision);
+
+    formData.append('diffShip', differentShipping);
+
+    formData.append('sname', sfname + ' ' + slname);
+    formData.append('sphone', sphone);
+    formData.append('saddress', saddress);
+    formData.append('sdistrict', selectedSdistrict);
+    formData.append('sdivision', selectedSdivision);
+
+    formData.append('mobile_method', mobileMethods);
+    formData.append('transaction_number', transactionNumber);
+    formData.append('transaction_id', transactionId);
+
+    formData.append('loyalty', loyalty);
+
+
+    cart.forEach((item, index) => {
+      formData.append(`order[${index}][product_id]`, item.product_id);
+      formData.append(`order[${index}][price]`, item.price);
+      formData.append(`order[${index}][quantity]`, item.quantity);
+      formData.append(`order[${index}][attribute_id]`, item.attribute_id);
+    });
+
+    try {
+      const res = await http.post('/store-order', formData, { headers });
+
+      setOrder([...cart, {
+        order_id: uniqueOrderId,
+        name: fname + ' ' + lname,
+        email: email,
+        phone: phone,
+        shipping_at: shippingMethod,
+        payment_method: paymentMethod,
+        subtotal: subtotal,
+        delivery_fee: deliveryFee,
+        total: total,
+        address: address,
+        district: selectedDistrict,
+        division: selectedDivision,
+
+        sname: sfname + ' ' + slname,
+        sphone: sphone,
+        saddress: saddress,
+        sdistrict: selectedSdistrict,
+        sdivision: selectedSdivision,
+
+        mobile_method: mobileMethods,
+        transaction_number: transactionNumber,
+        transaction_id: transactionId,
+
+        orderItems: cart
+      }])
+
+      navigate('/track-order')
+      setCart([])
+
+    } catch (error) {
+      console.error('Order inserting failed:', error);
+    }
+  }
+
+  
+
+  useEffect(() => {
+    const checkOffers = () => {
+      const hasOffer = offers?.some(
+        offer => offer.free_delivery === "yes" && offer.reeder_code === null
+      );
+      setHasFreeDeliveryWithoutCode(hasOffer);
+      setDeliveryFee(0)
+    };
+
+    checkOffers();
+  }, [offers]);
+
+  console.log(hasFreeDeliveryWithoutCode);
 
   return (
     <>
@@ -57,9 +273,9 @@ const Checkout = () => {
             </h3>
 
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
-              <input type="text" placeholder='Email Address' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+              <input type="text" onChange={(e) => setEmail(e.target.value)} placeholder='Email Address' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
 
-              <input type="tel" placeholder='Phone number' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+              <input type="tel" onChange={(e) => setPhone(e.target.value)} placeholder='Phone number' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
             </div>
 
             <h3 className='grostesk font-bold text-2xl uppercase'>
@@ -70,12 +286,12 @@ const Checkout = () => {
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
 
               <div className='grid grid-cols-2 gap-5 mb-5'>
-                <input type="text" placeholder='First Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                <input type="text" onChange={(e) => setFname(e.target.value)} placeholder='First Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
 
-                <input type="text" placeholder='Last Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                <input type="text" onChange={(e) => setLname(e.target.value)} placeholder='Last Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
               </div>
 
-              <input type="text" placeholder='Address' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+              <input type="text" onChange={(e) => setAddress(e.target.value)} placeholder='Address' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
 
               <div className='grid grid-cols-2 gap-5 mb-5'>
 
@@ -97,6 +313,55 @@ const Checkout = () => {
 
               </div>
 
+              <div className="form-control">
+                <label className="label cursor-pointer w-max gap-5">
+                  <input type="checkbox" className="checkbox" onChange={() => setDiffererntShipping(!differentShipping)} />
+                  <span className="label-text">Ship at different address</span>
+                </label>
+              </div>
+
+              {
+                differentShipping &&
+                <div>
+                  <h3 className='grostesk font-bold text-2xl uppercase my-5'>
+                    Shipping ADDRESS
+                  </h3>
+
+                  <div className='grid grid-cols-2 gap-5 mb-5'>
+                    <input type="text" onChange={(e) => setSfname(e.target.value)} placeholder='First Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+
+                    <input type="text" onChange={(e) => setSlname(e.target.value)} placeholder='Last Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                  </div>
+
+                  <input type="text" onChange={(e) => setSphone(e.target.value)} placeholder='Phone number' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+
+                  <input type="text" onChange={(e) => setSaddress(e.target.value)} placeholder='Address' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+
+                  <div className='grid grid-cols-2 gap-5 mb-5'>
+
+
+                    <select value={selectedSdistrict} onChange={handleSdistrictChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                      <option value="">--Select District--</option>
+                      {sDivisionDistricts.map((address, index) => (
+                        <option key={index} value={address.district}>{address.district}</option>
+                      ))}
+                    </select>
+
+                    <select value={selectedSdivision} onChange={handleSdivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                      <option value="">--Select Division--</option>
+                      {uniqueDivisions.map((division, index) => (
+                        <option key={index} value={division}>{division}</option>
+                      ))}
+                    </select>
+
+
+                  </div>
+                </div>
+              }
+
+
+
+
 
             </div>
 
@@ -108,22 +373,36 @@ const Checkout = () => {
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
 
               <div className='relative'>
-                <input type="radio" id="inside-dhaka" name="shipping-method" class="ship-radio radio absolute top-0 bottom-0 left-2 my-auto" checked />
-                <label for="inside-dhaka" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
+                <input type="radio" id="inside-dhaka-city" name="shipping-method" class="ship-radio radio absolute top-0 bottom-0 left-2 my-auto" value={hasFreeDeliveryWithoutCode ? 0 : 80} onChange={handleShippingChange}
+                  checked={deliveryFee === 80} />
+                <label for="inside-dhaka-city" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
                   <div class="flex items-center gap-4">
-                    <h3 class="grostesk font-bold">Inside Dhaka (ঢাকার ভিতর)</h3>
+                    <h3 class="grostesk font-bold">Inside Dhaka (ঢাকা শহরের ভিতর)</h3>
                   </div>
-                  <h4 class="grostesk font-bold">৳80.00</h4>
+                  <h4 class="grostesk font-bold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '80.00'}</h4>
                 </label>
               </div>
 
               <div className='relative'>
-                <input type="radio" id="outside-dhaka" name="shipping-method" class="radio absolute top-0 bottom-0 left-2 my-auto" />
+                <input type="radio" id="inside-dhaka" name="shipping-method" class="ship-radio radio absolute top-0 bottom-0 left-2 my-auto" value={hasFreeDeliveryWithoutCode ? 0 : 100} onChange={handleShippingChange}
+                  checked={deliveryFee === 100} />
+                <label for="inside-dhaka" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
+                  <div class="flex items-center gap-4">
+                    <h3 class="grostesk font-bold">Inside Dhaka (ঢাকা বিভাগের ভিতর)</h3>
+                  </div>
+                  <h4 class="grostesk font-bold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '100.00'}</h4>
+                </label>
+              </div>
+
+              <div className='relative'>
+                <input type="radio" id="outside-dhaka" name="shipping-method" class="radio absolute top-0 bottom-0 left-2 my-auto" value={hasFreeDeliveryWithoutCode ? 0 : 120}
+                  onChange={handleShippingChange}
+                  checked={deliveryFee === 120} />
                 <label for="outside-dhaka" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
                   <div class="flex items-center gap-4">
                     <h3 class="grostesk font-bold">Outside Dhaka (ঢাকার বাহিরে)</h3>
                   </div>
-                  <h4 class="grostesk font-bold">৳100.00</h4>
+                  <h4 class="grostesk font-bold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '120.00'}</h4>
                 </label>
               </div>
 
@@ -160,16 +439,16 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <div className={`relative pay-box border-2 ${paymentMethod === "mm" ? 'border-black' : ''}`}>
+              <div className={`relative pay-box border-2 ${paymentMethod === "mt" ? 'border-black' : ''}`}>
                 <input
                   type="radio"
-                  id="mm"
+                  id="mt"
                   name="payment-method"
-                  onChange={() => setPaymentMethod('mm')}
+                  onChange={() => setPaymentMethod('mt')}
                   className="pay-radio radio absolute  top-5 left-2 my-auto"
                 />
                 <label
-                  htmlFor="mm"
+                  htmlFor="mt"
                   className="shipping-meth flex justify-between pl-10 pr-5 py-5 cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
@@ -183,28 +462,28 @@ const Checkout = () => {
                   </div>
                 </label>
 
-                <div className={`${paymentMethod === "mm" ? 'block' : 'hidden'} `}>
+                <div className={`${paymentMethod === "mt" ? 'block' : 'hidden'} `}>
 
                   <div className={`pl-10 py-5 pr-5 shadow pay-details flex gap-3 justify-center`}>
-                    <input id='bkash' type="radio" name='mm-method' className='invisible absolute mm-mthd' />
+                    <input id='bkash' value='bkash' onChange={(e) => setMobileMethods(e.target.value)} type="radio" name='mm-method' className='invisible absolute mm-mthd' />
                     <label for='bkash' className='px-5 py-3 shadow flex flex-col items-center border-2'>
                       <img src={bkash} className='h-5' alt="" />
                       <h5 className='grostesk font-semibold'>Bkash</h5>
                     </label>
 
-                    <input id='nagad' type="radio" name='mm-method' className='invisible absolute mm-mthd' />
+                    <input id='nagad' value='nagad' onChange={(e) => setMobileMethods(e.target.value)} type="radio" name='mm-method' className='invisible absolute mm-mthd' />
                     <label for='nagad' className='px-5 py-3 shadow flex flex-col items-center border-2'>
                       <img src={nagad} className='h-5' alt="" />
                       <h5 className='grostesk font-semibold'>Nagad</h5>
                     </label>
 
-                    <input id='rocket' type="radio" name='mm-method' className='invisible absolute mm-mthd' />
+                    <input id='rocket' value='rocket' onChange={(e) => setMobileMethods(e.target.value)} type="radio" name='mm-method' className='invisible absolute mm-mthd' />
                     <label for='rocket' className='px-5 py-3 shadow flex flex-col items-center border-2'>
                       <img src={rocket} className='h-5' alt="" />
                       <h5 className='grostesk font-semibold'>Rocket</h5>
                     </label>
 
-                    <input id='upay' type="radio" name='mm-method' className='invisible absolute mm-mthd' />
+                    <input id='upay' value='upay' onChange={(e) => setMobileMethods(e.target.value)} type="radio" name='mm-method' className='invisible absolute mm-mthd' />
                     <label for='upay' className='px-5 py-3 shadow flex flex-col items-center border-2'>
                       <img src={upay} className='h-5' alt="" />
                       <h5 className='grostesk font-semibold'>Upay</h5>
@@ -216,18 +495,13 @@ const Checkout = () => {
                     <h3 className='grostesk text-md mb-5'>Account number: <span className='font-bold'>0199999999</span></h3>
 
                     <label className='grostesk text-md mb-5 font-semibold'>Your phone number</label>
-                    <input type="text" placeholder='019xxxxxxxx' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                    <input type="text" onChange={(e) => setTransactionNumber(e.target.value)} placeholder='019xxxxxxxx' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
 
                     <label className='grostesk text-md mb-5 font-semibold'>bKash Transaction ID</label>
-                    <input type="text" placeholder='2M7A5' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                    <input type="text" onChange={(e) => setTransactionId(e.target.value)} placeholder='2M7A5' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
                   </div>
 
                 </div>
-
-
-
-
-
 
               </div>
 
@@ -240,47 +514,120 @@ const Checkout = () => {
             <div className='p-5 shadow'>
               <h3 className="grostesk font-bold capitalize text-2xl mb-5">Order summary</h3>
 
-              <div className='order-item flex gap-2 mb-5'>
-                <img src={blacktee} className='w-14' alt="" />
+              {
+                cart.map((orderItem) => (
 
-                <div className='flex-1'>
-                  <h3 className="grostesk font-bold capitalize text-xl">Black tee ✕ 2</h3>
+                  <div className='order-item flex gap-2 mb-5'>
+                    <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${allProducts.find(product => product.id === orderItem.product_id)?.thumbnail}`} className='w-14' alt="" />
 
-                  <p className="grostesk font-bold text-lg">XL</p>
-                </div>
+                    <div className='flex-1'>
+                      <h3 className="grostesk font-bold capitalize text-xl">{allProducts.find(product => product.id === orderItem.product_id)?.title} ✕ {orderItem.quantity}</h3>
 
-                <h3 className="grostesk font-bold capitalize text-xl">800৳</h3>
-              </div>
+                      <p className="grostesk font-bold text-lg">
+                        {allProducts.find(product => product.id === orderItem.product_id)?.variations.map((variation) => (
+                          variation.attribute_value.id == orderItem.attribute_id && variation.attribute_value.name
+                        ))}
+                      </p>
+                    </div>
+
+                    <h3 className="grostesk font-bold capitalize text-xl">{orderItem.price * orderItem.quantity}৳</h3>
+                  </div>
+                ))
+              }
+
 
               <hr className='mb-5' />
 
               <h3 className="grostesk font-bold capitalize mb-5">Apply redeem code</h3>
 
-              <div className="join items-center gap-2 mb-5">
-                <div>
-                  <div>
-                    <input className="grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded" placeholder="Apply redeem code" />
+              {
+                !loyalty ? <div className="join items-center w-full gap-2 mb-5">
+                  <div className='flex-1'>
+                    <div>
+                      <input className="grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded" placeholder="Apply redeem code" />
+                    </div>
                   </div>
+                  <button className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Apply</button>
+                </div> : ''
+              }
+
+
+              {
+                userData && <div className="join items-center justify-between w-full gap-2 mb-5">
+                  <div>
+                    <div>
+                      <h3 className="grostesk font-bold capitalize mr-5">You have {userData?.loyalty_points} points</h3>
+                    </div>
+                  </div>
+                  <button className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white" onClick={() => document.getElementById('loyalty').showModal()}>Use Loyalty points</button>
+
+                  <dialog id="loyalty" className="modal">
+                    <div className="modal-box">
+                      <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 className="font-bold text-lg mb-5">Use loyalty points ({userData?.loyalty_points} points)</h3>
+
+                      <div className="join items-center w-full gap-2 mb-5">
+                        <div className='flex-1'>
+                          <div>
+                            <input onChange={(e) => loyaltyfunc(e)} className="grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded" type='text' placeholder="Use loyalty points" />
+                          </div>
+                        </div>
+                        <button onClick={() => applyLoyalty()} className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Apply</button>
+                      </div>
+                      {
+                        loyalty > 100 && (
+                          <p className='text-lg font-bold'>
+                            You will get {loyalty / 10}৳ off
+                          </p>
+                        )
+                      }
+                      {
+                        loyalty == 0 ? (
+                          <p className='text-red-400 text-sm'>Insufficient balance</p>
+                        ) : loyalty < 100 ? (
+                          <p className='text-red-400 text-sm'>Use At least 100 points</p>
+                        ) : (
+                          <p></p>
+                        )
+                      }
+                    </div>
+                  </dialog>
                 </div>
-                <button className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Apply</button>
-              </div>
+              }
+
 
               <div className='flex justify-between'>
                 <h3 className="grostesk font-bold capitalize mb-5">Subtotal</h3>
-                <h5 className='grostesk font-semibold'>800৳</h5>
+                <h5 className='grostesk font-semibold'>{calculateSubTotalPrice()}৳</h5>
               </div>
 
+              {
+                discount ? <div className='flex justify-between'>
+                  <h3 className="grostesk font-bold capitalize mb-5">Discount</h3>
+                  <h5 className='grostesk font-semibold text-red-500'>- {discount}৳</h5>
+                </div> : ''
+              }
+
+
               <div className='flex justify-between'>
+
                 <h3 className="grostesk font-bold capitalize mb-5">Delivery fee</h3>
-                <h5 className='grostesk font-semibold'>80৳</h5>
+                <div className='flex items-center'>
+                  {hasFreeDeliveryWithoutCode && <p className='text-lime-500 grostesk font-semibold mr-4'>(Free Delivery)</p>}
+                  
+                  <h5 className='grostesk font-semibold'>{deliveryFee}৳</h5>
+                </div>
+
               </div>
 
               <div className='flex justify-between'>
                 <h3 className="grostesk font-bold capitalize mb-5">Total</h3>
-                <h5 className='grostesk font-semibold'>880৳</h5>
+                <h5 className='grostesk font-semibold'>{calculateTotalPrice()}৳</h5>
               </div>
 
-              <button className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Place Order</button>
+              <button onClick={(e) => MakeOrder(e)} className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Place Order</button>
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import Header from '../components/header'
 import shopbanner from '../assets/shop.jpeg'
 import Footer from '../components/Footer'
@@ -6,8 +6,43 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import { useEffect } from 'react';
 
 const Contact = () => {
+
+    const form = useRef();
+
+    const [emailSent, SetEmailSent] = useState(false)
+
+    useEffect(() => {
+        let timer;
+        if (emailSent) {
+            timer = setTimeout(() => {
+                SetEmailSent(false);
+            }, 3000); // 1 second
+        }
+        return () => clearTimeout(timer); // Cleanup the timer on unmount or when emailSent changes
+    }, [emailSent]);
+
+    const sendMail = (e) => {
+        e.preventDefault();
+
+        emailjs
+            .sendForm('service_vxotkvs', 'template_movqhim', form.current, {
+                publicKey: 'lwvBJV_2Oe6d70C4o',
+            })
+            .then(
+                () => {
+                    SetEmailSent(true);
+                },
+                (error) => {
+                    console.log('FAILED...', error.text);
+                },
+            );
+            e.target.reset()
+    }
+
     return (
         <>
             <Header />
@@ -22,13 +57,21 @@ const Contact = () => {
                     <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
                         GET In touch
                     </h3>
-                    <input type="text" placeholder='Your Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
-                    <input type="email" placeholder='Your Email' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
-                    <input type="text" placeholder='Enter the subject' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                    <form ref={form} onSubmit={sendMail}>
+                        <input type="text" name="name" placeholder='Your Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                        <input type="email" name="email" placeholder='Your Email' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                        <input type="text" name="subject" placeholder='Enter the subject' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
 
-                    <textarea rows={7} placeholder='Enter your message' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded'></textarea>
+                        <textarea name="message" rows={7} placeholder='Enter your message' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded'></textarea>
 
-                    <button className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Send Message</button>
+                        <button className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Send Message</button>
+                    </form>
+
+                    {
+                        emailSent && <div className="alert bg-black text-white w-max fixed right-10 bottom-10">
+                        <span className='grostesk font-bold'>Message sent successfully.</span>
+                      </div>
+                    }
                 </div>
 
                 <div>
@@ -103,7 +146,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.14208650106!2d90.42166437410268!3d23.813545986351535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c62fb95f16c1%3A0xb333248370356dee!2sJamuna%20Future%20Park!5e0!3m2!1sen!2sbd!4v1716059320465!5m2!1sen!2sbd" className='w-full' height={450} style={{border: 0}} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.14208650106!2d90.42166437410268!3d23.813545986351535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c62fb95f16c1%3A0xb333248370356dee!2sJamuna%20Future%20Park!5e0!3m2!1sen!2sbd!4v1716059320465!5m2!1sen!2sbd" className='w-full' height={450} style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
 
                 </div>
             </div>

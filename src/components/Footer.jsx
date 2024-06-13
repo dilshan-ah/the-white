@@ -19,8 +19,8 @@ import { FaXTwitter } from "react-icons/fa6";
 const Footer = () => {
   return (
     <div className='w-full bg-black mt-28'>
-      <div className='container px-5 py-20 mx-auto grid grid-cols-4'>
-        <div>
+      <div className='container px-5 py-20 mx-auto grid grid-cols-4 gap-5'>
+        <div className='lg:col-span-1 col-span-4'>
           <img src={logo} className='brightness-0 invert w-52 mb-5' alt="" />
           <p className='text-base text-white mb-5'>It is a drop shoulder t-shirt selling online platform that helps you find get the drop shoulder t-shirt of your choice</p>
 
@@ -54,7 +54,7 @@ const Footer = () => {
 
         </div>
 
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col lg:items-center lg:col-span-1 md:col-span-2 col-span-4'>
           <div>
             <h3 className='text-white text-xl font-bold grostesk mb-3'>Get in touch</h3>
             <ul>
@@ -84,7 +84,7 @@ const Footer = () => {
 
         </div>
 
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col lg:items-center lg:col-span-1 md:col-span-2 col-span-4'>
           <div>
             <h3 className='text-white text-xl font-bold grostesk mb-3'>Customer Service</h3>
             <ul>
@@ -111,7 +111,7 @@ const Footer = () => {
 
         </div>
 
-        <div className=' flex-col items-center'>
+        <div className=' flex-col lg:items-center lg:col-span-1 col-span-4'>
           <h3 className='text-white text-xl font-bold grostesk mb-3 text-center'>Subscribe <br />to our newsletter</h3>
 
           <form className='flex flex-col items-center'>
@@ -124,8 +124,8 @@ const Footer = () => {
 
       </div>
 
-      <div className='container mx-auto border-t-2 border-white py-5 flex justify-between items-center'>
-        <p className='text-base text-white'>Copyright © 2024 | The White | Made with ❤️ in Bangladesh</p>
+      <div className='container mx-auto border-t-2 border-white py-5 flex gap-10 flex-wrap md:justify-between justify-center items-center'>
+        <p className='text-base text-white md:text-start text-center'>Copyright © 2024 | The White | Made with ❤️ in Bangladesh</p>
 
         <div className='flex gap-3 bg-white px-3 py-1 rounded-lg'>
           <img src={bkash} className='w-8 h-8 object-cover' alt="" />

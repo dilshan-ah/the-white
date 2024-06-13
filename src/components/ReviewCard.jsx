@@ -3,20 +3,20 @@ import review from '../assets/review.jpg'
 import { FaQuoteLeft } from "react-icons/fa";
 import { FaQuoteRight } from "react-icons/fa";
 
-const ReviewCard = () => {
+const ReviewCard = ({review}) => {
     return (
         <div className='bg-slate-200 p-8 rounded shadow relative'>
 
             <FaQuoteLeft className='absolute left-2 top-6'/>
 
-            <p className='text-gray-500 text-sm mb-5'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae atque tempore est expedita exercitationem nemo voluptas vero qui! Incidunt, numquam.</p>
+            <p className='text-gray-500 text-sm mb-5'>{review.comment}</p>
 
             <div className='flex items-center gap-4'>
-                <img src={review} className='w-10 rounded-full' alt="" />
+                <img src={`http://127.0.0.1:8000/uploads/reviews/${review.profile_pic}`} className='w-10 rounded-full' alt="" />
 
                 <div>
-                    <h4 className='text-lg grostesk font-bold'>Md Akbar Hossain</h4>
-                    <p className='text-gray-500 text-sm'>Happy client</p>
+                    <h4 className='text-lg grostesk font-bold'>{review.name}</h4>
+                    <p className='text-gray-500 text-sm'>{review.subtitle}</p>
                 </div>
             </div>
 

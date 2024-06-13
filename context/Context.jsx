@@ -4,17 +4,57 @@ export const DataContext = createContext();
 
 const Context = ({ children }) => {
 
-  const {http} = AuthUser();
-  
+  const { http } = AuthUser();
+
+  const [allCategories, setAllCategories] = useState([])
   const [allProducts, setAllProducts] = useState([])
-  const [allAttributeValue, setAttributeValue] = useState([])
+  const [allAttributes, setAllAttributes] = useState([])
+  const [userData, setUserData] = useState(null);
+  const [banner, setBanner] = useState(null);
+  const [review, setReview] = useState();
+  const [offers,setOffers] = useState();
+  const [order, setOrder] = useState(JSON.parse(localStorage.getItem('order')) || []);
 
-  useEffect(()=>{
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
 
+
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('order', JSON.stringify(order));
+
+    fetchAllCategories();
     fetchAllProducts();
+    fetchUserDetail();
     fetchAllAttributes();
+    fetchBanner();
+    fetchReview();
+    fetchOffer()
 
-},[]);
+  }, [cart]);
+
+  const fetchAllCategories = () => {
+    http.get('/all-categories')
+      .then((res) => {
+        setAllCategories(res.data.categories);
+      })
+      .catch((error) => {
+        if (error.response.categories) {
+
+          if (error.response.status === 401) {
+            console.error('Unauthorized access. Redirecting to login page or showing login modal.');
+          } else {
+            console.error('Error response from server:', error.response.data);
+          }
+        } else if (error.request) {
+          console.error('No response received from server.');
+        } else {
+          console.error('Error setting up the request:', error.message);
+        }
+      });
+  };
+
+
 
   const fetchAllProducts = () => {
     http.get('/all-products')
@@ -23,7 +63,7 @@ const Context = ({ children }) => {
       })
       .catch((error) => {
         if (error.response.products) {
-          
+
           if (error.response.status === 401) {
             console.error('Unauthorized access. Redirecting to login page or showing login modal.');
           } else {
@@ -37,14 +77,15 @@ const Context = ({ children }) => {
       });
   };
 
+
   const fetchAllAttributes = () => {
-    http.get('/all-attributes-value')
+    http.get('/all-attributes')
       .then((res) => {
-        setAttributeValue(res.data.attributevalue);
+        setAllAttributes(res.data.attributes);
       })
       .catch((error) => {
         if (error.response.products) {
-          
+
           if (error.response.status === 401) {
             console.error('Unauthorized access. Redirecting to login page or showing login modal.');
           } else {
@@ -58,9 +99,100 @@ const Context = ({ children }) => {
       });
   };
 
+  const fetchUserDetail = () => {
+    http.post('/auth/me')
+      .then((res) => {
+        setUserData(res.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            console.error('Unauthorized access. Redirecting to login page or showing login modal.');
+          } else {
+            console.error('Error response from server:', error.response.data);
+          }
+        } else if (error.request) {
+          console.error('No response received from server.');
+        } else {
+          console.error('Error setting up the request:', error.message);
+        }
+      });
+  };
+
+  const fetchBanner = () => {
+    http.get('/banners')
+      .then((res) => {
+        setBanner(res.data.banners);
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            console.error('Unauthorized access. Redirecting to login page or showing login modal.');
+          } else {
+            console.error('Error response from server:', error.response.data);
+          }
+        } else if (error.request) {
+          console.error('No response received from server.');
+        } else {
+          console.error('Error setting up the request:', error.message);
+        }
+      });
+  };
+
+  const fetchReview = () => {
+    http.get('/reviews')
+      .then((res) => {
+        setReview(res.data.reviews);
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            console.error('Unauthorized access. Redirecting to login page or showing login modal.');
+          } else {
+            console.error('Error response from server:', error.response.data);
+          }
+        } else if (error.request) {
+          console.error('No response received from server.');
+        } else {
+          console.error('Error setting up the request:', error.message);
+        }
+      });
+  };
+
+  const fetchOffer = () => {
+    http.get('/offers')
+      .then((res) => {
+        setOffers(res.data.offers);
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            console.error('Unauthorized access. Redirecting to login page or showing login modal.');
+          } else {
+            console.error('Error response from server:', error.response.data);
+          }
+        } else if (error.request) {
+          console.error('No response received from server.');
+        } else {
+          console.error('Error setting up the request:', error.message);
+        }
+      });
+  };
+
+  console.log(offers);
+
   const info = {
+    allCategories,
     allProducts,
-    allAttributeValue
+    allAttributes,
+    cart,
+    setCart,
+    userData,
+    banner,
+    review,
+    order,
+    setOrder,
+    offers
   };
 
   return <DataContext.Provider value={info}>{children}</DataContext.Provider>;
