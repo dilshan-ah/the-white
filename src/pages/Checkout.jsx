@@ -92,6 +92,7 @@ const Checkout = () => {
   }, [userData]);
 
   const [hasFreeDeliveryWithoutCode, setHasFreeDeliveryWithoutCode] = useState(false);
+  const [redeemCode, setRedeemCode] = useState('');
 
   // user details
   const [email, setEmail] = useState();
@@ -123,6 +124,7 @@ const Checkout = () => {
 
   // Order summery
   const [subtotal, setSubtotal] = useState(calculateSubTotalPrice())
+  const [discountedSubtotal, setDiscountedSubtotal] = useState(subtotal);
   const [deliveryFee, setDeliveryFee] = useState(hasFreeDeliveryWithoutCode ? 0 : 80)
   const [discount, setDiscount] = useState(0)
   const [total, setTotal] = useState(calculateTotalPrice())
@@ -235,21 +237,48 @@ const Checkout = () => {
     }
   }
 
-  
-
   useEffect(() => {
     const checkOffers = () => {
-      const hasOffer = offers?.some(
-        offer => offer.free_delivery === "yes" && offer.reeder_code === null
+      const hasFreeDeliveryWithCode = offers?.some(
+        offer => offer.free_delivery === 'yes' && offer.reeder_code === redeemCode && offer.min_amount <= subtotal
       );
-      setHasFreeDeliveryWithoutCode(hasOffer);
-      setDeliveryFee(0)
+
+      const hasFreeDeliveryWithoutCode = offers?.some(
+        offer => offer.free_delivery === 'yes' && offer.reeder_code === null && offer.min_amount <= subtotal
+      );
+
+      const hasProductOfferWithCode = offers?.some(
+        offer => offer.free_delivery === 'no' && offer.reeder_code === redeemCode && offer.min_amount <= subtotal
+      );
+
+      if (hasFreeDeliveryWithCode || hasFreeDeliveryWithoutCode) {
+        setHasFreeDeliveryWithoutCode(true);
+        setDeliveryFee(0);
+      } else if (hasProductOfferWithCode) {
+        const offer = offers.find(
+          offer => offer.free_delivery === 'no' && offer.reeder_code === redeemCode && offer.min_amount <= subtotal
+        );
+        const discount = subtotal * (offer.offet_amount / 100);
+        setDiscount(discount);
+
+        console.log(offer);
+      } else {
+        setHasFreeDeliveryWithoutCode(false);
+      }
+
     };
 
     checkOffers();
-  }, [offers]);
+  }, [offers, redeemCode, subtotal]);
 
-  console.log(hasFreeDeliveryWithoutCode);
+  const handleRedeemCodeSubmit = (e) => {
+    e.preventDefault();
+    const code = e.target.redeemCode.value;
+    setRedeemCode(code);
+
+  };
+
+
 
   return (
     <>
@@ -540,16 +569,25 @@ const Checkout = () => {
 
               <h3 className="grostesk font-bold capitalize mb-5">Apply redeem code</h3>
 
-              {
-                !loyalty ? <div className="join items-center w-full gap-2 mb-5">
+              {!loyalty && (
+                <form onSubmit={handleRedeemCodeSubmit} className="join items-center w-full gap-2 mb-5">
                   <div className='flex-1'>
                     <div>
-                      <input className="grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded" placeholder="Apply redeem code" />
+                      <input
+                        name="redeemCode"
+                        className="grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded"
+                        placeholder="Apply redeem code"
+                      />
                     </div>
                   </div>
-                  <button className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Apply</button>
-                </div> : ''
-              }
+                  <button
+                    type="submit"
+                    className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white"
+                  >
+                    Apply
+                  </button>
+                </form>
+              )}
 
 
               {
@@ -616,7 +654,7 @@ const Checkout = () => {
                 <h3 className="grostesk font-bold capitalize mb-5">Delivery fee</h3>
                 <div className='flex items-center'>
                   {hasFreeDeliveryWithoutCode && <p className='text-lime-500 grostesk font-semibold mr-4'>(Free Delivery)</p>}
-                  
+
                   <h5 className='grostesk font-semibold'>{deliveryFee}৳</h5>
                 </div>
 

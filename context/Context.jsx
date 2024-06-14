@@ -14,6 +14,7 @@ const Context = ({ children }) => {
   const [review, setReview] = useState();
   const [offers,setOffers] = useState();
   const [order, setOrder] = useState(JSON.parse(localStorage.getItem('order')) || []);
+  const [authOrder, serAuthOrder] = useState(null);
 
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
 
@@ -29,7 +30,8 @@ const Context = ({ children }) => {
     fetchAllAttributes();
     fetchBanner();
     fetchReview();
-    fetchOffer()
+    fetchOffer();
+    fetchOrder();
 
   }, [cart]);
 
@@ -179,7 +181,27 @@ const Context = ({ children }) => {
       });
   };
 
-  console.log(offers);
+  const fetchOrder = () => {
+    http.get('/orders')
+      .then((res) => {
+        serAuthOrder(res.data.orders);
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            console.error('Unauthorized access. Redirecting to login page or showing login modal.');
+          } else {
+            console.error('Error response from server:', error.response.data);
+          }
+        } else if (error.request) {
+          console.error('No response received from server.');
+        } else {
+          console.error('Error setting up the request:', error.message);
+        }
+      });
+  };
+
+  console.log(authOrder);
 
   const info = {
     allCategories,
@@ -192,7 +214,8 @@ const Context = ({ children }) => {
     review,
     order,
     setOrder,
-    offers
+    offers,
+    authOrder
   };
 
   return <DataContext.Provider value={info}>{children}</DataContext.Provider>;
