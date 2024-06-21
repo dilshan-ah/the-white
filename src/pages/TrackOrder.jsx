@@ -72,7 +72,7 @@ const TrackOrder = () => {
                                                         <div key={item.product_id} className="flex items-center gap-3">
                                                             <div className="avatar">
                                                                 <div className="mask w-20 h-20">
-                                                                    <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${product.thumbnail}`} alt="Product Thumbnail" />
+                                                                    <img src={`https://thewhitebd.com/uploads/product-thumbs/${product.thumbnail}`} alt="Product Thumbnail" />
                                                                 </div>
                                                             </div>
                                                             <div>
@@ -130,7 +130,7 @@ const TrackOrder = () => {
                                                                 <div key={product.id} className="flex items-center gap-3">
                                                                     <div className="avatar">
                                                                         <div className="mask w-20 h-20">
-                                                                            <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${product.thumbnail}`} alt="Avatar Tailwind CSS Component" />
+                                                                            <img src={`https://thewhitebd.com/uploads/product-thumbs/${product.thumbnail}`} alt="Avatar Tailwind CSS Component" />
                                                                         </div>
                                                                     </div>
                                                                     <div>

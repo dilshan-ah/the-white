@@ -46,12 +46,12 @@ const ProductGallerySlider = ({ thumb, gallery }) => {
                         className="mySwiper2 mb-2"
                     >
                         <SwiperSlide>
-                            <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${thumb}`} className='w-full' alt="Main product" />
+                            <img src={`https://thewhitebd.com/uploads/product-thumbs/${thumb}`} className='w-full' alt="Main product" />
                         </SwiperSlide>
 
                         {gallery?.map((galleryimage, index) => (
                             <SwiperSlide key={index}>
-                                <img src={`http://127.0.0.1:8000/uploads/product-gallery/${galleryimage?.image_path}`} className='w-full' alt={`Gallery image ${index}`} />
+                                <img src={`https://thewhitebd.com/uploads/product-gallery/${galleryimage?.image_path}`} className='w-full' alt={`Gallery image ${index}`} />
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -65,11 +65,11 @@ const ProductGallerySlider = ({ thumb, gallery }) => {
                         className="mySwiper"
                     >
                         <SwiperSlide>
-                            <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${thumb}`} className='w-full' alt="Thumbnail" />
+                            <img src={`https://thewhitebd.com/uploads/product-thumbs/${thumb}`} className='w-full' alt="Thumbnail" />
                         </SwiperSlide>
                         {gallery?.map((galleryimage, index) => (
                             <SwiperSlide key={index}>
-                                <img src={`http://127.0.0.1:8000/uploads/product-gallery/${galleryimage?.image_path}`} className='w-full' alt={`Thumbnail image ${index}`} />
+                                <img src={`https://thewhitebd.com/uploads/product-gallery/${galleryimage?.image_path}`} className='w-full' alt={`Thumbnail image ${index}`} />
                             </SwiperSlide>
                         ))}
                     </Swiper>

@@ -48,7 +48,7 @@ const CartItem = ({ cartItem, onRemoveCartItem, onAttributeChange, onQtyChange }
     return (
         <div className="card card-compact w-full bg-base-100 shadow-xl mb-4">
             <div className='flex'>
-                <figure className='w-1/2 py-4 pl-4'><img className='rounded' src={`http://127.0.0.1:8000/uploads/product-thumbs/${product?.thumbnail}`} alt="Shoes" /></figure>
+                <figure className='w-1/2 py-4 pl-4'><img className='rounded' src={`https://thewhitebd.com/uploads/product-thumbs/${product?.thumbnail}`} alt="Shoes" /></figure>
                 <div className="card-body w-1/2 flex flex-col justify-center">
                     <h2 className="card-title grostesk">{product?.title}</h2>
                 </div>

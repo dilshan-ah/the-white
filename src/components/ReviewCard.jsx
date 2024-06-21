@@ -12,7 +12,7 @@ const ReviewCard = ({review}) => {
             <p className='text-gray-500 text-sm mb-5'>{review.comment}</p>
 
             <div className='flex items-center gap-4'>
-                <img src={`http://127.0.0.1:8000/uploads/reviews/${review.profile_pic}`} className='w-10 rounded-full' alt="" />
+                <img src={`https://thewhitebd.com/uploads/reviews/${review.profile_pic}`} className='w-10 rounded-full' alt="" />
 
                 <div>
                     <h4 className='text-lg grostesk font-bold'>{review.name}</h4>

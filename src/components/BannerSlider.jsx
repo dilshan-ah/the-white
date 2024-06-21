@@ -40,7 +40,7 @@ const BannerSlider = () => {
             >
                 {banner?.map((bnr) => (
                     <SwiperSlide>
-                        <img src={`http://127.0.0.1:8000/uploads/banners/${bnr.img_path}`} alt="" className='w-full' />
+                        <img src={`https://thewhitebd.com/uploads/banners/${bnr.img_path}`} alt="" className='w-full' />
                     </SwiperSlide>
                 ))}
 

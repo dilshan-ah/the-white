@@ -577,7 +577,7 @@ const Checkout = () => {
                 cart.map((orderItem) => (
 
                   <div className='order-item flex gap-2 mb-5'>
-                    <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${allProducts.find(product => product.id === orderItem.product_id)?.thumbnail}`} className='w-14' alt="" />
+                    <img src={`https://thewhitebd.com/uploads/product-thumbs/${allProducts.find(product => product.id === orderItem.product_id)?.thumbnail}`} className='w-14' alt="" />
 
                     <div className='flex-1'>
                       <h3 className="grostesk font-bold capitalize text-xl">{allProducts.find(product => product.id === orderItem.product_id)?.title} ✕ {orderItem.quantity}</h3>

@@ -275,7 +275,7 @@ const Home = () => {
                                         <figure className='relative' onMouseEnter={() => setIsHovered(true)}
                                             onMouseLeave={() => setIsHovered(false)}>
                                             {
-                                                isHovered ? <img src={`http://127.0.0.1:8000/uploads/product-gallery/${latestProduct.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${latestProduct.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
+                                                isHovered ? <img src={`https://thewhitebd.com/uploads/product-gallery/${latestProduct.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`https://thewhitebd.com/uploads/product-thumbs/${latestProduct.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
 
                                             }
                                             <div className='bg-black text-white caveat absolute left-0 top-0 px-2'>NEW</div>
