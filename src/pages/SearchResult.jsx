@@ -27,7 +27,7 @@ const SearchResult = () => {
 
 
             <div className=' container mx-auto px-5 py-20'>
-                <p className='grostesk font-semibold text-3xl mb-4	capitalize'>Showing results for "{string}"</p>
+                <p className='grostesk font-semibold text-3xl mb-4	capitalize'>Showing results for this "{string}"</p>
             </div>
 
             <div className='px-5 mb-14 container mx-auto grid grid-cols-3'>
