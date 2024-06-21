@@ -326,7 +326,7 @@ const Home = () => {
             {/* all products */}
 
             <div className='px-5 py-20 text-center'>
-                <p className='grostesk font-semibold md:text-6xl text-3xl mb-4	uppercase'>Take a look at our collection</p>
+                <p className='grostesk font-semibold md:text-6xl text-3xl mb-4	uppercase'>Take a look at our collection!</p>
             </div>
 
             <div className='container mx-auto px-5 gap-5 mb-10 flex justify-end font-bold capitalize'>
