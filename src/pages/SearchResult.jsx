@@ -116,7 +116,7 @@ const SearchResult = () => {
 
             </div>
 
-            <div className='container mx-auto px-5 grid grid-cols-3 gap-5'>
+            <div className='container mx-auto px-5 grid lg:grid-cols-3 md:grid-cols-3 gap-5'>
 
                 {filteredProducts.length > 0 ? (
                     filteredProducts.map((product, index) => (
