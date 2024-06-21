@@ -1,4 +1,4 @@
-name: Deploy to cPanel
+name: Deploy React Website to cPanel
 
 on:
   push:
@@ -6,15 +6,41 @@ on:
       - main
 
 jobs:
-  ftp-deploy:
+  deploy-react:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v3
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          node-version: '16'  # Adjust based on your React app's requirements
+
+      - name: Build React App for Production
+        run: npm run build  # Or yarn build, if using Yarn
+
+      - name: Create Archive (optional)
+        uses: mazda/create-archive@v1.5.2  # Optional step for compressed upload
+        with:
+          format: zip  # Or tar.gz, depending on your preference
+          prefix: react-app  # Customize archive name (optional)
+          files: build/  # Path to your production-ready React build files
+
+      - name: Upload to cPanel (using SFTP)  # Consider using SFTP for security
+        uses: sftp-deploy/action@v0.3.1  # Or another preferred SFTP action
+        with:
+          host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          remotePath: /public_html/  # Adjust if deploying to a subdirectory
+          localPath: build/  # Path to your production-ready React build files (or archive if created)
+          # Optional flags for SFTP action (consult action documentation)
+          # -p: 22  # Default SSH port, can be omitted if using standard port
+          # -strictHostKeyChecking: 'no'  # Disable strict key checking (not recommended)
+
+      - name: Verify Deployment (optional)  # Consider automated testing if needed
+        run: |
+          # Implement logic to test your website using tools like curl or wget
+          # Example with curl:
+          curl ${{ secrets.BASE_URL }}  # Replace with your website's URL
+          echo "Deployment seems successful!"
