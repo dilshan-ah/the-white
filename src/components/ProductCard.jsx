@@ -18,24 +18,27 @@ const ProductCard = ({ product }) => {
 
     return (
         <div className="card card-compact shadow-lg rounded-lg">
-            <figure className='relative' onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}>
-                {
-                    isHovered ? <img src={`http://127.0.0.1:8000/uploads/product-gallery/${product.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${product.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
-
-                }
-                <ul className='absolute left-0 top-0'>
+            <Link to={`/single-product/${product.slug}`}>
+                <figure className='relative' onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}>
                     {
-                        isNewProduct(product.created_at) && <div className='bg-black text-white caveat px-2 mb-2'>NEW</div>
-                    }
-                    
-                    {
-                        product.variations[0].sale_price && <div className='bg-black text-white caveat px-2 mb-2'>SALE</div>
-                    }
-                    
-                </ul>
+                        isHovered ? <img src={`http://127.0.0.1:8000/uploads/product-gallery/${product.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`http://127.0.0.1:8000/uploads/product-thumbs/${product.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
 
-            </figure>
+                    }
+                    <ul className='absolute left-0 top-0'>
+                        {
+                            isNewProduct(product.created_at) && <div className='bg-black text-white caveat px-2 mb-2'>NEW</div>
+                        }
+
+                        {
+                            product.variations[0].sale_price && <div className='bg-black text-white caveat px-2 mb-2'>SALE</div>
+                        }
+
+                    </ul>
+
+                </figure>
+            </Link>
+
             <div className="card-body">
                 <Link to={`/single-product/${product.slug}`} className="card-title grostesk">{product.title}</Link>
                 <p>{product.short_description}</p>
@@ -49,7 +52,7 @@ const ProductCard = ({ product }) => {
                 </h4>
 
                 <div className="card-actions absolute right-5 bottom-5 justify-end">
-                    <Link to={`/single-product/${product.slug}`} className='btn px-4 py-2 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase'>Buy now</Link>
+                    <Link to={`/single-product/${product.slug}`} className='btn px-4 py-2 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase'>Select Option</Link>
                 </div>
             </div>
         </div>

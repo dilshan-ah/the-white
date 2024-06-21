@@ -7,6 +7,7 @@ import Checkout from '../pages/Checkout'
 import Contact from '../pages/Contact'
 import SingleCategory from '../pages/SingleCategory'
 import TrackOrder from '../pages/TrackOrder'
+import About from '../pages/About'
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
         <Route path="/single-category/:slug" element={<SingleCategory/>}/>
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/contact" element={<Contact/>}/>
+        <Route path="/about" element={<About/>}/>
         <Route path="/track-order" element={<TrackOrder/>}/>
     </Routes>
   )

@@ -73,9 +73,9 @@ const Footer = () => {
               </li>
 
               <li>
-                <a href="mailto:thewhite2811@gmail.com" className='flex items-center gap-3 text-white font-semibold grostesk'>
+                <a href="mailto:info@thewhitebd.com" className='flex items-center gap-3 text-white font-semibold grostesk'>
                   <IoMdMail />
-                  <span>thewhite2811@gmail.com</span>
+                  <span>info@thewhitebd.com</span>
                 </a>
               </li>
 

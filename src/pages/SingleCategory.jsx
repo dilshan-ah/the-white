@@ -5,28 +5,104 @@ import ProductCard from '../components/ProductCard';
 import Footer from '../components/Footer';
 import { DataContext } from '../../context/Context';
 import { useParams } from 'react-router-dom';
+import { MdFilterListOff } from 'react-icons/md';
+import { GoQuestion } from 'react-icons/go';
 
 const SingleCategory = () => {
     const { slug } = useParams();
-
-    const { allProducts, allCategories } = useContext(DataContext)
+    const { allProducts, allCategories, allAttributes } = useContext(DataContext);
 
     const categories = allCategories.find(category => category.slug === slug);
 
+    const [colorValues, setColorValues] = useState([]);
+    const [selectedColors, setSelectedColors] = useState([]);
+    const [selectedSizes, setSelectedSizes] = useState([]);
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+
+    const handleColorChange = (e) => {
+        const colorId = parseInt(e.target.value);
+        setSelectedColors(prevSelectedColors =>
+            e.target.checked ? [...prevSelectedColors, colorId] : prevSelectedColors.filter(id => id !== colorId)
+        );
+    };
+
+    const handleSizeChange = (e) => {
+        const value = parseInt(e.target.value);
+        let size;
+
+        switch (value) {
+            case 0:
+                size = 'S';
+                break;
+            case 33:
+                size = 'M';
+                break;
+            case 66:
+                size = 'L';
+                break;
+            case 99:
+                size = 'XL';
+                break;
+            default:
+                size = '';
+        }
+
+        setSelectedSizes(size !== '' ? [size] : []);
+    };
+
+    const handleMinPriceChange = (e) => setMinPrice(e.target.value);
+    const handleMaxPriceChange = (e) => setMaxPrice(e.target.value);
+
+
+    const handleResetFilter = () => {
+        setSelectedSizes([]);
+        setSelectedColors([]);
+    };
 
     useEffect(() => {
-        if (allProducts && allProducts.length > 0) {
-            const filteredProducts = allProducts.filter(product => product.category.slug === slug);
-            setProducts(filteredProducts);
+        const colors = allAttributes.find(attr => attr.name === 'Color');
+        if (colors && colors.attribute_values) {
+            setColorValues(colors.attribute_values);
         }
-    }, [slug, allProducts]);
 
-    const [value, setValue] = useState(0);
+        const filterProducts = () => {
+            if (!allProducts || allProducts.length === 0) {
+                setFilteredProducts([]);
+                return;
+            }
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
+            const filteredByCategory = allProducts.filter(product => product.category.slug === slug);
+
+            const numericMinPrice = parseFloat(minPrice) || Number.NEGATIVE_INFINITY;
+            const numericMaxPrice = parseFloat(maxPrice) || Number.POSITIVE_INFINITY;
+
+            const filtered = filteredByCategory.filter(product => {
+                const matchesColor = selectedColors.length > 0
+                    ? product.variations?.some(variation => selectedColors.includes(product?.color_id))
+                    : true;
+
+                const matchesSize = selectedSizes.length > 0
+                    ? product.variations?.some(variation => selectedSizes.includes(variation.attribute_value?.name))
+                    : true;
+
+                const priceValid = product.variations.some(variation => {
+                    const price = parseFloat(variation?.regular_price) || 0;
+                    return price >= numericMinPrice && price <= numericMaxPrice;
+                });
+
+                return matchesColor && matchesSize && priceValid;
+            });
+
+            setFilteredProducts(filtered);
+        };
+
+        filterProducts();
+    }, [slug, allAttributes, selectedColors, allProducts, selectedSizes, minPrice, maxPrice]);
+
+
     return (
         <>
             <Header />
@@ -36,65 +112,74 @@ const SingleCategory = () => {
                 <p className='grostesk font-semibold text-3xl mb-4	capitalize'>Showing results for "{categories?.title}"</p>
             </div>
 
-            <div className='px-5 mb-14 container mx-auto grid grid-cols-3'>
+            <div className='container mx-auto px-5 gap-5 mb-10 flex justify-end font-bold capitalize'>
+                {
+                    selectedColors != '' &&
+                    <p>color:
+                        <div className="badge badge-outline ml-2 gap-2">
+                            {selectedColors.map((colorId, index) => {
+                                const color = colorValues.find(color => color.id === colorId);
+                                return (
+                                    <div key={index}>
+                                        {color ? color.name : ''},
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </p>
+                }
+
+                {
+                    selectedSizes != '' &&
+                    <p>size:
+                        <div className="badge badge-outline ml-2">
+                            {selectedSizes}
+                        </div>
+                    </p>
+                }
+
+                {
+                    (selectedSizes.length > 0 || selectedColors.length > 0) &&
+                    <button onClick={handleResetFilter} className='link flex gap-2 items-center'>
+                        <MdFilterListOff />
+                        Reset Filter
+                    </button>
+                }
+
+                {
+                    selectedSizes.length === 0 && selectedColors.length === 0 && minPrice === '' && maxPrice === '' && (
+                        <p>No filter added</p>
+                    )
+                }
+
+
+            </div>
+
+
+            <div className='px-5 mb-14 lg:container mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-0 gap-5'>
                 <div className='flex items-start gap-3'>
                     <h4 className='grostesk font-semibold text-xl'>Colors:</h4>
 
-                    <label class='cursor-pointer custom-checkbox w-7 h-7 bg-gray-400 rounded-full relative tooltip' data-tip="Gray">
-                        <input name='red' type="checkbox" className='invisible' />
-                        <span className='absolute left-0 right-0 top-0 bottom-0 m-auto hidden justify-center items-center'>
-                            <FaCheck className='text-xl text-white' />
-                        </span>
-                    </label>
-
-                    <label class='cursor-pointer custom-checkbox w-7 h-7 bg-black rounded-full relative tooltip' data-tip="Black">
-                        <input name='red' type="checkbox" className='invisible' />
-                        <span className='absolute left-0 right-0 top-0 bottom-0 m-auto hidden justify-center items-center'>
-                            <FaCheck className='text-xl text-white' />
-                        </span>
-                    </label>
-
-                    <label class='cursor-pointer custom-checkbox w-7 h-7 bg-gray-400 rounded-full relative tooltip' data-tip="Gray">
-                        <input name='red' type="checkbox" className='invisible' />
-                        <span className='absolute left-0 right-0 top-0 bottom-0 m-auto hidden justify-center items-center'>
-                            <FaCheck className='text-xl text-white' />
-                        </span>
-                    </label>
-
-                    <label class='cursor-pointer custom-checkbox w-7 h-7 bg-gray-400 rounded-full relative tooltip' data-tip="Gray">
-                        <input name='red' type="checkbox" className='invisible' />
-                        <span className='absolute left-0 right-0 top-0 bottom-0 m-auto hidden justify-center items-center'>
-                            <FaCheck className='text-xl text-white' />
-                        </span>
-                    </label>
-
-                    <label class='cursor-pointer custom-checkbox w-7 h-7 bg-gray-400 rounded-full relative tooltip' data-tip="Gray">
-                        <input name='red' type="checkbox" className='invisible' />
-                        <span className='absolute left-0 right-0 top-0 bottom-0 m-auto hidden justify-center items-center'>
-                            <FaCheck className='text-xl text-white' />
-                        </span>
-                    </label>
-
-                    <label class='cursor-pointer custom-checkbox w-7 h-7 bg-gray-400 rounded-full relative tooltip' data-tip="Gray">
-                        <input name='red' type="checkbox" className='invisible' />
-                        <span className='absolute left-0 right-0 top-0 bottom-0 m-auto hidden justify-center items-center'>
-                            <FaCheck className='text-xl text-white' />
-                        </span>
-                    </label>
-
-                    <label class='cursor-pointer custom-checkbox w-7 h-7 bg-gray-400 rounded-full relative tooltip' data-tip="Gray">
-                        <input name='red' type="checkbox" className='invisible' />
-                        <span className='absolute left-0 right-0 top-0 bottom-0 m-auto hidden justify-center items-center'>
-                            <FaCheck className='text-xl text-white' />
-                        </span>
-                    </label>
+                    {
+                        colorValues.map((color) => (
+                            <label key={color.id} style={{ backgroundColor: color.color }} class='cursor-pointer custom-checkbox w-7 h-7 rounded-full relative tooltip shadow border' data-tip={`${color.name}`}>
+                                <input name='color' onChange={handleColorChange} value={color.id} type="checkbox" className='invisible' checked={selectedColors.includes(color.id)} />
+                                <span className='absolute left-0 right-0 top-0 bottom-0 m-auto hidden justify-center items-center'>
+                                    {
+                                        color.name == 'White' ?
+                                            <FaCheck className='text-xl text-black' /> : <FaCheck className='text-xl text-white' />
+                                    }
+                                </span>
+                            </label>
+                        ))
+                    }
 
                 </div>
 
                 <div className='flex gap-3'>
                     <h4 className='grostesk font-semibold text-xl'>Sizes:</h4>
                     <div className='flex-1'>
-                        <input type="range" min={0} max="100" value={value} className="range" step="33" onChange={handleChange} />
+                        <input type="range" min={0} max="100" className="range" step="33" onChange={handleSizeChange} />
                         <div className="w-full flex justify-between text-xs px-2">
                             <span className='grostesk font-bold text-xl uppercase'>
                                 s
@@ -112,45 +197,40 @@ const SingleCategory = () => {
                     </div>
                 </div>
 
-                <div className='flex items-start justify-end gap-3'>
+                <div className='flex items-start lg:justify-end gap-3'>
                     <h4 className='grostesk font-semibold text-xl capitalize'>Price range:</h4>
 
-                    <input type="text" placeholder='min' className='w-20 border-2 border-black rounded-lg px-3 py-2 text-black font-bold capitalize grostesk -mt-2' />
+                    <input type="text" value={minPrice} onChange={handleMinPriceChange} placeholder='min' className='w-20 border-2 border-black rounded-lg px-3 py-2 text-black font-bold capitalize grostesk -mt-2' />
 
-                    <input type="text" placeholder='max' className='w-20 border-2 border-black rounded-lg px-3 py-2 text-black font-bold capitalize grostesk -mt-2' />
+                    <input type="text" value={maxPrice} onChange={handleMaxPriceChange} placeholder='max' className='w-20 border-2 border-black rounded-lg px-3 py-2 text-black font-bold capitalize grostesk -mt-2' />
                 </div>
 
             </div>
 
-            <div className='container mx-auto px-5 grid grid-cols-3 gap-5'>
+            <div className='lg:container mx-auto px-5 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5'>
 
-                {products.length > 0 ? (
-                    products.map((product, index) => (
-                        <ProductCard key={index} product={product} />
+                {filteredProducts?.length > 0 ? (
+                    filteredProducts?.map((product, index) => (
+                        product != null ? (
+                            <ProductCard key={product.id} product={product} />
+                        ) : (
+                            <div key={index} className="flex flex-col gap-4 w-full">
+                                <div className="skeleton h-96 w-full"></div>
+                                <div className="skeleton h-4 w-28"></div>
+                                <div className="skeleton h-4 w-full"></div>
+                                <div className="skeleton h-4 w-full"></div>
+                            </div>
+                        )
                     ))
                 ) : (
                     <>
-                        <div className="flex flex-col gap-4 w-full">
-                            <div className="skeleton h-32 w-full h-96"></div>
-                            <div className="skeleton h-4 w-28"></div>
-                            <div className="skeleton h-4 w-full"></div>
-                            <div className="skeleton h-4 w-full"></div>
-                        </div>
-
-                        <div className="flex flex-col gap-4 w-full">
-                            <div className="skeleton h-32 w-full h-96"></div>
-                            <div className="skeleton h-4 w-28"></div>
-                            <div className="skeleton h-4 w-full"></div>
-                            <div className="skeleton h-4 w-full"></div>
-                        </div>
-
-                        <div className="flex flex-col gap-4 w-full">
-                            <div className="skeleton h-32 w-full h-96"></div>
-                            <div className="skeleton h-4 w-28"></div>
-                            <div className="skeleton h-4 w-full"></div>
-                            <div className="skeleton h-4 w-full"></div>
+                        <div className='flex flex-col justify-center items-center col-span-3'>
+                            <GoQuestion className='text-9xl mb-5' />
+                            <p className='text-5xl'>No product found!</p>
                         </div>
                     </>
+
+
                 )}
 
             </div>

@@ -35,7 +35,7 @@ const Header = ({ absolute }) => {
             <div className='lg:container mx-auto flex p-5'>
                 <div className='flex-1 flex gap-3'>
 
-                    <div className="drawer lg:hidden w-max">
+                    <div className="drawer lg:hidden w-max z-50">
                         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
                         <div className="drawer-content">
                             <label htmlFor="my-drawer" className="btn bg-black drawer-button"><LuMenu className='text-2xl text-white' /></label>
@@ -59,7 +59,7 @@ const Header = ({ absolute }) => {
                                     </Link>
                                 </li>
                                 <li className='category-item'>
-                                    <Link className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>About us</Link>
+                                    <Link to='/about' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>About us</Link>
                                 </li>
                                 <li className='category-item'>
                                     <Link to='/contact' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Contact Us</Link>
@@ -69,7 +69,7 @@ const Header = ({ absolute }) => {
                         </div>
                     </div>
 
-                    <Link to='/'>
+                    <Link to='/' className='md:block hidden'>
                         <img src={logo} className='w-60' alt="" srcset="" />
                     </Link>
                 </div>
@@ -131,7 +131,7 @@ const Header = ({ absolute }) => {
                         </Link>
                     </li>
                     <li className='category-item'>
-                        <Link className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>About us</Link>
+                        <Link to='/about' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>About us</Link>
                     </li>
                     <li className='category-item'>
                         <Link to='/contact' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Contact Us</Link>

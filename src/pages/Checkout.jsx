@@ -10,12 +10,17 @@ import Footer from '../components/Footer';
 import { DataContext } from '../../context/Context';
 import AuthUser from '../../auth/AuthUser';
 import { Link, useNavigate } from 'react-router-dom';
+import { CiCircleCheck } from 'react-icons/ci';
 
 const Checkout = () => {
 
   const { http } = AuthUser();
 
   const navigate = useNavigate();
+
+  const [outsideBd, setOutsideBd] = useState(false)
+
+  console.log(outsideBd);
 
 
   const [divisionDistricts, setDivisionDistricts] = useState([]);
@@ -78,6 +83,8 @@ const Checkout = () => {
     } else {
       setShippingMethod('Outside dhaka')
     }
+
+    setOutsideBd(false)
   };
 
 
@@ -202,34 +209,39 @@ const Checkout = () => {
     try {
       const res = await http.post('/store-order', formData, { headers });
 
-      setOrder([...cart, {
+      const newOrder = {
         order_id: uniqueOrderId,
-        name: fname + ' ' + lname,
+        name: `${fname} ${lname}`,
         email: email,
         phone: phone,
         shipping_at: shippingMethod,
         payment_method: paymentMethod,
         subtotal: subtotal,
         delivery_fee: deliveryFee,
-        total: total,
+        discount: discount,
+        total: total - discount,
         address: address,
         district: selectedDistrict,
         division: selectedDivision,
-
-        sname: sfname + ' ' + slname,
+        sname: `${sfname} ${slname}`,
         sphone: sphone,
         saddress: saddress,
         sdistrict: selectedSdistrict,
         sdivision: selectedSdivision,
-
         mobile_method: mobileMethods,
         transaction_number: transactionNumber,
         transaction_id: transactionId,
-
         orderItems: cart
-      }])
+      };
 
-      navigate('/track-order')
+      setOrder(prevOrders => {
+        const updatedOrders = [...prevOrders, newOrder];
+        localStorage.setItem('order', JSON.stringify(updatedOrders)); // Update local storage with the new list of orders
+        return updatedOrders;
+      });
+
+      // navigate('/track-order')
+      document.getElementById('my_modal_1').showModal()
       setCart([])
 
     } catch (error) {
@@ -278,6 +290,11 @@ const Checkout = () => {
 
   };
 
+  const handleLoyaltyReset = () =>{
+    setLoyalty(0)
+    setDiscount(0)
+  }
+
 
 
   return (
@@ -324,6 +341,12 @@ const Checkout = () => {
 
               <div className='grid grid-cols-2 gap-5 mb-5'>
 
+              <select value={selectedDivision} onChange={handleDivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                  <option value="">--Select Division--</option>
+                  {uniqueDivisions.map((division, index) => (
+                    <option key={index} value={division}>{division}</option>
+                  ))}
+                </select>
 
                 <select value={selectedDistrict} onChange={handleDistrictChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                   <option value="">--Select District--</option>
@@ -332,12 +355,7 @@ const Checkout = () => {
                   ))}
                 </select>
 
-                <select value={selectedDivision} onChange={handleDivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
-                  <option value="">--Select Division--</option>
-                  {uniqueDivisions.map((division, index) => (
-                    <option key={index} value={division}>{division}</option>
-                  ))}
-                </select>
+                
 
 
               </div>
@@ -368,7 +386,13 @@ const Checkout = () => {
 
                   <div className='grid grid-cols-2 gap-5 mb-5'>
 
-
+                  <select value={selectedSdivision} onChange={handleSdivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                      <option value="">--Select Division--</option>
+                      {uniqueDivisions.map((division, index) => (
+                        <option key={index} value={division}>{division}</option>
+                      ))}
+                    </select>
+                    
                     <select value={selectedSdistrict} onChange={handleSdistrictChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                       <option value="">--Select District--</option>
                       {sDivisionDistricts.map((address, index) => (
@@ -376,12 +400,7 @@ const Checkout = () => {
                       ))}
                     </select>
 
-                    <select value={selectedSdivision} onChange={handleSdivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
-                      <option value="">--Select Division--</option>
-                      {uniqueDivisions.map((division, index) => (
-                        <option key={index} value={division}>{division}</option>
-                      ))}
-                    </select>
+                    
 
 
                   </div>
@@ -432,6 +451,17 @@ const Checkout = () => {
                     <h3 class="grostesk font-bold">Outside Dhaka (ঢাকার বাহিরে)</h3>
                   </div>
                   <h4 class="grostesk font-bold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '120.00'}</h4>
+                </label>
+              </div>
+
+              <div className='relative'>
+                <input type="radio" id="outside-bd" name="shipping-method" class="radio absolute top-0 bottom-0 left-2 my-auto"
+                  onChange={()=>setOutsideBd(true)}/>
+                <label for="outside-bd" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
+                  <div class="flex items-center gap-4">
+                    <h3 class="grostesk font-bold">Outside Bangladesh (বাংলাদেশের বাহিরে)</h3>
+                  </div>
+                  <h4 class="grostesk font-bold">Temporary unavaialbe!</h4>
                 </label>
               </div>
 
@@ -588,10 +618,21 @@ const Checkout = () => {
                   </button>
                 </form>
               )}
+              {
+                redeemCode && discount != 0 &&
+                <div className='flex justify-between mb-4 text-red-500 font-semibold'>
+                  <p>
+                    {discount}৳ discount applied
+                  </p>
+
+                  <button onClick={() => setDiscount(0)} className='link'>Reset</button>
+                </div>
+              }
+
 
 
               {
-                userData && <div className="join items-center justify-between w-full gap-2 mb-5">
+                userData && !redeemCode && <div className="join items-center justify-between w-full gap-2 mb-5">
                   <div>
                     <div>
                       <h3 className="grostesk font-bold capitalize mr-5">You have {userData?.loyalty_points} points</h3>
@@ -635,6 +676,17 @@ const Checkout = () => {
                 </div>
               }
 
+              {
+                loyalty && discount != 0 &&
+                <div className='flex justify-between mb-4 text-red-500 font-semibold'>
+                  <p>
+                    {discount}৳ discount applied
+                  </p>
+
+                  <button onClick={handleLoyaltyReset} className='link'>Reset</button>
+                </div>
+              }
+
 
               <div className='flex justify-between'>
                 <h3 className="grostesk font-bold capitalize mb-5">Subtotal</h3>
@@ -665,12 +717,23 @@ const Checkout = () => {
                 <h5 className='grostesk font-semibold'>{calculateTotalPrice()}৳</h5>
               </div>
 
-              <button onClick={(e) => MakeOrder(e)} className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Place Order</button>
+              <button onClick={(e) => MakeOrder(e)} className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white" disabled={outsideBd ? 'disabled':''}>Place Order</button>
             </div>
           </div>
 
         </div>
       </div>
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box flex flex-col justify-center items-center">
+          <h3 className="font-bold text-5xl grostesk text-emerald-700">Order Confirmed!</h3>
+          <CiCircleCheck className='text-9xl text-emerald-700' />
+          <div className="modal-action ">
+            <Link to='/' className="capitalize btn btn-neutral">Return Home</Link>
+            <Link to='/track-order' className="capitalize btn btn-outline">Track my order</Link>
+          </div>
+        </div>
+      </dialog>
 
       <Footer />
     </>

@@ -1,16 +1,20 @@
-.grostesk{
+.grostesk {
     font-family: "Space Grotesk", sans-serif;
 }
 
-.caveat{
+.caveat {
     font-family: "Caveat", cursive;
 }
 
-.category-item{
+.montserrat {
+    font-family: "Montserrat", sans-serif;
+}
+
+.category-item {
     position: relative;
 }
 
-.category-item::after{
+.category-item::after {
     position: absolute;
     left: 0px;
     bottom: 0px;
@@ -22,20 +26,20 @@
     transition: 0.5s;
 }
 
-.category-item:hover:after{
+.category-item:hover:after {
     width: 100%;
 }
 
-.custom-checkbox input:checked ~ span{
+.custom-checkbox input:checked~span {
     display: flex;
 }
 
-.custom-sizes input:checked ~ span{
+.custom-sizes input:checked~span {
     background-color: black;
     color: white;
 }
 
-.welcome-banner{
+.welcome-banner {
     background-image: url('./assets/multiverse.png');
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -43,7 +47,7 @@
     background-position: top right;
 }
 
-.review-banner{
+.review-banner {
     background-image: url('./assets/2148176505.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -51,25 +55,26 @@
     background-position: center;
 }
 
-.swiper-button-prev::after,.swiper-button-next::after{
+.swiper-button-prev::after,
+.swiper-button-next::after {
     color: black;
 }
 
 
-.radio:checked + label {
+.radio:checked+label {
     border-color: #000;
 }
 
-.pay-radio:checked + label {
+.pay-radio:checked+label {
     border-color: transparent;
 }
 
-.mm-mthd:checked + label {
+.mm-mthd:checked+label {
     border-color: #000;
     border: 2px solid;
 }
 
-.contact-banner{
+.contact-banner {
     background-image: url('./assets/bg-overlay-2.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -77,11 +82,11 @@
     background-position: top;
 }
 
-.react-tabs__tab--selected{
+.react-tabs__tab--selected {
     background-color: #000 !important;
     color: white !important;
 }
 
-.react-tabs__tab-panel--selected{
+.react-tabs__tab-panel--selected {
     padding: 0.75rem !important;
 }

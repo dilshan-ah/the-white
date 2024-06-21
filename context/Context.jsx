@@ -201,8 +201,6 @@ const Context = ({ children }) => {
       });
   };
 
-  console.log(authOrder);
-
   const info = {
     allCategories,
     allProducts,

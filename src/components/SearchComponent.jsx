@@ -21,7 +21,7 @@ const SearchComponent = () => {
 
     return (
         <div className='relative'>
-            <div className='border-2 border-black rounded-full w-96 mr-4 lg:block hidden'>
+            <div className='border-2 border-black rounded-full w-96 mr-4 lg:block hidden bg-white'>
                 <form className='w-full flex' onSubmit={handleSearch}>
 
                     <input type="text" value={searchTerm}

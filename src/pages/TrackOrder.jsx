@@ -1,11 +1,46 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Header from '../components/header'
 import { DataContext } from '../../context/Context'
+import AuthUser from '../../auth/AuthUser'
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import { FaEnvelope, FaKey, FaUser } from 'react-icons/fa'
 
 const TrackOrder = () => {
     const { order, allProducts, authOrder, userData } = useContext(DataContext)
 
+    console.log(authOrder);
 
+    const [isRemembered, setIsRemembered] = useState(false)
+
+
+    const { http, setToken } = AuthUser();
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const SignUp = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await http.post('/register', { email: email, password: password, name: name });
+            window.location.reload()
+        } catch (error) {
+            console.error('Register failed:', error);
+        }
+    }
+
+    const SignIn = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await http.post('/login', { email: email, password: password, remember_token: rememberMeToken });
+            setToken(res.data.user, res.data.access_token);
+            window.location.reload()
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
+    }
+
+    const rememberMeToken = isRemembered ? localStorage.getItem('rememberMeToken') : null;
 
     return (
         <>
@@ -20,17 +55,18 @@ const TrackOrder = () => {
                                 <th>Order Items</th>
                                 <th>Amount</th>
                                 <th>Address</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         {
-                            authOrder?.filter(order => order.user_id === userData.id) ?
+                            authOrder?.filter(order => order.user_id === userData?.id) && userData ?
 
                                 authOrder?.map((orderItem) => (
                                     <tbody key={orderItem.order_id}> {/* Use a unique key for each tbody */}
                                         <tr>
                                             <td>{orderItem.order_id}</td>
                                             <td>
-                                                {orderItem.orderItems?.map((item) => {
+                                                {orderItem.order_items?.map((item) => {
                                                     const product = allProducts.find((product) => product.id === item.product_id);
                                                     return product ? (
                                                         <div key={item.product_id} className="flex items-center gap-3">
@@ -54,14 +90,28 @@ const TrackOrder = () => {
                                             </td>
                                             <td>
                                                 <b>Billing Address:</b> <br />
-                                                {orderItem.address}, {orderItem.district}, {orderItem.division} <br />
 
-                                                {orderItem.saddress && (
+                                                {orderItem?.billing_address?.address_line}, {orderItem?.billing_address?.district}, {orderItem?.billing_address?.division} <br />
+
+                                                {orderItem.shipping_address && (
                                                     <>
                                                         <b>Shipping Address:</b> <br />
-                                                        {orderItem.saddress}, {orderItem.sdistrict}, {orderItem.sdivision}
+                                                        {orderItem.shipping_address?.address_line}, {orderItem.shipping_address?.district}, {orderItem.shipping_address?.division}
                                                     </>
                                                 )}
+                                            </td>
+                                            <td>
+
+                                                {
+                                                    orderItem?.status === "reviewing" || orderItem?.status === "shipped" ? (
+                                                        <h4 className='font-bold uppercase text-orange-500'>{orderItem?.status}</h4>
+                                                    ) : orderItem?.status === "completed" ? (
+                                                        <h4 className='font-bold uppercase text-lime-500'>{orderItem?.status}</h4>
+                                                    ) : (
+                                                        <h4 className='font-bold uppercase text-red-500'>{orderItem?.status}</h4>
+                                                    )
+                                                }
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -114,6 +164,81 @@ const TrackOrder = () => {
                                                     }
 
                                                 </td>
+                                                <td>
+                                                    <button onClick={() => document.getElementById('authlog').showModal()} className='text-primary text-md font-semibold'>Login to check status</button>
+
+                                                    <dialog id="authlog" className="modal">
+                                                        <div className="modal-box p-0 rounded-none">
+
+                                                            <Tabs>
+                                                                <TabList className='flex'>
+                                                                    <Tab className='w-1/2 cursor-pointer border-2 border-black rounded-none p-3 font-bold text-xl grostesk text-center'>Register</Tab>
+                                                                    <Tab className='w-1/2 cursor-pointer border-2 border-black rounded-none p-3 font-bold text-xl grostesk text-center'>Login</Tab>
+                                                                </TabList>
+
+                                                                <TabPanel>
+
+                                                                    <label className="input input-bordered flex items-center gap-2 mb-5 mt-5">
+                                                                        <FaUser />
+
+                                                                        <input type="text" onChange={(e) => setName(e.target.value)} className="grow" placeholder="Full Name" name='name' />
+                                                                    </label>
+
+                                                                    <label className="input input-bordered flex items-center gap-2 mb-5">
+                                                                        <FaEnvelope />
+
+                                                                        <input type="text" onChange={(e) => setEmail(e.target.value)} className="grow" placeholder="Email address" name='email' />
+                                                                    </label>
+
+                                                                    <label className="input input-bordered flex items-center gap-2 mb-5">
+                                                                        <FaKey />
+
+                                                                        <input type="password" onChange={(e) => setPassword(e.target.value)} className="grow" placeholder="password" name='password' />
+                                                                    </label>
+
+                                                                    <div className='flex gap-5 justify-end items-center'>
+                                                                        <form method="dialog">
+                                                                            {/* if there is a button in form, it will close the modal */}
+                                                                            <button className="btn">Close</button>
+                                                                        </form>
+
+                                                                        <button onClick={(e) => SignUp(e)} className='btn bg-black text-white'>Register</button>
+                                                                    </div>
+                                                                </TabPanel>
+                                                                <TabPanel>
+
+                                                                    <label className="input input-bordered flex items-center gap-2 mb-5">
+                                                                        <FaEnvelope />
+
+                                                                        <input onChange={(e) => setEmail(e.target.value)} type="text" className="grow" placeholder="Email address" name='email' />
+                                                                    </label>
+
+                                                                    <label className="input input-bordered flex items-center gap-2 mb-5">
+                                                                        <FaKey />
+
+                                                                        <input onChange={(e) => setPassword(e.target.value)} type="password" className="grow" placeholder="password" name='password' />
+                                                                    </label>
+
+                                                                    <div className="form-control mb-5">
+                                                                        <label className="label cursor-pointer justify-start">
+                                                                            <input onChange={() => setIsRemembered(!isRemembered)} type="checkbox" className="checkbox mr-5" />
+                                                                            <span className="label-text">Remember me</span>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div className='flex gap-5 justify-end items-center'>
+                                                                        <form method="dialog">
+                                                                            {/* if there is a button in form, it will close the modal */}
+                                                                            <button className="btn">Close</button>
+                                                                        </form>
+
+                                                                        <button onClick={(e) => SignIn(e)} className='btn bg-black text-white'>Login</button>
+                                                                    </div>
+                                                                </TabPanel>
+                                                            </Tabs>
+                                                        </div>
+                                                    </dialog>
+                                                </td>
                                             </tr>
                                         ))
                                     }
@@ -128,6 +253,7 @@ const TrackOrder = () => {
                                 <th>Order Items</th>
                                 <th>Amount</th>
                                 <th>Address</th>
+                                <th>Status</th>
                             </tr>
                         </tfoot>
 
