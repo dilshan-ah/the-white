@@ -14,7 +14,7 @@ import { CiCircleCheck } from 'react-icons/ci';
 
 const Checkout = () => {
 
-  const { http } = AuthUser();
+  const { http, user } = AuthUser();
 
   const navigate = useNavigate();
 
@@ -91,12 +91,12 @@ const Checkout = () => {
   const [differentShipping, setDiffererntShipping] = useState(false)
 
   useEffect(() => {
-    if (userData && userData.id) {
-      setUserId(userData.id);
+    if (user && user.id) {
+      setUserId(user.id);
     } else {
       setUserId(1)
     }
-  }, [userData]);
+  }, [user]);
 
   const [hasFreeDeliveryWithoutCode, setHasFreeDeliveryWithoutCode] = useState(false);
   const [redeemCode, setRedeemCode] = useState('');
@@ -149,7 +149,7 @@ const Checkout = () => {
   const [loyalty, setLoyalty] = useState()
 
   const loyaltyfunc = (e) => {
-    if (e.target.value <= userData?.loyalty_points) {
+    if (e.target.value <= user?.loyalty_points) {
       setLoyalty(e.target.value)
     } else {
       setLoyalty(0)
@@ -577,7 +577,7 @@ const Checkout = () => {
                 cart.map((orderItem) => (
 
                   <div className='order-item flex gap-2 mb-5'>
-                    <img src={`https://thewhitebd.com/uploads/product-thumbs/${allProducts.find(product => product.id === orderItem.product_id)?.thumbnail}`} className='w-14' alt="" />
+                    <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${allProducts.find(product => product.id === orderItem.product_id)?.thumbnail}`} className='w-14' alt="" />
 
                     <div className='flex-1'>
                       <h3 className="grostesk font-bold capitalize text-xl">{allProducts.find(product => product.id === orderItem.product_id)?.title} ✕ {orderItem.quantity}</h3>
@@ -632,10 +632,10 @@ const Checkout = () => {
 
 
               {
-                userData && !redeemCode && <div className="join items-center justify-between w-full gap-2 mb-5">
+                user && !redeemCode && <div className="join items-center justify-between w-full gap-2 mb-5">
                   <div>
                     <div>
-                      <h3 className="grostesk font-bold capitalize mr-5">You have {userData?.loyalty_points} points</h3>
+                      <h3 className="grostesk font-bold capitalize mr-5">You have {user?.loyalty_points} points</h3>
                     </div>
                   </div>
                   <button className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white" onClick={() => document.getElementById('loyalty').showModal()}>Use Loyalty points</button>
@@ -645,7 +645,7 @@ const Checkout = () => {
                       <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                       </form>
-                      <h3 className="font-bold text-lg mb-5">Use loyalty points ({userData?.loyalty_points} points)</h3>
+                      <h3 className="font-bold text-lg mb-5">Use loyalty points ({user?.loyalty_points} points)</h3>
 
                       <div className="join items-center w-full gap-2 mb-5">
                         <div className='flex-1'>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
+import { DataContext } from '../context/Context';
 
 const AuthUser = () => {
     const navigate = useNavigate();
@@ -8,7 +9,7 @@ const AuthUser = () => {
     const getToken = () =>{
         const tokenString = sessionStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
-        return userToken;
+        return userToken ? userToken.access_token : null;
     }
 
     const getUser = () =>{
@@ -29,7 +30,7 @@ const AuthUser = () => {
     }
 
     const http = axios.create({
-        baseURL:"https://thewhitebd.com/api",
+        baseURL:"https://adminpanel.thewhitebd.com/api",
         headers:{
             "Content-type" : "application/json",
             "Authorization" : `Bearer ${token}`

@@ -26,7 +26,7 @@ const Context = ({ children }) => {
 
     fetchAllCategories();
     fetchAllProducts();
-    fetchUserDetail();
+    // fetchUserDetail();
     fetchAllAttributes();
     fetchBanner();
     fetchReview();
@@ -201,6 +201,8 @@ const Context = ({ children }) => {
       });
   };
 
+  console.log(userData);
+
   const info = {
     allCategories,
     allProducts,
@@ -208,6 +210,7 @@ const Context = ({ children }) => {
     cart,
     setCart,
     userData,
+    setUserData,
     banner,
     review,
     order,

@@ -41,7 +41,7 @@ const SearchComponent = () => {
                         filteredProducts.map((product, index) => (
                             <div>
                                 <Link to={`/single-product/${product.slug}`} className='flex gap-3 items-center'>
-                                    <img src={`https://thewhitebd.com/uploads/product-thumbs/${product.thumbnail}`} className='w-10' alt="" />
+                                    <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${product.thumbnail}`} className='w-10' alt="" />
 
                                     <div>
                                         <h5 className='grostesk font-bold text-lg'>{product.title}</h5>

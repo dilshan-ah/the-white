@@ -96,8 +96,8 @@ const SingleProduct = () => {
         <>
             <Header />
             <div className='container mx-auto px-5
-    py-16 grid grid-cols-2'>
-                <div className=''>
+    py-16 grid md:grid-cols-2 grid-cols-1'>
+                <div className='md:mb-0 mb-10'>
 
                     <ProductGallerySlider thumb={product?.thumbnail} gallery={product?.galleries} />
                 </div>
@@ -122,7 +122,7 @@ const SingleProduct = () => {
                         }
 
                         {
-                            loading ? <div className="skeleton h-4 w-20"></div> ? selectedVariation?.sale_price :
+                            loading ? <div className="skeleton h-4 w-20"></div> : selectedVariation?.sale_price ?
                                 <h3>
                                     TK {selectedVariation?.sale_price}
                                 </h3>: <h3>
@@ -183,20 +183,20 @@ const SingleProduct = () => {
 
                     </div>
 
-                    <div className='flex gap-4 mb-10'>
-                        <div className='flex items-center gap-2'>
+                    <div className='sm:flex block gap-4 mb-10'>
+                        <div className='flex items-center gap-2 md:mb-0 mb-5'>
                             <button onClick={qtyminus} className='w-7 h-7 border-2 border-black text-2xl font-bold flex justify-center items-end hover:bg-black hover:text-white transition-all'>-</button>
                             <span className='grostesk text-xl font-semibold'>{cartqty}</span>
                             <button onClick={qtyplus} className='w-7 h-7 border-2 border-black text-2xl font-bold flex justify-center items-end hover:bg-black hover:text-white transition-all'>+</button>
                         </div>
                         
-                        <button onClick={() => addToCart({ product_id: product.id, price: selectedVariation?.sale_price ? selectedVariation?.sale_price:selectedVariation?.regular_price, quantity: cartqty, attribute_id: selectedSize })} className='btn uppercase bg-black text-white border-2 border-black hover:bg-black hover:text-white grostesk'>Add to cart</button>
+                        <button onClick={() => addToCart({ product_id: product.id, price: selectedVariation?.sale_price ? selectedVariation?.sale_price:selectedVariation?.regular_price, quantity: cartqty, attribute_id: selectedSize })} className='btn uppercase bg-black text-white border-2 border-black hover:bg-black hover:text-white grostesk md:mr-0 mr-5'>Add to cart</button>
 
                         <button onClick={() => buyNow({ product_id: product.id, price: selectedVariation?.sale_price ? selectedVariation?.sale_price:selectedVariation?.regular_price, quantity: cartqty, attribute_id: selectedSize })} className='btn uppercase bg-white text-black border-2 border-black hover:bg-black hover:text-white grostesk'>Buy now</button>
                     </div>
 
                     <div className="collapse collapse-arrow shadow">
-                        <input type="checkbox" className="peer" />
+                        <input type="checkbox" className="peer" defaultChecked />
                         <div className="collapse-title capitalize grostesk font-bold text-black text-2xl">
                             Description
                         </div>

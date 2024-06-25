@@ -47,6 +47,10 @@ const Header = ({ absolute }) => {
                                 <div className='flex gap-3 justify-end mb-10 px-4 pt-4'>
                                     <label htmlFor="my-drawer" aria-label="close sidebar" className='btn bg-black text-white p-0 w-12 h-12 border-2 border-black hover:border-black hover:bg-transparent hover:text-black'><IoClose className='text-4xl' /></label>
                                 </div>
+                                <li className='category-item'>
+                                    <Link to='/' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase flex gap-2 items-center'>Home
+                                    </Link>
+                                </li>
                                 {
                                     allCategories.map((category) => (
                                         <li className='category-item'>

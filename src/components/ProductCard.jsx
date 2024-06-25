@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
                 <figure className='relative' onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}>
                     {
-                        isHovered ? <img src={`https://thewhitebd.com/uploads/product-gallery/${product.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`https://thewhitebd.com/uploads/product-thumbs/${product.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
+                        isHovered ? <img src={`https://adminpanel.thewhitebd.com/uploads/product-gallery/${product.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${product.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
 
                     }
                     <ul className='absolute left-0 top-0'>

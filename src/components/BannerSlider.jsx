@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import sliderone from '../assets/1.png'
-import slidertwo from '../assets/2.png'
-
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 
@@ -36,11 +33,11 @@ const BannerSlider = () => {
                     disableOnInteraction: false,
                 }}
                 modules={[Autoplay, EffectFade]}
-                className="mySwiper"
+                className="mySwiper sm:block hidden"
             >
                 {banner?.map((bnr) => (
                     <SwiperSlide>
-                        <img src={`https://thewhitebd.com/uploads/banners/${bnr.img_path}`} alt="" className='w-full' />
+                        <img src={`https://adminpanel.thewhitebd.com/uploads/banners/${bnr.img_path}`} alt="" className='w-full' />
                     </SwiperSlide>
                 ))}
 

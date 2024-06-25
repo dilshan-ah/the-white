@@ -39,7 +39,7 @@ const Home = () => {
     const [isRemembered, setIsRemembered] = useState(false)
 
 
-    const { http, setToken } = AuthUser();
+    const { http, setToken, user } = AuthUser();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -117,6 +117,7 @@ const Home = () => {
 
     const [filteredProducts, setFilteredProducts] = useState(allProducts);
 
+    console.log(filteredProducts);
 
     const filterProducts = () => {
         const numericMinPrice = parseFloat(minPrice) || Number.NEGATIVE_INFINITY;
@@ -124,7 +125,7 @@ const Home = () => {
 
         const filtered = allProducts.filter(product => {
             const matchesColor = selectedColors.length > 0
-                ? product.variations?.some(variation => selectedColors.includes(product?.color_id))
+                ? selectedColors.includes(parseInt(product.color_id))
                 : true;
 
             const matchesSize = selectedSizes != ''
@@ -141,7 +142,6 @@ const Home = () => {
 
         setFilteredProducts(filtered);
     };
-
 
     const [latestProduct, setLatestProduct] = useState(null);
 
@@ -173,7 +173,7 @@ const Home = () => {
         <>
             <div className='w-full py-2 px-10 bg-black md:flex block justify-between'>
                 {
-                    userData ? <h2 className='text-white text-sm font-bold uppercase grostesk cursor-pointer'>Welcome {userData?.name} | ({userData?.loyalty_points} points)</h2> : <h2 onClick={() => document.getElementById('authlog').showModal()} className='text-white text-sm font-bold uppercase grostesk cursor-pointer'>join the white squad and earn loyalty point at every purchase | Login</h2>
+                    user ? <h2 className='text-white text-sm font-bold uppercase grostesk cursor-pointer'>Welcome {user?.name} | ({user?.loyalty_points} points)</h2> : <h2 onClick={() => document.getElementById('authlog').showModal()} className='text-white text-sm font-bold uppercase grostesk cursor-pointer'>join the white squad and earn loyalty point at every purchase | Login</h2>
                 }
 
                 <h3 className='text-white text-sm font-bold uppercase grostesk flex items-center gap-2'>we deliver all over bangladesh<FaShippingFast /></h3>
@@ -252,7 +252,7 @@ const Home = () => {
             </div>
             <div className='relative'>
                 <Header absolute={'absolute'} />
-                <BannerSlider />
+                <BannerSlider/>
             </div>
 
             {/* new arrival section */}
@@ -275,7 +275,7 @@ const Home = () => {
                                         <figure className='relative' onMouseEnter={() => setIsHovered(true)}
                                             onMouseLeave={() => setIsHovered(false)}>
                                             {
-                                                isHovered ? <img src={`https://thewhitebd.com/uploads/product-gallery/${latestProduct.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`https://thewhitebd.com/uploads/product-thumbs/${latestProduct.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
+                                                isHovered ? <img src={`https://adminpanel.thewhitebd.com/uploads/product-gallery/${latestProduct.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${latestProduct.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
 
                                             }
                                             <div className='bg-black text-white caveat absolute left-0 top-0 px-2'>NEW</div>
@@ -318,7 +318,7 @@ const Home = () => {
 
             <div className='py-80 welcome-banner relative'>
                 <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/80 flex flex-col justify-center items-center px-10'>
-                    <h3 className='montserrat container mx-auto font-semibold md:text-6xl text-3xl mb-4 text-white text-center'>Welcome to the <span className='font-semibold'><span>MUL TEE VERSE</span> of<br /> Drop Shoulder Tee in Bangladesh </span></h3>
+                    <h3 className='montserrat container mx-auto font-semibold md:text-6xl text-3xl mb-20 text-white text-center'>Welcome to the <span className='font-semibold'><span>MUL TEE VERSE</span> of<br /> Drop Shoulder Tee in Bangladesh </span></h3>
                     <Link to="https://www.facebook.com/groups/892693480870669" target='_blank' className='btn h-max grostesk px-10 py-4 bg-transparent text-white rounded-none text-xl uppercase shadow-xl hover:bg-white hover:text-black'>Join Our Community</Link>
                 </div>
             </div>
