@@ -7,6 +7,7 @@ import { DataContext } from '../../context/Context';
 import { useParams } from 'react-router-dom';
 import { MdFilterListOff } from 'react-icons/md';
 import { GoQuestion } from 'react-icons/go';
+import { Helmet } from 'react-helmet';
 
 const SingleCategory = () => {
     const { slug } = useParams();
@@ -81,8 +82,8 @@ const SingleCategory = () => {
 
             const filtered = filteredByCategory.filter(product => {
                 const matchesColor = selectedColors.length > 0
-                ? selectedColors.includes(parseInt(product.color_id))
-                : true;
+                    ? selectedColors.includes(parseInt(product.color_id))
+                    : true;
 
                 const matchesSize = selectedSizes.length > 0
                     ? product.variations?.some(variation => selectedSizes.includes(variation.attribute_value?.name))
@@ -105,6 +106,10 @@ const SingleCategory = () => {
 
     return (
         <>
+            <Helmet>
+                <title>{categories?.title || 'Category Search'} | The White</title>
+            </Helmet>
+
             <Header />
 
 

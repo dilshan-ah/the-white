@@ -1,5 +1,4 @@
 import React from 'react'
-import review from '../assets/review.jpg'
 import { FaQuoteLeft } from "react-icons/fa";
 import { FaQuoteRight } from "react-icons/fa";
 

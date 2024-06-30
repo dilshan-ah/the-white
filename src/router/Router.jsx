@@ -10,6 +10,7 @@ import TrackOrder from '../pages/TrackOrder'
 import About from '../pages/About'
 import Return from '../pages/Return'
 import CustomerReview from '../pages/CustomerReview'
+import { Privacy } from '../pages/Privacy'
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path="/track-order" element={<TrackOrder/>}/>
         <Route path="/return-and-refund" element={<Return/>}/>
         <Route path="/customer-review" element={<CustomerReview/>}/>
+        <Route path="/privacy-policy" element={<Privacy/>}/>
     </Routes>
   )
 }

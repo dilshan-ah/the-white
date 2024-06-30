@@ -8,6 +8,7 @@ import sizeChart from '../assets/size-chart.jpg'
 import ProductGallerySlider from '../components/ProductGallerySlider';
 import { DataContext } from '../../context/Context';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const SingleProduct = () => {
 
@@ -94,6 +95,11 @@ const SingleProduct = () => {
 
     return (
         <>
+
+            <Helmet>
+                <title>{product?.title || 'Single Product'} | The White</title>
+            </Helmet>
+
             <Header />
             <div className='container mx-auto px-5
     py-16 grid md:grid-cols-2 grid-cols-1'>
@@ -117,7 +123,7 @@ const SingleProduct = () => {
                                 {
                                     selectedVariation?.sale_price && <del>TK {selectedVariation?.regular_price}</del>
                                 }
-                                
+
                             </h3>
                         }
 
@@ -125,7 +131,7 @@ const SingleProduct = () => {
                             loading ? <div className="skeleton h-4 w-20"></div> : selectedVariation?.sale_price ?
                                 <h3>
                                     TK {selectedVariation?.sale_price}
-                                </h3>: <h3>
+                                </h3> : <h3>
                                     TK {selectedVariation?.regular_price}
                                 </h3>
                         }
@@ -189,10 +195,10 @@ const SingleProduct = () => {
                             <span className='grostesk text-xl font-semibold'>{cartqty}</span>
                             <button onClick={qtyplus} className='w-7 h-7 border-2 border-black text-2xl font-bold flex justify-center items-end hover:bg-black hover:text-white transition-all'>+</button>
                         </div>
-                        
-                        <button onClick={() => addToCart({ product_id: product.id, price: selectedVariation?.sale_price ? selectedVariation?.sale_price:selectedVariation?.regular_price, quantity: cartqty, attribute_id: selectedSize })} className='btn uppercase bg-black text-white border-2 border-black hover:bg-black hover:text-white grostesk md:mr-0 mr-5'>Add to cart</button>
 
-                        <button onClick={() => buyNow({ product_id: product.id, price: selectedVariation?.sale_price ? selectedVariation?.sale_price:selectedVariation?.regular_price, quantity: cartqty, attribute_id: selectedSize })} className='btn uppercase bg-white text-black border-2 border-black hover:bg-black hover:text-white grostesk'>Buy now</button>
+                        <button onClick={() => addToCart({ product_id: product.id, price: selectedVariation?.sale_price ? selectedVariation?.sale_price : selectedVariation?.regular_price, quantity: cartqty, attribute_id: selectedSize })} className='btn uppercase bg-black text-white border-2 border-black hover:bg-black hover:text-white grostesk md:mr-0 mr-5'>Add to cart</button>
+
+                        <button onClick={() => buyNow({ product_id: product.id, price: selectedVariation?.sale_price ? selectedVariation?.sale_price : selectedVariation?.regular_price, quantity: cartqty, attribute_id: selectedSize })} className='btn uppercase bg-white text-black border-2 border-black hover:bg-black hover:text-white grostesk'>Buy now</button>
                     </div>
 
                     <div className="collapse collapse-arrow shadow">
@@ -218,13 +224,13 @@ const SingleProduct = () => {
                         </div>
                         <div className="collapse-content">
                             <p className='grostesk font-semibold text-gray-500'>
-                            Any product would qualify as a Free Return and Exchange if it meets any of the following condition(s): <br /><br />
+                                Any product would qualify as a Free Return and Exchange if it meets any of the following condition(s): <br /><br />
                                 * Products with major quality defects <br />
                                 * Products damaged during shipment <br />
                                 * Wrong product, size, or color <br />
                                 * Product lost in shipment <br /><br /><br />
 
-                            (For any return or exchange requests outside these specified conditions, including changes of mind or other personal reasons, a Return or Exchange fee equivalent to the original delivery charge will apply.
+                                (For any return or exchange requests outside these specified conditions, including changes of mind or other personal reasons, a Return or Exchange fee equivalent to the original delivery charge will apply.
                             </p>
                         </div>
                     </div>

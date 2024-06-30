@@ -4,6 +4,7 @@ import { DataContext } from '../../context/Context'
 import AuthUser from '../../auth/AuthUser'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import { FaEnvelope, FaKey, FaUser } from 'react-icons/fa'
+import { Helmet } from 'react-helmet'
 
 const TrackOrder = () => {
     const { order, allProducts, authOrder, userData } = useContext(DataContext)
@@ -44,6 +45,10 @@ const TrackOrder = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Track you order | The White</title>
+            </Helmet>
+
             <Header />
 
             <div className='container mx-auto p-5'>

@@ -14,7 +14,7 @@ const Testimonial = () => {
     return (
         <div className='container mx-auto px-5'>
             <Swiper
-                slidesPerView={3}
+                slidesPerView={1}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
@@ -23,6 +23,20 @@ const Testimonial = () => {
                 pagination={{
                     clickable: true,
                 }}
+                breakpoints={{
+                    640: {
+                      slidesPerView: 1,
+                      spaceBetween: 20,
+                    },
+                    768: {
+                      slidesPerView: 2,
+                      spaceBetween: 40,
+                    },
+                    1024: {
+                      slidesPerView: 3,
+                      spaceBetween: 50,
+                    },
+                  }}
                 modules={[Autoplay]}
                 className="Swiper"
             >

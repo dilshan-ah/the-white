@@ -23,7 +23,10 @@ const Footer = () => {
     <div className='w-full bg-black mt-28'>
       <div className='container px-5 py-20 mx-auto grid grid-cols-4 gap-5'>
         <div className='lg:col-span-1 col-span-4'>
-          <img src={logo} className='brightness-0 invert w-52 mb-5' alt="" />
+          <Link to='/'>
+            <img src={logo} className='brightness-0 invert w-52 mb-5' alt="" />
+          </Link>
+
           <p className='text-base text-white mb-5'>It is a drop shoulder t-shirt selling online platform that helps you find get the drop shoulder t-shirt of your choice</p>
 
           <div className='flex gap-3'>
@@ -101,9 +104,9 @@ const Footer = () => {
               </li>
 
               <li>
-                <a href="#" className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
+                <Link to='/privacy-policy' className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
                   <span>Privacy Policy</span>
-                </a>
+                </Link>
               </li>
 
               <li>

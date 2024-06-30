@@ -1,7 +1,4 @@
 import React, { useState } from 'react'
-import { CgShoppingBag } from 'react-icons/cg'
-import blacktee from '../assets/black.png'
-import ttwo from '../assets/t-two.jpg'
 import { Link } from 'react-router-dom'
 
 const ProductCard = ({ product }) => {
@@ -51,7 +48,7 @@ const ProductCard = ({ product }) => {
                     {product.variations[0].sale_price ? product.variations[0].sale_price : product.variations[0].regular_price}
                 </h4>
 
-                <div className="card-actions absolute right-5 bottom-5 justify-end">
+                <div className="card-actions sm:absolute right-5 bottom-5 justify-end">
                     <Link to={`/single-product/${product.slug}`} className='btn px-4 py-2 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase'>Select Option</Link>
                 </div>
             </div>

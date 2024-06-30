@@ -11,6 +11,7 @@ import { DataContext } from '../../context/Context';
 import AuthUser from '../../auth/AuthUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { CiCircleCheck } from 'react-icons/ci';
+import { Helmet } from 'react-helmet';
 
 const Checkout = () => {
 
@@ -290,7 +291,7 @@ const Checkout = () => {
 
   };
 
-  const handleLoyaltyReset = () =>{
+  const handleLoyaltyReset = () => {
     setLoyalty(0)
     setDiscount(0)
   }
@@ -299,6 +300,10 @@ const Checkout = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Checkout | The White</title>
+      </Helmet>
+
       <SecondaryHeader />
 
       <div className='px-5 container mx-auto'>
@@ -341,7 +346,7 @@ const Checkout = () => {
 
               <div className='grid grid-cols-2 gap-5 mb-5'>
 
-              <select value={selectedDivision} onChange={handleDivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                <select value={selectedDivision} onChange={handleDivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                   <option value="">--Select Division--</option>
                   {uniqueDivisions.map((division, index) => (
                     <option key={index} value={division}>{division}</option>
@@ -355,7 +360,7 @@ const Checkout = () => {
                   ))}
                 </select>
 
-                
+
 
 
               </div>
@@ -386,13 +391,13 @@ const Checkout = () => {
 
                   <div className='grid grid-cols-2 gap-5 mb-5'>
 
-                  <select value={selectedSdivision} onChange={handleSdivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                    <select value={selectedSdivision} onChange={handleSdivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                       <option value="">--Select Division--</option>
                       {uniqueDivisions.map((division, index) => (
                         <option key={index} value={division}>{division}</option>
                       ))}
                     </select>
-                    
+
                     <select value={selectedSdistrict} onChange={handleSdistrictChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                       <option value="">--Select District--</option>
                       {sDivisionDistricts.map((address, index) => (
@@ -400,7 +405,7 @@ const Checkout = () => {
                       ))}
                     </select>
 
-                    
+
 
 
                   </div>
@@ -456,7 +461,7 @@ const Checkout = () => {
 
               <div className='relative'>
                 <input type="radio" id="outside-bd" name="shipping-method" class="radio absolute top-0 bottom-0 left-2 my-auto"
-                  onChange={()=>setOutsideBd(true)}/>
+                  onChange={() => setOutsideBd(true)} />
                 <label for="outside-bd" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
                   <div class="flex items-center gap-4">
                     <h3 class="grostesk font-bold">Outside Bangladesh (বাংলাদেশের বাহিরে)</h3>
@@ -717,7 +722,7 @@ const Checkout = () => {
                 <h5 className='grostesk font-semibold'>{calculateTotalPrice()}৳</h5>
               </div>
 
-              <button onClick={(e) => MakeOrder(e)} className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white" disabled={outsideBd ? 'disabled':''}>Place Order</button>
+              <button onClick={(e) => MakeOrder(e)} className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white" disabled={outsideBd ? 'disabled' : ''}>Place Order</button>
             </div>
           </div>
 

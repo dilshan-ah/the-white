@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react'
 import Header from '../components/header'
-import shopbanner from '../assets/shop.jpeg'
 import Footer from '../components/Footer'
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
@@ -8,6 +7,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 const Contact = () => {
 
@@ -40,11 +40,15 @@ const Contact = () => {
                     console.log('FAILED...', error.text);
                 },
             );
-            e.target.reset()
+        e.target.reset()
     }
 
     return (
         <>
+            <Helmet>
+                <title>Contact | The White</title>
+            </Helmet>
+
             <Header />
 
             <div className='contact-banner py-48 mt-10 relative flex justify-center'>
@@ -69,8 +73,8 @@ const Contact = () => {
 
                     {
                         emailSent && <div className="alert bg-black text-white w-max fixed right-10 bottom-10">
-                        <span className='grostesk font-bold'>Message sent successfully.</span>
-                      </div>
+                            <span className='grostesk font-bold'>Message sent successfully.</span>
+                        </div>
                     }
                 </div>
 
@@ -80,7 +84,7 @@ const Contact = () => {
                     </h3>
 
                     <p className='para mb-10 font-semibold'>
-                    Ground Floor, North Court,<br /> Jamuna Future Park,<br /> Progoti Shoroni, Kuril,<br /> Dhaka - 1229
+                        Ground Floor, North Court,<br /> Jamuna Future Park,<br /> Progoti Shoroni, Kuril,<br /> Dhaka - 1229
                     </p>
 
                     <h3 className='grostesk font-bold text-xl uppercase mb-4'>

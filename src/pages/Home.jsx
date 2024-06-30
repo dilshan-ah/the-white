@@ -38,6 +38,7 @@ import AuthUser from '../../auth/AuthUser';
 import { MdFilterListOff, MdLock } from 'react-icons/md';
 import { GoQuestion } from 'react-icons/go';
 import { CiFaceSmile } from 'react-icons/ci';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
 
@@ -180,6 +181,9 @@ const Home = () => {
 
     return (
         <>
+            <Helmet>
+                <title>The White</title>
+            </Helmet>
             <div className='w-full py-2 px-10 bg-black md:flex block justify-between'>
                 {
                     user ? <h2 className='text-white text-sm font-bold uppercase grostesk cursor-pointer'>Welcome {user?.name} | ({user?.loyalty_points} points)</h2> : <h2 onClick={() => document.getElementById('authlog').showModal()} className='text-white text-sm font-bold uppercase grostesk cursor-pointer'>join the white squad and earn loyalty point at every purchase | Login</h2>
@@ -476,7 +480,7 @@ const Home = () => {
 
             <div className='mx-auto container px-5 mb-20 grid lg:grid-cols-3 grid-cols-1 gap-5'>
 
-            <div>
+                <div>
                     <div className='mx-auto container px-5 flex flex-col items-center'>
 
                         <MdLock className='text-5xl mb-5' />
@@ -538,7 +542,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                
+
                 <div className='flex flex-col items-center'>
                     <CiFaceSmile className='text-5xl mb-5' />
                     <p className='grostesk text-center font-semibold text-2xl mb-5 uppercase'>Satisfaction Guaranteed</p>

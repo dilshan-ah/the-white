@@ -5,10 +5,15 @@ import abtimgone from '../assets/welcome.jpg'
 import abtimgtwo from '../assets/2148176505.jpg'
 import abtimgthree from '../assets/multiverse-copy.png'
 import Footer from '../components/Footer'
+import { Helmet } from 'react-helmet'
 
 const About = () => {
     return (
         <>
+            <Helmet>
+                <title>About | The White</title>
+            </Helmet>
+
             <Header />
 
             <div className='contact-banner py-48 mt-10 relative flex justify-center'>
@@ -120,7 +125,7 @@ const About = () => {
                 </div>
             </div>
 
-            <Footer/>
+            <Footer />
         </>
     )
 }

@@ -21,7 +21,7 @@ const ProductGallerySlider = ({ thumb, gallery }) => {
     }, [thumb, gallery]);
 
     return (
-        <div className='w-4/5'>
+        <div className='md:w-4/5'>
             {loading ? (
                 <div>
                     <div className="skeleton h-96 w-full mb-4"></div>

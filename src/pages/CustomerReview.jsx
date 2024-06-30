@@ -4,6 +4,7 @@ import { DataContext } from '../../context/Context'
 import ReviewCard from '../components/ReviewCard'
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa'
 import Footer from '../components/Footer'
+import { Helmet } from 'react-helmet'
 
 const CustomerReview = () => {
 
@@ -11,6 +12,11 @@ const CustomerReview = () => {
 
     return (
         <>
+
+            <Helmet>
+                <title>Customer Reviews | The White</title>
+            </Helmet>
+
             <Header />
             <div className='py-48 mt-10 relative flex justify-center'>
                 <h1 className='grostesk font-bold sm:text-6xl text-4xl px-5 uppercase text-black z-40 relative'>Customer Reviews</h1>
@@ -18,7 +24,7 @@ const CustomerReview = () => {
 
             <div className='container mx-auto px-5 flex flex-wrap mb-20'>
                 {review?.map((rvw, index) => (
-                    <div className='w-1/3 p-5'>
+                    <div className='md:w-1/3 p-5'>
                         <div className='bg-white p-8 rounded shadow-xl relative '>
                             <FaQuoteLeft className='absolute left-2 top-6' />
 
@@ -39,7 +45,7 @@ const CustomerReview = () => {
                 ))}
             </div>
 
-            <Footer/>
+            <Footer />
         </>
     )
 }
