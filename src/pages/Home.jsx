@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+
 import Header from '../components/header'
 import BannerSlider from '../components/BannerSlider'
 import { FaEnvelope } from "react-icons/fa";
@@ -20,6 +21,14 @@ import bkash from '../assets/bkash-logo.webp'
 import nagad from '../assets/Nagad-Logo.png'
 import rocket from '../assets/rocket-logo.png'
 import upay from '../assets/upay_logo.png'
+import islami from '../assets/islami-bank-bangladesh.png'
+import dbbl from '../assets/dutch-bangla.jpg'
+import visa from '../assets/visa.png'
+import master from '../assets/MasterCard.png'
+import cellfin from '../assets/cellfin.png'
+
+import ssl from '../assets/SSLCommerz-Pay-With-logo-All-Size-01.png'
+
 import { Link } from 'react-router-dom';
 import { DataContext } from '../../context/Context';
 
@@ -252,7 +261,7 @@ const Home = () => {
             </div>
             <div className='relative'>
                 <Header absolute={'absolute'} />
-                <BannerSlider/>
+                <BannerSlider />
             </div>
 
             {/* new arrival section */}
@@ -465,12 +474,83 @@ const Home = () => {
             </div>
 
 
-            <div className='mx-auto container px-5 mb-20 grid lg:grid-cols-3 grid-cols-1 gap-10'>
+            <div className='mx-auto container px-5 mb-20 grid lg:grid-cols-3 grid-cols-1 gap-5'>
+
+            <div>
+                    <div className='mx-auto container px-5 flex flex-col items-center'>
+
+                        <MdLock className='text-5xl mb-5' />
+                        <p className='grostesk font-semibold text-center text-2xl mb-10 uppercase'>You can pay us by!</p>
+
+                        {/* <div className='grid grid-cols-8 gap-2'>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={bkash} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={nagad} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={rocket} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={upay} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={islami} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={dbbl} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={visa} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={master} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={cellfin} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={nagad} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={rocket} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={upay} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={bkash} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={nagad} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={rocket} className='h-auto w-full' alt="" />
+                            </div>
+                            <div className='bg-white shadow p-1 flex justify-center items-center'>
+                                <img src={upay} className='h-auto w-full' alt="" />
+                            </div>
+                        </div> */}
+                        <div>
+                            <img src={ssl} alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                
                 <div className='flex flex-col items-center'>
-                    <MdLock className='text-5xl mb-5' />
+                    <CiFaceSmile className='text-5xl mb-5' />
+                    <p className='grostesk text-center font-semibold text-2xl mb-5 uppercase'>Satisfaction Guaranteed</p>
+                    <p className='montserrat font-semibold text-slate-500 mb-4'>made with love with bangladesh</p>
+                    <p className='grostesk text-center font-semibold text-xl uppercase'>Mul tee verse of dropshoulders</p>
+                </div>
+
+                <div className='flex flex-col items-center'>
+                    <FaShippingFast className='text-5xl mb-5' />
                     <p className='grostesk text-center font-semibold text-2xl mb-10 uppercase'>We deliver worldwide</p>
 
-                    <div className='grid grid-cols-6 gap-5 '>
+                    <div className='grid grid-cols-5 gap-5 '>
                         <img src={fedex} className='h-full w-auto' alt="" />
                         <img src={pathao} className='h-full w-auto' alt="" />
                         <img src={steadfast} className='h-full w-auto' alt="" />
@@ -479,26 +559,6 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className='flex flex-col items-center'>
-                    <CiFaceSmile className='text-5xl mb-5' />
-                    <p className='grostesk text-center font-semibold text-2xl mb-5 uppercase'>Satisfaction Guaranteed</p>
-                    <p className='montserrat font-semibold text-slate-500 mb-4'>made with love with bangladesh</p>
-                    <p className='grostesk text-center font-semibold text-xl uppercase'>Mul tee verse of dropshoulders</p>
-                </div>
-
-                <div>
-                    <div className='mx-auto container px-5 flex flex-col items-center'>
-                        <FaShippingFast className='text-5xl mb-5' />
-                        <p className='grostesk font-semibold text-center text-2xl mb-10 uppercase'>You can pay us by!</p>
-
-                        <div className='grid grid-cols-6 gap-5 '>
-                            <img src={bkash} className='h-full w-full' alt="" />
-                            <img src={nagad} className='h-full w-auto' alt="" />
-                            <img src={rocket} className='h-full w-auto' alt="" />
-                            <img src={upay} className='h-full w-auto' alt="" />
-                        </div>
-                    </div>
-                </div>
 
             </div>
 

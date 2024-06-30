@@ -8,6 +8,8 @@ import Contact from '../pages/Contact'
 import SingleCategory from '../pages/SingleCategory'
 import TrackOrder from '../pages/TrackOrder'
 import About from '../pages/About'
+import Return from '../pages/Return'
+import CustomerReview from '../pages/CustomerReview'
 
 const Router = () => {
   return (
@@ -20,6 +22,8 @@ const Router = () => {
         <Route path="/contact" element={<Contact/>}/>
         <Route path="/about" element={<About/>}/>
         <Route path="/track-order" element={<TrackOrder/>}/>
+        <Route path="/return-and-refund" element={<Return/>}/>
+        <Route path="/customer-review" element={<CustomerReview/>}/>
     </Routes>
   )
 }

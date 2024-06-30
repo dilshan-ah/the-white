@@ -26,7 +26,7 @@ const Context = ({ children }) => {
 
     fetchAllCategories();
     fetchAllProducts();
-    // fetchUserDetail();
+    fetchUserDetail();
     fetchAllAttributes();
     fetchBanner();
     fetchReview();
@@ -102,7 +102,7 @@ const Context = ({ children }) => {
   };
 
   const fetchUserDetail = () => {
-    http.post('/auth/me')
+    http.get('/alluser``')
       .then((res) => {
         setUserData(res.data);
       })

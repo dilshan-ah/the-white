@@ -13,6 +13,8 @@ import { IoMdMail } from "react-icons/io";
 import { RiTiktokLine } from "react-icons/ri";
 import { FiYoutube } from "react-icons/fi";
 import { FaXTwitter } from "react-icons/fa6";
+import { SlSocialLinkedin } from 'react-icons/sl'
+import { Link } from 'react-router-dom'
 
 
 
@@ -48,6 +50,10 @@ const Footer = () => {
 
             <a href="#">
               <FaXTwitter className='text-white text-2xl' />
+            </a>
+
+            <a href="#">
+              <SlSocialLinkedin className='text-white text-2xl' />
             </a>
 
           </div>
@@ -89,21 +95,21 @@ const Footer = () => {
             <h3 className='text-white text-xl font-bold grostesk mb-3'>Customer Service</h3>
             <ul>
               <li>
-                <a href="#" className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
-                  <span>Returns</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
-                  <span>Shipping</span>
-                </a>
+                <Link to='/return-and-refund' className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
+                  <span>Returns & Refund</span>
+                </Link>
               </li>
 
               <li>
                 <a href="#" className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
                   <span>Privacy Policy</span>
                 </a>
+              </li>
+
+              <li>
+                <Link to='/customer-review' className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
+                  <span>Customer Reviews</span>
+                </Link>
               </li>
 
             </ul>

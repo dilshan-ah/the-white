@@ -12,7 +12,7 @@ const About = () => {
             <Header />
 
             <div className='contact-banner py-48 mt-10 relative flex justify-center'>
-                <h1 className='grostesk font-bold text-6xl uppercase text-white z-40 relative'>About us</h1>
+                <h1 className='grostesk font-bold sm:text-6xl text-4xl px-5 uppercase text-white z-40 relative'>About us</h1>
                 <div className='w-full h-full bg-black/50 absolute top-0 left-0'></div>
             </div>
 

@@ -48,11 +48,11 @@ const Contact = () => {
             <Header />
 
             <div className='contact-banner py-48 mt-10 relative flex justify-center'>
-                <h1 className='grostesk font-bold text-6xl uppercase text-white z-40 relative'>Contact us</h1>
+                <h1 className='grostesk font-bold sm:text-6xl text-4xl px-5 uppercase text-white z-40 relative'>Contact us</h1>
                 <div className='w-full h-full bg-black/50 absolute top-0 left-0'></div>
             </div>
 
-            <div className='container mx-auto py-20 grid lg:grid-cols-2 gap-20'>
+            <div className='container mx-auto py-20 grid lg:grid-cols-2 gap-20 px-5'>
                 <div>
                     <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
                         GET In touch
@@ -79,26 +79,24 @@ const Contact = () => {
                         Our address
                     </h3>
 
-                    {/* <p className='para mb-10'>
-                        99/A Kichu akta road,<br />
-                        Bhola,<br />
-                        Bangladesh
-                    </p> */}
+                    <p className='para mb-10 font-semibold'>
+                    Ground Floor, North Court,<br /> Jamuna Future Park,<br /> Progoti Shoroni, Kuril,<br /> Dhaka - 1229
+                    </p>
 
                     <h3 className='grostesk font-bold text-xl uppercase mb-4'>
                         Social Media
                     </h3>
 
                     <div className='flex gap-5 mb-10'>
-                        <Link to='https://facebook.com' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
+                        <Link to='https://www.facebook.com/thewhite.apparel' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
                             <FaFacebookF className='text-lg' />
                         </Link>
 
-                        <Link className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
+                        <Link to='https://www.instagram.com/the_white.bd/?hl=en' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
                             <FaInstagram className='text-lg' />
                         </Link>
 
-                        <Link className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
+                        <Link to='https://wa.me/01779744512' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
                             <FaWhatsapp className='text-lg' />
                         </Link>
                     </div>
@@ -134,7 +132,7 @@ const Contact = () => {
             <h1 className='grostesk font-bold md:text-6xl text-3xl uppercase text-center mb-10 z-50 relative'>You can also find us at!</h1>
 
 
-            <div className='container mx-auto grid lg:grid-cols-3 gap-10'>
+            <div className='container mx-auto grid lg:grid-cols-3 gap-10 px-5'>
                 <div>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3028.895774668941!2d-73.92262692508059!3d40.610123143847886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24343ab3c4adf%3A0xfb7370c49a9db106!2sKings%20Plaza%20Shopping%20Center!5e0!3m2!1sen!2sbd!4v1716058803265!5m2!1sen!2sbd" className='w-full' height={450} style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
 

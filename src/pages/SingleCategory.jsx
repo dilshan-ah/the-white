@@ -81,8 +81,8 @@ const SingleCategory = () => {
 
             const filtered = filteredByCategory.filter(product => {
                 const matchesColor = selectedColors.length > 0
-                    ? product.variations?.some(variation => selectedColors.includes(product?.color_id))
-                    : true;
+                ? selectedColors.includes(parseInt(product.color_id))
+                : true;
 
                 const matchesSize = selectedSizes.length > 0
                     ? product.variations?.some(variation => selectedSizes.includes(variation.attribute_value?.name))

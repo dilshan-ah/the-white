@@ -210,17 +210,6 @@ const SingleProduct = () => {
                         </div>
                     </div>
 
-                    <div className="collapse collapse-arrow shadow">
-                        <input type="checkbox" className="peer" />
-                        <div className="collapse-title capitalize grostesk font-bold text-black text-2xl">
-                            Service policy
-                        </div>
-                        <div className="collapse-content">
-                            <p className='grostesk font-semibold text-gray-500'>
-                                JeansFellow is a web-based footwear store providing online shopping facilities with an amazing collection of numerous authentic footwear & fashion accessories.  We’re selling quality imported footwear in Bangladesh for the last 6 years.  We import well-finished footwear with the finest material & long durability. So quality is our number one service feature before stepping into the business.
-                            </p>
-                        </div>
-                    </div>
 
                     <div className="collapse collapse-arrow shadow">
                         <input type="checkbox" className="peer" />
@@ -229,21 +218,13 @@ const SingleProduct = () => {
                         </div>
                         <div className="collapse-content">
                             <p className='grostesk font-semibold text-gray-500'>
-                                JeansFellow Footwear facilitates its consumers with an “Open Box Policy’’ which means while receiving the product you can check your parcel at your doorstep.
+                            Any product would qualify as a Free Return and Exchange if it meets any of the following condition(s): <br /><br />
+                                * Products with major quality defects <br />
+                                * Products damaged during shipment <br />
+                                * Wrong product, size, or color <br />
+                                * Product lost in shipment <br /><br /><br />
 
-                                RETURN & EXCHANGE ELIGIBILITY
-                                If your product is defective/damaged or incorrect/incomplete at the time of delivery, you can return the product to the delivery agent, claim a refund for the order, or claim an exchange.
-                                If the size of a product does not match the one ordered.
-                                You cannot return/exchange a product because of a "change of mind".
-                                RETURN & EXCHANGE TERMS
-                                As we offer Open Box Policy, you should check before receiving a product.
-                                The product must be returned in the original and undamaged manufacturer packaging/box.
-                                The product must be unused, unworn, and unwashed.
-                                The product must include the original tags, user manual, warranty cards (if have any), freebies, and accessories.
-                                In the case of an exchange, if the newly selected item is a global product it will take 10-15 working days more to get the exchanged delivery.
-                                REFUND POLICY & PROCESS
-                                If you paid earlier and are eligible to return the order (As per the Above-Mentioned Eligibility & Terms), you can claim a refund without any hesitation. We will receive your refund claim, after verifying the eligibility from our side you will get the paid amount as a refund within 10 working days from the claim date.
-                                If you paid earlier and your ordered item is a global item, you can claim a refund if you do not receive the product within 15 working days. But If there is any unwanted issue such as custom delay, national or international political obstacle and so on, then 10 more working days may take to deliver the product. You cannot claim a refund before the above-mentioned time period.
+                            (For any return or exchange requests outside these specified conditions, including changes of mind or other personal reasons, a Return or Exchange fee equivalent to the original delivery charge will apply.
                             </p>
                         </div>
                     </div>
