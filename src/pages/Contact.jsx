@@ -8,6 +8,10 @@ import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { RiTiktokLine } from 'react-icons/ri';
+import { FiYoutube } from 'react-icons/fi';
+import { FaXTwitter } from 'react-icons/fa6';
+import { SlSocialLinkedin } from 'react-icons/sl';
 
 const Contact = () => {
 
@@ -52,21 +56,21 @@ const Contact = () => {
             <Header />
 
             <div className='contact-banner py-48 mt-10 relative flex justify-center'>
-                <h1 className='grostesk font-bold sm:text-6xl text-4xl px-5 uppercase text-white z-40 relative'>Contact us</h1>
+                <h1 className='poppins font-semibold sm:text-6xl text-4xl px-5 uppercase text-white z-40 relative'>Contact us</h1>
                 <div className='w-full h-full bg-black/50 absolute top-0 left-0'></div>
             </div>
 
             <div className='container mx-auto py-20 grid lg:grid-cols-2 gap-20 px-5'>
                 <div>
-                    <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         GET In touch
                     </h3>
                     <form ref={form} onSubmit={sendMail}>
-                        <input type="text" name="name" placeholder='Your Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
-                        <input type="email" name="email" placeholder='Your Email' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
-                        <input type="text" name="subject" placeholder='Enter the subject' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                        <input type="text" name="name" placeholder='Your Name' className='poppins font-semibold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                        <input type="email" name="email" placeholder='Your Email' className='poppins font-semibold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                        <input type="text" name="subject" placeholder='Enter the subject' className='poppins font-semibold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
 
-                        <textarea name="message" rows={7} placeholder='Enter your message' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded'></textarea>
+                        <textarea name="message" rows={7} placeholder='Enter your message' className='poppins font-semibold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded'></textarea>
 
                         <button className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Send Message</button>
                     </form>
@@ -79,15 +83,28 @@ const Contact = () => {
                 </div>
 
                 <div>
-                    <h3 className='grostesk font-bold text-xl uppercase mb-4'>
-                        Our address
+                    <h3 className='poppins font-semibold text-xl uppercase mb-4'>
+                        OUR DISPLAY CENTER
                     </h3>
 
-                    <p className='para mb-10 font-semibold'>
-                        Ground Floor, North Court,<br /> Jamuna Future Park,<br /> Progoti Shoroni, Kuril,<br /> Dhaka - 1229
+                    <p className='para montserrat font-semibold'>UNITED STATES</p>
+                    <p className='para mb-10 montserrat font-semibold'>
+                    5100, Kings Plaza Shopping Center,<br /> Brooklyn,<br /> New York - 11234
                     </p>
 
-                    <h3 className='grostesk font-bold text-xl uppercase mb-4'>
+                    <p className='para montserrat font-semibold'>UNITED ARAB EMIRATES</p>
+                    <p className='para montserrat mb-10 font-semibold'>
+                    38B, Al Ghurair Center,<br /> Al Rigga Road, Deira,<br /> Dubai
+                    </p>
+
+
+                    <p className='para montserrat font-semibold'>BANGLADESH</p>
+                    <p className='para montserrat mb-10 font-semibold'>
+                    Ground Floor, North Court,<br /> Jamuna Future Park,<br />  Progoti Shoroni, Kuril,<br />
+                    Dhaka - 1229</p>
+
+
+                    <h3 className='poppins font-semibold text-xl uppercase mb-4'>
                         Social Media
                     </h3>
 
@@ -103,13 +120,29 @@ const Contact = () => {
                         <Link to='https://wa.me/01779744512' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
                             <FaWhatsapp className='text-lg' />
                         </Link>
+
+                        <Link to='https://www.tiktok.com/@the.white.bd' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
+                            <RiTiktokLine className='text-lg' />
+                        </Link>
+
+                        <Link to='https://www.youtube.com/@TheWHITEsquad112' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
+                            <FiYoutube className='text-lg' />
+                        </Link>
+
+                        <Link to='https://x.com/TheWhiteBD' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
+                            <FaXTwitter className='text-lg' />
+                        </Link>
+
+                        <Link to='https://www.linkedin.com/company/thewhitebd/' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
+                            <SlSocialLinkedin className='text-lg' />
+                        </Link>
                     </div>
 
-                    <h3 className='grostesk font-bold text-xl uppercase mb-4'>
+                    <h3 className='poppins font-semibold text-xl uppercase mb-4'>
                         Contact Information
                     </h3>
 
-                    <h3 className='grostesk font-bold text-base uppercase mb-4'>
+                    <h3 className='poppins font-semibold text-base uppercase mb-4'>
                         Email Us
                     </h3>
 
@@ -119,7 +152,7 @@ const Contact = () => {
 
                     <a href="mailto:info@thewhitebd.com" className='text-lg font-semibold grostesk underline'>info@thewhitebd.com</a>
 
-                    <h3 className='grostesk font-bold text-base uppercase mb-4 mt-4'>
+                    <h3 className='poppins font-semibold text-base uppercase mb-4 mt-4'>
                         Phone Number
                     </h3>
 
@@ -133,7 +166,7 @@ const Contact = () => {
                 </div>
             </div>
 
-            <h1 className='grostesk font-bold md:text-6xl text-3xl uppercase text-center mb-10 z-50 relative'>You can also find us at!</h1>
+            <h1 className='poppins font-semibold md:text-6xl text-3xl uppercase text-center mb-10 z-50 relative'>You can also find us at!</h1>
 
 
             <div className='container mx-auto grid lg:grid-cols-3 gap-10 px-5'>

@@ -19,7 +19,7 @@ const CustomerReview = () => {
 
             <Header />
             <div className='py-48 mt-10 relative flex justify-center'>
-                <h1 className='grostesk font-bold sm:text-6xl text-4xl px-5 uppercase text-black z-40 relative'>Customer Reviews</h1>
+                <h1 className='poppins font-semibold sm:text-6xl text-4xl px-5 uppercase text-black z-40 relative'>Customer Reviews</h1>
             </div>
 
             <div className='container mx-auto px-5 flex flex-wrap mb-20'>
@@ -28,7 +28,7 @@ const CustomerReview = () => {
                         <div className='bg-white p-8 rounded shadow-xl relative '>
                             <FaQuoteLeft className='absolute left-2 top-6' />
 
-                            <p className='text-gray-500 text-sm mb-5'>{rvw.comment}</p>
+                            <p className='text-gray-500 text-sm mb-5 montserrat'>{rvw.comment}</p>
 
                             <div className='flex items-center gap-4'>
                                 <img src={`https://adminpanel.thewhitebd.com/uploads/reviews/${rvw.profile_pic}`} className='w-10 rounded-full' alt="" />

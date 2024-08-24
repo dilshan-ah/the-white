@@ -8,13 +8,13 @@ const ReviewCard = ({review}) => {
 
             <FaQuoteLeft className='absolute left-2 top-6'/>
 
-            <p className='text-gray-500 text-sm mb-5'>{review.comment}</p>
+            <p className='text-gray-500 text-sm mb-5 montserrat'>{review.comment}</p>
 
             <div className='flex items-center gap-4'>
                 <img src={`https://adminpanel.thewhitebd.com/uploads/reviews/${review.profile_pic}`} className='w-10 rounded-full' alt="" />
 
                 <div>
-                    <h4 className='text-lg grostesk font-bold'>{review.name}</h4>
+                    <h4 className='text-lg poppins font-bold'>{review.name}</h4>
                     <p className='text-gray-500 text-sm'>{review.subtitle}</p>
                 </div>
             </div>

@@ -17,19 +17,19 @@ const About = () => {
             <Header />
 
             <div className='contact-banner py-48 mt-10 relative flex justify-center'>
-                <h1 className='grostesk font-bold sm:text-6xl text-4xl px-5 uppercase text-white z-40 relative'>About us</h1>
+                <h1 className='poppins font-bold sm:text-6xl text-4xl px-5 uppercase text-white z-40 relative'>About us</h1>
                 <div className='w-full h-full bg-black/50 absolute top-0 left-0'></div>
             </div>
 
             <div className='container mx-auto px-5 py-20'>
-                <h3 className='grostesk font-bold text-3xl uppercase mb-10 text-center'>
+                <h3 className='poppins font-semibold text-3xl uppercase mb-10 text-center'>
                     Welcome to The White
                 </h3>
 
                 <p className='montserrat text-center font-semibold text-gray-500 mb-10'> a dream of three passionate individuals.
                     Three dedicated individuals – Mr. Rashedul Islam Sohan, Mr. Nahin Ibn Zaman, and Mr. Khaled Mahmud Tajbi, despite coming from different educational backgrounds, share a common dream of redefining the apparel industry in Bangladesh. Our journey began with a simple question: </p>
 
-                <h4 className='grostesk font-bold text-lg capitalize mb-10 text-center'>???...why not bring the trendy, stylish drop-shoulder T-shirts and hoodies that have taken the overseas market by storm to our homeland...???</h4>
+                <h4 className='poppins font-bold text-lg capitalize mb-10 text-center'>???...why not bring the trendy, stylish drop-shoulder T-shirts and hoodies that have taken the overseas market by storm to our homeland...???</h4>
             </div>
 
             <div className='container mx-auto px-5 py-10 flex flex-col md:flex-row gap-10'>
@@ -38,7 +38,7 @@ const About = () => {
                 </div>
 
                 <div className='md:w-1/2 w-full'>
-                    <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         Our Journey
                     </h3>
 
@@ -48,7 +48,7 @@ const About = () => {
 
             <div className='container mx-auto px-5 py-10 flex flex-col md:flex-row gap-10'>
                 <div className='w-full'>
-                    <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         Our Roles
                     </h3>
 
@@ -88,7 +88,7 @@ const About = () => {
                 </div>
 
                 <div className='md:w-1/2 w-full'>
-                    <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         Our Mission
                     </h3>
 
@@ -99,7 +99,7 @@ const About = () => {
             <div className='container mx-auto px-5 py-10 flex flex-col-reverse md:flex-row gap-10'>
 
                 <div className='md:w-1/2 w-full'>
-                    <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         Our Vision
                     </h3>
 
@@ -113,7 +113,7 @@ const About = () => {
 
             <div className='container mx-auto px-5 py-10 flex flex-col md:flex-row gap-10'>
                 <div className='w-full'>
-                    <h3 className='grostesk font-bold text-3xl uppercase mb-10 text-center'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10 text-center'>
                         Looking Ahead
                     </h3>
 

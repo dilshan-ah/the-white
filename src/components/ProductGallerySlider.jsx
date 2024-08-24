@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import ImageMagnifier from './ImageMagnifier';
 
 const ProductGallerySlider = ({ thumb, gallery }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -46,12 +47,12 @@ const ProductGallerySlider = ({ thumb, gallery }) => {
                         className="mySwiper2 mb-2"
                     >
                         <SwiperSlide>
-                            <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${thumb}`} className='w-full' alt="Main product" />
+                            <ImageMagnifier imageUrl={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${thumb}`}/>
                         </SwiperSlide>
 
                         {gallery?.map((galleryimage, index) => (
                             <SwiperSlide key={index}>
-                                <img src={`https://adminpanel.thewhitebd.com/uploads/product-gallery/${galleryimage?.image_path}`} className='w-full' alt={`Gallery image ${index}`} />
+                                <ImageMagnifier imageUrl={`https://adminpanel.thewhitebd.com/uploads/product-gallery/${galleryimage?.image_path}`}/>
                             </SwiperSlide>
                         ))}
                     </Swiper>

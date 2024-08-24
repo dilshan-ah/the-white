@@ -12,12 +12,12 @@ const Return = () => {
 
             <Header />
             <div className='contact-banner py-48 mt-10 relative flex justify-center'>
-                <h1 className='grostesk font-bold sm:text-6xl text-4xl uppercase text-white z-40 px-5 relative'>Return and Exchange Policy</h1>
+                <h1 className='poppins font-semibold sm:text-6xl text-4xl uppercase text-white z-40 px-5 relative'>Return and Exchange Policy</h1>
                 <div className='w-full h-full bg-black/50 absolute top-0 left-0'></div>
             </div>
 
             <div className='container mx-auto px-5 py-20'>
-                <h3 className='grostesk font-bold text-3xl uppercase mb-10 text-center'>
+                <h3 className='poppins font-semibold text-3xl uppercase mb-10 text-center'>
                     At THE WHITE
                 </h3>
 
@@ -27,7 +27,7 @@ const Return = () => {
             <div className='container mx-auto px-5 py-10 flex flex-col md:flex-row gap-10'>
 
                 <div className='md:w-1/2 w-full shadow-md p-5'>
-                    <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         Product Inspection Upon Delivery
                     </h3>
 
@@ -48,7 +48,7 @@ const Return = () => {
 
                 <div className='md:w-1/2 w-full '>
                     <div className='shadow-md p-5 mb-14'>
-                        <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
+                        <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                             Free Return Policy
                         </h3>
 
@@ -57,7 +57,7 @@ const Return = () => {
                     </div>
 
                     <div className='shadow-md p-5'>
-                        <h3 className='grostesk font-bold text-3xl uppercase mb-10'>
+                        <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                             Free Exchange Policy
                         </h3>
 
@@ -68,7 +68,7 @@ const Return = () => {
             </div>
 
             <div className='container mx-auto px-5 py-20'>
-                <h3 className='grostesk font-bold text-3xl uppercase mb-10 text-center'>
+                <h3 className='poppins font-semibold text-3xl uppercase mb-10 text-center'>
                     Note
                 </h3>
 

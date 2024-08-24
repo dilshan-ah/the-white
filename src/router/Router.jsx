@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes} from 'react-router-dom'
+import useScrollToTop from '../hooks/UseScrollToTop';
 import Home from '../pages/Home'
 import SearchResult from '../pages/SearchResult'
 import SingleProduct from '../pages/SingleProduct'
@@ -13,6 +14,7 @@ import CustomerReview from '../pages/CustomerReview'
 import { Privacy } from '../pages/Privacy'
 
 const Router = () => {
+  useScrollToTop();
   return (
     <Routes>
         <Route path="/" element={<Home/>}/>

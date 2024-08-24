@@ -114,14 +114,14 @@ const SingleCategory = () => {
 
 
             <div className=' container mx-auto px-5 py-20'>
-                <p className='grostesk font-semibold text-3xl mb-4	capitalize'>Showing results for "{categories?.title}"</p>
+                <p className='poppins font-semibold text-3xl mb-4	capitalize'>Showing results for "{categories?.title}"</p>
             </div>
 
-            <div className='container mx-auto px-5 gap-5 mb-10 flex justify-end font-bold capitalize'>
+            <div className='container mx-auto px-5 gap-5 mb-10 flex md:flex-row flex-col justify-end font-bold capitalize'>
                 {
                     selectedColors != '' &&
                     <p>color:
-                        <div className="badge badge-outline ml-2 gap-2">
+                        <div className="badge badge-outline ml-2 gap-2 sm:w-max sm-h-max w-full h-full sm:inline-flex block sm:px-3 px-5 sm:py-0 py-5">
                             {selectedColors.map((colorId, index) => {
                                 const color = colorValues.find(color => color.id === colorId);
                                 return (
@@ -158,12 +158,14 @@ const SingleCategory = () => {
                 }
 
 
+
             </div>
+
 
 
             <div className='px-5 mb-14 lg:container mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-0 gap-5'>
                 <div className='flex items-start gap-3'>
-                    <h4 className='grostesk font-semibold text-xl'>Colors:</h4>
+                    <h4 className='poppins font-semibold text-xl'>Colors:</h4>
 
                     {
                         colorValues.map((color) => (
@@ -182,20 +184,20 @@ const SingleCategory = () => {
                 </div>
 
                 <div className='flex gap-3'>
-                    <h4 className='grostesk font-semibold text-xl'>Sizes:</h4>
+                    <h4 className='poppins font-semibold text-xl'>Sizes:</h4>
                     <div className='flex-1'>
                         <input type="range" min={0} max="100" className="range" step="33" onChange={handleSizeChange} />
                         <div className="w-full flex justify-between text-xs px-2">
-                            <span className='grostesk font-bold text-xl uppercase'>
+                            <span className='poppins font-semibold text-xl uppercase'>
                                 s
                             </span>
-                            <span className='grostesk font-bold text-xl uppercase'>
+                            <span className='poppins font-semibold text-xl uppercase'>
                                 m
                             </span>
-                            <span className='grostesk font-bold text-xl uppercase'>
+                            <span className='poppins font-semibold text-xl uppercase'>
                                 l
                             </span>
-                            <span className='grostesk font-bold text-xl uppercase'>
+                            <span className='poppins font-semibold text-xl uppercase'>
                                 xl
                             </span>
                         </div>
@@ -203,7 +205,7 @@ const SingleCategory = () => {
                 </div>
 
                 <div className='flex items-start lg:justify-end gap-3'>
-                    <h4 className='grostesk font-semibold text-xl capitalize'>Price range:</h4>
+                    <h4 className='poppins font-semibold text-xl capitalize'>Price range:</h4>
 
                     <input type="text" value={minPrice} onChange={handleMinPriceChange} placeholder='min' className='w-20 border-2 border-black rounded-lg px-3 py-2 text-black font-bold capitalize grostesk -mt-2' />
 
@@ -212,7 +214,7 @@ const SingleCategory = () => {
 
             </div>
 
-            <div className='lg:container mx-auto px-5 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5'>
+            <div className='lg:container mx-auto px-5 grid md:grid-cols-3 grid-cols-2 gap-5'>
 
                 {filteredProducts?.length > 0 ? (
                     filteredProducts?.map((product, index) => (

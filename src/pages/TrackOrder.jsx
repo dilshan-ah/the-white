@@ -9,12 +9,13 @@ import { Helmet } from 'react-helmet'
 const TrackOrder = () => {
     const { order, allProducts, authOrder, userData } = useContext(DataContext)
 
-    console.log(authOrder);
-
     const [isRemembered, setIsRemembered] = useState(false)
 
 
     const { http, setToken, user } = AuthUser();
+
+    console.log(user);
+
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -64,10 +65,11 @@ const TrackOrder = () => {
                             </tr>
                         </thead>
                         {
-                            authOrder?.filter(order => order.user_id === user?.id) && user ?
+                            authOrder?.filter(order => order?.user_id == user?.id) ?
 
                                 authOrder?.map((orderItem) => (
-                                    <tbody key={orderItem.order_id}> {/* Use a unique key for each tbody */}
+                                    orderItem.user_id == user.id &&
+                                    <tbody key={orderItem.order_id}>
                                         <tr>
                                             <td>{orderItem.order_id}</td>
                                             <td>

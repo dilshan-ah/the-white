@@ -103,7 +103,7 @@ const Checkout = () => {
   const [redeemCode, setRedeemCode] = useState('');
 
   // user details
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState(user.email ?? '');
   const [phone, setPhone] = useState();
 
   const [userId, setUserId] = useState();
@@ -309,8 +309,8 @@ const Checkout = () => {
       <div className='px-5 container mx-auto'>
 
         <div className="text-sm breadcrumbs">
-          <ul className='text-xl grostesk'>
-            <li className='font-bold'><a>Home</a></li>
+          <ul className='text-xl poppins'>
+            <li className='font-semibold'><a>Home</a></li>
             <li>Checkout</li>
           </ul>
         </div>
@@ -318,18 +318,18 @@ const Checkout = () => {
         <div className='grid grid-cols-5 gap-20 py-10'>
 
           <div className='md:col-span-3 col-span-5'>
-            <h3 className='grostesk font-bold text-2xl uppercase'>
+            <h3 className='poppins font-semibold text-2xl uppercase'>
               <span className='mr-5'>1.</span>
               CONTACT INFORMATION
             </h3>
 
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
-              <input type="text" onChange={(e) => setEmail(e.target.value)} placeholder='Email Address' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+              <input type="text" onChange={(e) => setEmail(e.target.value)} value={user.email ?? ''} placeholder='Email Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
 
-              <input type="tel" onChange={(e) => setPhone(e.target.value)} placeholder='Phone number' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+              <input type="tel" onChange={(e) => setPhone(e.target.value)} placeholder='Phone number' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
             </div>
 
-            <h3 className='grostesk font-bold text-2xl uppercase'>
+            <h3 className='poppins font-semibold text-2xl uppercase'>
               <span className='mr-5'>2.</span>
               BILLING ADDRESS
             </h3>
@@ -337,23 +337,23 @@ const Checkout = () => {
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
 
               <div className='grid grid-cols-2 gap-5 mb-5'>
-                <input type="text" onChange={(e) => setFname(e.target.value)} placeholder='First Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                <input type="text" onChange={(e) => setFname(e.target.value)} placeholder='First Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
 
-                <input type="text" onChange={(e) => setLname(e.target.value)} placeholder='Last Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                <input type="text" onChange={(e) => setLname(e.target.value)} placeholder='Last Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
               </div>
 
-              <input type="text" onChange={(e) => setAddress(e.target.value)} placeholder='Address' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+              <input type="text" onChange={(e) => setAddress(e.target.value)} placeholder='Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
 
               <div className='grid grid-cols-2 gap-5 mb-5'>
 
-                <select value={selectedDivision} onChange={handleDivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                <select value={selectedDivision} onChange={handleDivisionChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                   <option value="">--Select Division--</option>
                   {uniqueDivisions.map((division, index) => (
                     <option key={index} value={division}>{division}</option>
                   ))}
                 </select>
 
-                <select value={selectedDistrict} onChange={handleDistrictChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                <select value={selectedDistrict} onChange={handleDistrictChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                   <option value="">--Select District--</option>
                   {divisionDistricts.map((address, index) => (
                     <option key={index} value={address.district}>{address.district}</option>
@@ -375,30 +375,30 @@ const Checkout = () => {
               {
                 differentShipping &&
                 <div>
-                  <h3 className='grostesk font-bold text-2xl uppercase my-5'>
+                  <h3 className='poppins font-semibold text-2xl uppercase my-5'>
                     Shipping ADDRESS
                   </h3>
 
                   <div className='grid grid-cols-2 gap-5 mb-5'>
-                    <input type="text" onChange={(e) => setSfname(e.target.value)} placeholder='First Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                    <input type="text" onChange={(e) => setSfname(e.target.value)} placeholder='First Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
 
-                    <input type="text" onChange={(e) => setSlname(e.target.value)} placeholder='Last Name' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                    <input type="text" onChange={(e) => setSlname(e.target.value)} placeholder='Last Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
                   </div>
 
-                  <input type="text" onChange={(e) => setSphone(e.target.value)} placeholder='Phone number' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+                  <input type="text" onChange={(e) => setSphone(e.target.value)} placeholder='Phone number' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
 
-                  <input type="text" onChange={(e) => setSaddress(e.target.value)} placeholder='Address' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+                  <input type="text" onChange={(e) => setSaddress(e.target.value)} placeholder='Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
 
-                  <div className='grid grid-cols-2 gap-5 mb-5'>
+                  <div className='grid sm:grid-cols-2 gap-5 mb-5'>
 
-                    <select value={selectedSdivision} onChange={handleSdivisionChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                    <select value={selectedSdivision} onChange={handleSdivisionChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                       <option value="">--Select Division--</option>
                       {uniqueDivisions.map((division, index) => (
                         <option key={index} value={division}>{division}</option>
                       ))}
                     </select>
 
-                    <select value={selectedSdistrict} onChange={handleSdistrictChange} className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
+                    <select value={selectedSdistrict} onChange={handleSdistrictChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
                       <option value="">--Select District--</option>
                       {sDivisionDistricts.map((address, index) => (
                         <option key={index} value={address.district}>{address.district}</option>
@@ -418,7 +418,7 @@ const Checkout = () => {
 
             </div>
 
-            <h3 className='grostesk font-bold text-2xl uppercase'>
+            <h3 className='poppins font-semibold text-2xl uppercase'>
               <span className='mr-5'>3.</span>
               Shipping method
             </h3>
@@ -430,9 +430,9 @@ const Checkout = () => {
                   checked={deliveryFee === 80} />
                 <label for="inside-dhaka-city" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
                   <div class="flex items-center gap-4">
-                    <h3 class="grostesk font-bold">Inside Dhaka (ঢাকা শহরের ভিতর)</h3>
+                    <h3 class="poppins font-semibold">Inside Dhaka (ঢাকা শহরের ভিতর)</h3>
                   </div>
-                  <h4 class="grostesk font-bold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '80.00'}</h4>
+                  <h4 class="poppins font-semibold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '80.00'}</h4>
                 </label>
               </div>
 
@@ -441,9 +441,9 @@ const Checkout = () => {
                   checked={deliveryFee === 100} />
                 <label for="inside-dhaka" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
                   <div class="flex items-center gap-4">
-                    <h3 class="grostesk font-bold">Inside Dhaka (ঢাকা বিভাগের ভিতর)</h3>
+                    <h3 class="poppins font-semibold">Inside Dhaka (ঢাকা বিভাগের ভিতর)</h3>
                   </div>
-                  <h4 class="grostesk font-bold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '100.00'}</h4>
+                  <h4 class="poppins font-semibold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '100.00'}</h4>
                 </label>
               </div>
 
@@ -453,9 +453,9 @@ const Checkout = () => {
                   checked={deliveryFee === 120} />
                 <label for="outside-dhaka" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
                   <div class="flex items-center gap-4">
-                    <h3 class="grostesk font-bold">Outside Dhaka (ঢাকার বাহিরে)</h3>
+                    <h3 class="poppins font-semibold">Outside Dhaka (ঢাকার বাহিরে)</h3>
                   </div>
-                  <h4 class="grostesk font-bold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '120.00'}</h4>
+                  <h4 class="poppins font-semibold">৳{hasFreeDeliveryWithoutCode ? '00.00' : '120.00'}</h4>
                 </label>
               </div>
 
@@ -464,16 +464,16 @@ const Checkout = () => {
                   onChange={() => setOutsideBd(true)} />
                 <label for="outside-bd" class="shipping-meth flex justify-between pl-10 pr-5 py-5 border-2 cursor-pointer">
                   <div class="flex items-center gap-4">
-                    <h3 class="grostesk font-bold">Outside Bangladesh (বাংলাদেশের বাহিরে)</h3>
+                    <h3 class="poppins font-semibold">Outside Bangladesh (বাংলাদেশের বাহিরে)</h3>
                   </div>
-                  <h4 class="grostesk font-bold">Temporary unavaialbe!</h4>
+                  <h4 class="poppins font-semibold">Temporary unavaialbe!</h4>
                 </label>
               </div>
 
 
             </div>
 
-            <h3 className='grostesk font-bold text-2xl uppercase'>
+            <h3 className='poppins font-semibold text-2xl uppercase'>
               <span className='mr-5'>4.</span>
               Payment method
             </h3>
@@ -494,7 +494,7 @@ const Checkout = () => {
                   className="shipping-meth flex justify-between pl-10 pr-5 py-5 cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
-                    <h3 className="grostesk font-bold capitalize">Cash on delivery</h3>
+                    <h3 className="poppins font-semibold capitalize">Cash on delivery</h3>
                   </div>
                 </label>
 
@@ -516,7 +516,7 @@ const Checkout = () => {
                   className="shipping-meth flex justify-between pl-10 pr-5 py-5 cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
-                    <h3 className="grostesk font-bold capitalize">Mobile Banking</h3>
+                    <h3 className="poppins font-semibold capitalize">Mobile Banking</h3>
                   </div>
                   <div className="flex items-center gap-2">
                     <img src={bkash} className="h-5" alt="bKash" />
@@ -528,41 +528,41 @@ const Checkout = () => {
 
                 <div className={`${paymentMethod === "mt" ? 'block' : 'hidden'} `}>
 
-                  <div className={`pl-10 py-5 pr-5 shadow pay-details flex gap-3 justify-center`}>
+                  <div className={`pl-10 py-5 pr-5 shadow pay-details grid md:grid-cols-4 grid-cols-2 gap-3 justify-center`}>
                     <input id='bkash' value='bkash' onChange={(e) => setMobileMethods(e.target.value)} type="radio" name='mm-method' className='invisible absolute mm-mthd' />
                     <label for='bkash' className='px-5 py-3 shadow flex flex-col items-center border-2'>
                       <img src={bkash} className='h-5' alt="" />
-                      <h5 className='grostesk font-semibold'>Bkash</h5>
+                      <h5 className='poppins font-semibold'>Bkash</h5>
                     </label>
 
                     <input id='nagad' value='nagad' onChange={(e) => setMobileMethods(e.target.value)} type="radio" name='mm-method' className='invisible absolute mm-mthd' />
                     <label for='nagad' className='px-5 py-3 shadow flex flex-col items-center border-2'>
                       <img src={nagad} className='h-5' alt="" />
-                      <h5 className='grostesk font-semibold'>Nagad</h5>
+                      <h5 className='poppins font-semibold'>Nagad</h5>
                     </label>
 
                     <input id='rocket' value='rocket' onChange={(e) => setMobileMethods(e.target.value)} type="radio" name='mm-method' className='invisible absolute mm-mthd' />
                     <label for='rocket' className='px-5 py-3 shadow flex flex-col items-center border-2'>
                       <img src={rocket} className='h-5' alt="" />
-                      <h5 className='grostesk font-semibold'>Rocket</h5>
+                      <h5 className='poppins font-semibold'>Rocket</h5>
                     </label>
 
                     <input id='upay' value='upay' onChange={(e) => setMobileMethods(e.target.value)} type="radio" name='mm-method' className='invisible absolute mm-mthd' />
                     <label for='upay' className='px-5 py-3 shadow flex flex-col items-center border-2'>
                       <img src={upay} className='h-5' alt="" />
-                      <h5 className='grostesk font-semibold'>Upay</h5>
+                      <h5 className='poppins font-semibold'>Upay</h5>
                     </label>
                   </div>
 
                   <div className='pl-10 py-5 pr-5'>
-                    <h3 className='grostesk text-md'>Account type: <span className='font-bold'>Personal</span></h3>
-                    <h3 className='grostesk text-md mb-5'>Account number: <span className='font-bold'>0199999999</span></h3>
+                    <h3 className='poppins text-md'>Account type: <span className='font-bold'>Personal</span></h3>
+                    <h3 className='poppins text-md mb-5'>Account number: <span className='font-bold'>01779744512</span></h3>
 
-                    <label className='grostesk text-md mb-5 font-semibold'>Your phone number</label>
-                    <input type="text" onChange={(e) => setTransactionNumber(e.target.value)} placeholder='019xxxxxxxx' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                    <label className='poppins text-md mb-5 font-semibold'>Your phone number</label>
+                    <input type="text" onChange={(e) => setTransactionNumber(e.target.value)} placeholder='019xxxxxxxx' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
 
-                    <label className='grostesk text-md mb-5 font-semibold'>bKash Transaction ID</label>
-                    <input type="text" onChange={(e) => setTransactionId(e.target.value)} placeholder='2M7A5' className='grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+                    <label className='poppins text-md mb-5 font-semibold'>Transaction ID</label>
+                    <input type="text" onChange={(e) => setTransactionId(e.target.value)} placeholder='2M7A5' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
                   </div>
 
                 </div>
@@ -576,25 +576,25 @@ const Checkout = () => {
 
           <div className='md:col-span-2 col-span-5'>
             <div className='p-5 shadow'>
-              <h3 className="grostesk font-bold capitalize text-2xl mb-5">Order summary</h3>
+              <h3 className="poppins font-semibold capitalize text-2xl mb-5">Order summary</h3>
 
               {
                 cart.map((orderItem) => (
 
                   <div className='order-item flex gap-2 mb-5'>
-                    <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${allProducts.find(product => product.id === orderItem.product_id)?.thumbnail}`} className='w-14' alt="" />
+                    <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${allProducts.find(product => product.id === orderItem.product_id)?.thumbnail}`} className='w-14 h-auto' alt="" />
 
                     <div className='flex-1'>
-                      <h3 className="grostesk font-bold capitalize text-xl">{allProducts.find(product => product.id === orderItem.product_id)?.title} ✕ {orderItem.quantity}</h3>
+                      <h3 className="poppins font-semibold capitalize text-xl">{allProducts.find(product => product.id === orderItem.product_id)?.title} ✕ {orderItem.quantity}</h3>
 
-                      <p className="grostesk font-bold text-lg">
+                      <p className="poppins font-semibold text-lg">
                         {allProducts.find(product => product.id === orderItem.product_id)?.variations.map((variation) => (
                           variation.attribute_value.id == orderItem.attribute_id && variation.attribute_value.name
                         ))}
                       </p>
                     </div>
 
-                    <h3 className="grostesk font-bold capitalize text-xl">{orderItem.price * orderItem.quantity}৳</h3>
+                    <h3 className="aldrich-regular font-semibold capitalize text-xl">{orderItem.price * orderItem.quantity}৳</h3>
                   </div>
                 ))
               }
@@ -602,7 +602,7 @@ const Checkout = () => {
 
               <hr className='mb-5' />
 
-              <h3 className="grostesk font-bold capitalize mb-5">Apply redeem code</h3>
+              <h3 className="poppins font-bold capitalize mb-5">Apply redeem code</h3>
 
               {!loyalty && (
                 <form onSubmit={handleRedeemCodeSubmit} className="join items-center w-full gap-2 mb-5">
@@ -610,14 +610,14 @@ const Checkout = () => {
                     <div>
                       <input
                         name="redeemCode"
-                        className="grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded"
+                        className="poppins font-semibold w-full outline-none border-2 border-black px-5 py-3 rounded"
                         placeholder="Apply redeem code"
                       />
                     </div>
                   </div>
                   <button
                     type="submit"
-                    className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white"
+                    className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black poppins px-5 py-3 font-semibold bg-black text-white"
                   >
                     Apply
                   </button>
@@ -640,10 +640,10 @@ const Checkout = () => {
                 user && !redeemCode && <div className="join items-center justify-between w-full gap-2 mb-5">
                   <div>
                     <div>
-                      <h3 className="grostesk font-bold capitalize mr-5">You have {user?.loyalty_points} points</h3>
+                      <h3 className="poppins font-semibold capitalize mr-5">You have {user?.loyalty_points} points</h3>
                     </div>
                   </div>
-                  <button className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white" onClick={() => document.getElementById('loyalty').showModal()}>Use Loyalty points</button>
+                  <button className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black poppins px-5 py-3 font-bold bg-black text-white" onClick={() => document.getElementById('loyalty').showModal()}>Use Loyalty points</button>
 
                   <dialog id="loyalty" className="modal">
                     <div className="modal-box">
@@ -655,10 +655,10 @@ const Checkout = () => {
                       <div className="join items-center w-full gap-2 mb-5">
                         <div className='flex-1'>
                           <div>
-                            <input onChange={(e) => loyaltyfunc(e)} className="grostesk font-bold w-full outline-none border-2 border-black px-5 py-3 rounded" type='text' placeholder="Use loyalty points" />
+                            <input onChange={(e) => loyaltyfunc(e)} className="poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded" type='text' placeholder="Use loyalty points" />
                           </div>
                         </div>
-                        <button onClick={() => applyLoyalty()} className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white">Apply</button>
+                        <button onClick={() => applyLoyalty()} className="btn rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black poppins px-5 py-3 font-bold bg-black text-white">Apply</button>
                       </div>
                       {
                         loyalty > 100 && (
@@ -694,35 +694,35 @@ const Checkout = () => {
 
 
               <div className='flex justify-between'>
-                <h3 className="grostesk font-bold capitalize mb-5">Subtotal</h3>
-                <h5 className='grostesk font-semibold'>{calculateSubTotalPrice()}৳</h5>
+                <h3 className="poppins font-semibold capitalize mb-5">Subtotal</h3>
+                <h5 className='aldrich-regular font-semibold'>{calculateSubTotalPrice()}৳</h5>
               </div>
 
               {
                 discount ? <div className='flex justify-between'>
-                  <h3 className="grostesk font-bold capitalize mb-5">Discount</h3>
-                  <h5 className='grostesk font-semibold text-red-500'>- {discount}৳</h5>
+                  <h3 className="poppins font-semibold capitalize mb-5">Discount</h3>
+                  <h5 className='aldrich-regular font-semibold text-red-500'>- {discount}৳</h5>
                 </div> : ''
               }
 
 
               <div className='flex justify-between'>
 
-                <h3 className="grostesk font-bold capitalize mb-5">Delivery fee</h3>
+                <h3 className="poppins font-semibold capitalize mb-5">Delivery fee</h3>
                 <div className='flex items-center'>
-                  {hasFreeDeliveryWithoutCode && <p className='text-lime-500 grostesk font-semibold mr-4'>(Free Delivery)</p>}
+                  {hasFreeDeliveryWithoutCode && <p className='text-lime-500 poppins font-semibold mr-4'>(Free Delivery)</p>}
 
-                  <h5 className='grostesk font-semibold'>{deliveryFee}৳</h5>
+                  <h5 className='aldrich-regular font-semibold'>{deliveryFee}৳</h5>
                 </div>
 
               </div>
 
               <div className='flex justify-between'>
-                <h3 className="grostesk font-bold capitalize mb-5">Total</h3>
-                <h5 className='grostesk font-semibold'>{calculateTotalPrice()}৳</h5>
+                <h3 className="poppins font-semibold capitalize mb-5">Total</h3>
+                <h5 className='aldrich-regular font-semibold'>{calculateTotalPrice()}৳</h5>
               </div>
 
-              <button onClick={(e) => MakeOrder(e)} className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black grostesk px-5 py-3 font-bold bg-black text-white" disabled={outsideBd ? 'disabled' : ''}>Place Order</button>
+              <button onClick={(e) => MakeOrder(e)} className="btn w-full rounded-none hover:bg-transparent hover:text-black border-2 border-black hover:border-black poppins px-5 py-3 font-bold bg-black text-white" disabled={outsideBd ? 'disabled' : ''}>Place Order</button>
             </div>
           </div>
 
@@ -731,7 +731,7 @@ const Checkout = () => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box flex flex-col justify-center items-center">
-          <h3 className="font-bold text-5xl grostesk text-emerald-700">Order Confirmed!</h3>
+          <h3 className="font-bold text-5xl poppins text-emerald-700">Order Confirmed!</h3>
           <CiCircleCheck className='text-9xl text-emerald-700' />
           <div className="modal-action ">
             <Link to='/' className="capitalize btn btn-neutral">Return Home</Link>

@@ -50,18 +50,18 @@ const CartItem = ({ cartItem, onRemoveCartItem, onAttributeChange, onQtyChange }
             <div className='flex'>
                 <figure className='w-1/2 py-4 pl-4'><img className='rounded' src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${product?.thumbnail}`} alt="Shoes" /></figure>
                 <div className="card-body w-1/2 flex flex-col justify-center">
-                    <h2 className="card-title grostesk">{product?.title}</h2>
+                    <h2 className="card-title poppins">{product?.title}</h2>
                 </div>
             </div>
 
             <div className="card-actions justify-between items-center px-4 pt-10">
                 <div className='flex items-center gap-2'>
                     <button onClick={qtyminus} className='w-7 h-7 border-2 border-black text-2xl font-bold flex justify-center items-end hover:bg-black hover:text-white transition-all'>-</button>
-                    <span className='grostesk text-xl font-semibold'>{cartqty}</span>
+                    <span className='poppins text-xl font-semibold'>{cartqty}</span>
                     <button onClick={qtyplus} className='w-7 h-7 border-2 border-black text-2xl font-bold flex justify-center items-end hover:bg-black hover:text-white transition-all'>+</button>
                 </div>
 
-                <select className="select select-bordered border-2 border-black grostesk font-bold text-black uppercase rounded-none" onChange={handleAttributeChange}>
+                <select className="select select-bordered border-2 border-black poppins font-bold text-black uppercase rounded-none" onChange={handleAttributeChange}>
                     {product?.variations.map((variation) => (
                         <option selected={variation.attribute_value.id == cartItem.attribute_id ? 'selected' : null} value={variation.attribute_value.id}>{variation.attribute_value.name}</option>
                     ))}
@@ -71,7 +71,7 @@ const CartItem = ({ cartItem, onRemoveCartItem, onAttributeChange, onQtyChange }
 
             <div className='p-4 flex justify-between items-center grostesk'>
                 <Link to={`/single-product/${product?.slug}`} className='btn px-4 py-2 border-2 border-black font-bold bg-white rounded-none hover:bg-black hover:text-white capitalize'>Add another size</Link>
-                <h4 className='card-title text-right text-black'>TK {cartItem.price * cartItem.quantity}</h4>
+                <h4 className='card-title text-right text-black aldrich-regular'>TK {cartItem.price * cartItem.quantity}</h4>
             </div>
 
             <button onClick={() => onRemoveCartItem()} className='text-red-500 font-bold text-center mb-3 hover:underline'>Remove item</button>

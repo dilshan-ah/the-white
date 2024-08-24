@@ -27,7 +27,7 @@ const Footer = () => {
             <img src={logo} className='brightness-0 invert w-52 mb-5' alt="" />
           </Link>
 
-          <p className='text-base text-white mb-5'>It is a drop shoulder t-shirt selling online platform that helps you find get the drop shoulder t-shirt of your choice</p>
+          <p className='text-base text-white mb-5 font-bold'>MUL TEE VERSE OF DROP TEES</p>
 
           <div className='flex gap-3'>
 
@@ -51,11 +51,11 @@ const Footer = () => {
               <FiYoutube className='text-white text-2xl' />
             </a>
 
-            <a href="#">
+            <a href="https://x.com/TheWhiteBD">
               <FaXTwitter className='text-white text-2xl' />
             </a>
 
-            <a href="#">
+            <a href="https://www.linkedin.com/company/thewhitebd/">
               <SlSocialLinkedin className='text-white text-2xl' />
             </a>
 
@@ -65,7 +65,7 @@ const Footer = () => {
 
         <div className='flex flex-col lg:items-center lg:col-span-1 md:col-span-2 col-span-4'>
           <div>
-            <h3 className='text-white text-xl font-bold grostesk mb-3'>Get in touch</h3>
+            <h3 className='text-white text-xl font-bold poppins mb-3'>Get in touch</h3>
             <ul>
               <li>
                 <a href="callto:+8809697377876" className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
@@ -95,7 +95,7 @@ const Footer = () => {
 
         <div className='flex flex-col lg:items-center lg:col-span-1 md:col-span-2 col-span-4'>
           <div>
-            <h3 className='text-white text-xl font-bold grostesk mb-3'>Customer Service</h3>
+            <h3 className='text-white text-xl font-bold poppins mb-3'>Customer Service</h3>
             <ul>
               <li>
                 <Link to='/return-and-refund' className='flex items-center gap-3 text-white font-semibold grostesk mb-3'>
@@ -121,10 +121,10 @@ const Footer = () => {
         </div>
 
         <div className=' flex-col lg:items-center lg:col-span-1 col-span-4'>
-          <h3 className='text-white text-xl font-bold grostesk mb-3 text-center'>Subscribe <br />to our newsletter</h3>
+          <h3 className='text-white text-xl font-bold poppins mb-3 text-center'>Subscribe <br />to our newsletter</h3>
 
           <form className='flex flex-col items-center'>
-            <input type="email" className='w-full outline-0 bg-transparent border-b-2 p-3 text-center focus:bg-transparent font-bold grostesk text-white' placeholder='your email' />
+            <input type="email" className='w-full outline-0 bg-transparent border-b-2 p-3 text-center focus:bg-transparent font-semibold semibold text-white' placeholder='your email' />
 
             <button className='px-7 py-2 my-3 text-white border-2 border-white capitalize grostesk font-bold hover:bg-white hover:text-black transition-all' type="submit">Subscribe</button>
           </form>
@@ -133,15 +133,11 @@ const Footer = () => {
 
       </div>
 
-      <div className='container mx-auto border-t-2 border-white py-5 flex gap-10 flex-wrap md:justify-between justify-center items-center'>
+      <div className='container mx-auto border-t-2 border-white py-2 flex gap-10 flex-wrap md:justify-between justify-center items-center'>
         <p className='text-base text-white md:text-start text-center'>Copyright © 2024 | The White | Made with ❤️ in Bangladesh</p>
 
-        <div className='flex gap-3 bg-white px-3 py-1 rounded-lg'>
-          <img src={bkash} className='w-8 h-8 object-cover' alt="" />
-          <img src={nagad} className='w-8 h-8 object-cover' alt="" />
-          <img src={rocket} className='h-8 object-cover' alt="" />
-          <img src={upay} className='h-8 object-cover' alt="" />
-        </div>
+        
+        <Link to='https://www.facebook.com/groups/892693480870669' target='_blank' className='text-base text-white md:text-start text-center font-bold'>#JoinTheWhiteSquad</Link>
       </div>
     </div>
   )

@@ -17,15 +17,7 @@ import steadfast from '../assets/steadfast.png'
 import ecourier from '../assets/ecourier.png'
 import paperly from '../assets/paperly.png'
 
-import bkash from '../assets/bkash-logo.webp'
-import nagad from '../assets/Nagad-Logo.png'
-import rocket from '../assets/rocket-logo.png'
-import upay from '../assets/upay_logo.png'
-import islami from '../assets/islami-bank-bangladesh.png'
-import dbbl from '../assets/dutch-bangla.jpg'
-import visa from '../assets/visa.png'
-import master from '../assets/MasterCard.png'
-import cellfin from '../assets/cellfin.png'
+
 
 import ssl from '../assets/SSLCommerz-Pay-With-logo-All-Size-01.png'
 
@@ -165,14 +157,21 @@ const Home = () => {
 
 
         if (allProducts && allProducts.length > 0) {
-            const latest = allProducts.reduce((latest, product) => {
-                return new Date(product.created_at) > new Date(latest.created_at) ? product : latest;
-            }, allProducts[0]);
-            setLatestProduct(latest);
+            const featuredProducts = allProducts.filter(product => product.featured === 'yes');
+
+            if (featuredProducts.length > 0) {
+
+
+                setLatestProduct(featuredProducts);
+            }
         }
+
+
     }, [allAttributes, selectedColors, allProducts, selectedSizes, minPrice, maxPrice]);
 
-    const [isHovered, setIsHovered] = useState(false);
+
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+
 
     const handleResetFilter = () => {
         setSelectedSizes([]);
@@ -271,56 +270,66 @@ const Home = () => {
             {/* new arrival section */}
 
             <div className='px-5 py-20 bg-slate-50'>
-                <div className='container mx-auto grid lg:grid-cols-2 grid-cols-1'>
+                <div className='container mx-auto grid lg:grid-cols-3 grid-cols-1'>
                     <div className='flex flex-col justify-center items-center lg:mb-0 mb-10'>
                         <div>
                             <h2 className='caveat font-bold text-6xl mb-8'>New Arrival!</h2>
-                            <p className='text-2xl text-gray-600 font-semibold'>Elevate your style with our latest Drop Shoulder Tees!
+                            <p className='text-2xl text-gray-600 montserrat'>Elevate your style with our latest Drop Shoulder Tees!
                                 <br /><span className='font-bold text-xl'>#JoinTheWhiteSquad</span></p>
                         </div>
                     </div>
 
-                    <div className='flex justify-center'>
+                    <div className='grid grid-cols-2 col-span-2 gap-5'>
                         {
-                            latestProduct ? (
-                                <div className="card card-compact w-96 border border-black rounded-none">
-                                    <Link to={`/single-product/${latestProduct.slug}`}>
-                                        <figure className='relative' onMouseEnter={() => setIsHovered(true)}
-                                            onMouseLeave={() => setIsHovered(false)}>
-                                            {
-                                                isHovered ? <img src={`https://adminpanel.thewhitebd.com/uploads/product-gallery/${latestProduct.galleries[0].image_path}`} className='h-[400px] object-cover w-full' alt="Shoes" /> : <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${latestProduct.thumbnail}`} className='h-[400px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
+                            latestProduct ?
+                                latestProduct?.map((latest, index) => (
+                                    <div className="card card-compact border border-black rounded-none">
+                                        <Link to={`/single-product/${latest.slug}`}>
+                                            <figure className='relative' onMouseEnter={() => setHoveredIndex(index)}
+                                                onMouseLeave={() => setHoveredIndex(null)}>
+                                                {
+                                                    hoveredIndex === index ? <img src={`https://adminpanel.thewhitebd.com/uploads/product-gallery/${latest.galleries[0].image_path}`} className='2xl:h-[600px] sm:h-[500px] h-[200px] object-cover w-full' alt="Shoes" /> : <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${latest.thumbnail}`} className='2xl:h-[600px] sm:h-[500px] h-[200px] object-cover w-full opacity-100 transition-opacity duration-300 ease-in-out' alt="Shoes" />
 
-                                            }
-                                            <div className='bg-black text-white caveat absolute left-0 top-0 px-2'>NEW</div>
-                                        </figure>
-                                    </Link>
-
-                                    <div className="card-body">
-                                        <Link to={`/single-product/${latestProduct.slug}`}>
-                                            <h2 className="card-title grostesk">{latestProduct.title}</h2>
+                                                }
+                                                <div className='bg-white text-black shadow-lg montserrat absolute left-0 bottom-2 px-2'>NEW</div>
+                                            </figure>
                                         </Link>
 
-                                        <p>{latestProduct.short_description}</p>
-                                        <h4 className="grostesk font-bold text-lg">
-                                            BDT
-                                            {
-                                                latestProduct.variations[0].sale_price && <del className='text-gray-400 mr-2'>{latestProduct.variations[0].regular_price}</del>
-                                            }
+                                        <div className="card-body">
+                                            <Link to={`/single-product/${latest.slug}`}>
+                                                <h2 className="card-title poppins sm:text-xl text-sm">{latest.title}</h2>
+                                            </Link>
 
-                                            {latestProduct.variations[0].sale_price ? latestProduct.variations[0].sale_price : latestProduct.variations[0].regular_price}
-                                        </h4>
+                                            <p className='sm:mb-6 montserrat sm:text-sm text-xs sm:block hidden'>{latest.short_description}</p>
+                                            <h4 className="font-bold sm:text-lg text-xs aldrich-regular">
+                                                <span className='mr-1'>BDT</span>
 
-                                        <div className="card-actions absolute right-5 bottom-5 justify-end">
-                                            <Link to={`/single-product/${latestProduct.slug}`} className='btn px-4 py-2 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase'>Select Option</Link>
+                                                {latest.variations[0].sale_price ? latest.variations[0].sale_price : latest.variations[0].regular_price}
+
+                                                {
+                                                    latest.variations[0].sale_price && <del className='text-gray-400 mr-2 ml-1'>{latest.variations[0].regular_price}</del>
+                                                }
+                                            </h4>
+
+                                            <div className="card-actions md:absolute right-5 bottom-5 justify-end">
+                                                <Link to={`/single-product/${latest.slug}`} className='btn sm:px-4 px-2 sm:py-2 py-1 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase sm:text-sm text-xs shadow-lg shadow-zinc-600'>Select Option</Link>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ) : <div className="flex flex-col gap-4 w-96">
-                                <div className="skeleton h-96 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                            </div>
+                                )) : <>
+                                    <div className="flex flex-col gap-4 w-96">
+                                        <div className="skeleton h-96 w-full"></div>
+                                        <div className="skeleton h-4 w-28"></div>
+                                        <div className="skeleton h-4 w-full"></div>
+                                        <div className="skeleton h-4 w-full"></div>
+                                    </div>
+
+                                    <div className="flex flex-col gap-4 w-96">
+                                        <div className="skeleton h-96 w-full"></div>
+                                        <div className="skeleton h-4 w-28"></div>
+                                        <div className="skeleton h-4 w-full"></div>
+                                        <div className="skeleton h-4 w-full"></div>
+                                    </div></>
                         }
 
                     </div>
@@ -329,24 +338,24 @@ const Home = () => {
             </div>
 
 
-            <div className='py-80 welcome-banner relative'>
+            <div className='md:py-80 sm:py-52 py-32 welcome-banner relative'>
                 <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/80 flex flex-col justify-center items-center px-10'>
-                    <h3 className='montserrat container mx-auto font-semibold md:text-6xl text-3xl mb-20 text-white text-center'>Welcome to the <span className='font-semibold'><span>MUL TEE VERSE</span> of<br /> Drop Shoulder Tee in Bangladesh </span></h3>
-                    <Link to="https://www.facebook.com/groups/892693480870669" target='_blank' className='btn h-max grostesk px-10 py-4 bg-transparent text-white rounded-none text-xl uppercase shadow-xl hover:bg-white hover:text-black'>Join Our Community</Link>
+                    <h3 className='poppins container mx-auto font-semibold md:text-6xl sm:text-3xl text-xl sm:mb-20 mb-10 text-white text-center leading-10'>Welcome to the <span className='font-semibold'><span>MUL TEE VERSE</span> of<br /> Drop Shoulder Tee in Bangladesh </span></h3>
+                    <Link to="https://www.facebook.com/groups/892693480870669" target='_blank' className='btn h-max grostesk sm:px-10 sm:px-5 sm:py-4 py-2 bg-transparent text-white rounded-none sm:text-xl text-lg uppercase shadow-xl hover:bg-white hover:text-black'>Join Our Community</Link>
                 </div>
             </div>
 
             {/* all products */}
 
             <div className='px-5 py-20 text-center'>
-                <p className='grostesk font-semibold md:text-6xl text-3xl mb-4	uppercase'>Take a look at our collection!</p>
+                <p className='poppins font-semibold md:text-6xl text-3xl mb-4	uppercase'>Take a look at our collection!</p>
             </div>
 
-            <div className='container mx-auto px-5 gap-5 mb-10 flex justify-end font-bold capitalize'>
+            <div className='container mx-auto px-5 gap-5 mb-10 flex md:flex-row flex-col justify-end font-bold capitalize'>
                 {
                     selectedColors != '' &&
                     <p>color:
-                        <div className="badge badge-outline ml-2 gap-2">
+                        <div className="badge badge-outline ml-2 gap-2 sm:w-max sm-h-max w-full h-full sm:inline-flex block sm:px-3 px-5 sm:py-0 py-5">
                             {selectedColors.map((colorId, index) => {
                                 const color = colorValues.find(color => color.id === colorId);
                                 return (
@@ -389,7 +398,7 @@ const Home = () => {
 
             <div className='px-5 mb-14 lg:container mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-0 gap-5'>
                 <div className='flex items-start gap-3'>
-                    <h4 className='grostesk font-semibold text-xl'>Colors:</h4>
+                    <h4 className='poppins font-semibold text-xl'>Colors:</h4>
 
                     {
                         colorValues.map((color) => (
@@ -408,20 +417,20 @@ const Home = () => {
                 </div>
 
                 <div className='flex gap-3'>
-                    <h4 className='grostesk font-semibold text-xl'>Sizes:</h4>
+                    <h4 className='poppins font-semibold text-xl'>Sizes:</h4>
                     <div className='flex-1'>
                         <input type="range" min={0} max="100" className="range" step="33" onChange={handleSizeChange} />
                         <div className="w-full flex justify-between text-xs px-2">
-                            <span className='grostesk font-bold text-xl uppercase'>
+                            <span className='poppins font-semibold text-xl uppercase'>
                                 s
                             </span>
-                            <span className='grostesk font-bold text-xl uppercase'>
+                            <span className='poppins font-semibold text-xl uppercase'>
                                 m
                             </span>
-                            <span className='grostesk font-bold text-xl uppercase'>
+                            <span className='poppins font-semibold text-xl uppercase'>
                                 l
                             </span>
-                            <span className='grostesk font-bold text-xl uppercase'>
+                            <span className='poppins font-semibold text-xl uppercase'>
                                 xl
                             </span>
                         </div>
@@ -429,7 +438,7 @@ const Home = () => {
                 </div>
 
                 <div className='flex items-start lg:justify-end gap-3'>
-                    <h4 className='grostesk font-semibold text-xl capitalize'>Price range:</h4>
+                    <h4 className='poppins font-semibold text-xl capitalize'>Price range:</h4>
 
                     <input type="text" value={minPrice} onChange={handleMinPriceChange} placeholder='min' className='w-20 border-2 border-black rounded-lg px-3 py-2 text-black font-bold capitalize grostesk -mt-2' />
 
@@ -438,7 +447,7 @@ const Home = () => {
 
             </div>
 
-            <div className='lg:container mx-auto px-5 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5'>
+            <div className='lg:container mx-auto px-5 grid md:grid-cols-3 grid-cols-2 gap-5'>
 
                 {filteredProducts.length > 0 ? (
                     filteredProducts.map((product, index) => (
@@ -466,9 +475,9 @@ const Home = () => {
 
             </div>
 
-            <div className='pt-[700px] review-banner relative my-20'>
+            <div className='sm:pt-[700px] pt-[400px] review-banner relative my-20'>
                 <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50 flex flex-col justify-center items-center'>
-                    <h3 className='grostesk container mx-auto font-semibold text-3xl mb-5 text-white text-center uppercase'>
+                    <h3 className='poppins container mx-auto font-semibold text-3xl mb-5 text-white text-center uppercase'>
                         why choose the white.!
                     </h3>
 
@@ -484,58 +493,8 @@ const Home = () => {
                     <div className='mx-auto container px-5 flex flex-col items-center'>
 
                         <MdLock className='text-5xl mb-5' />
-                        <p className='grostesk font-semibold text-center text-2xl mb-10 uppercase'>You can pay us by!</p>
+                        <p className='poppins font-semibold text-center text-2xl mb-10 uppercase'>You can pay us by!</p>
 
-                        {/* <div className='grid grid-cols-8 gap-2'>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={bkash} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={nagad} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={rocket} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={upay} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={islami} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={dbbl} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={visa} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={master} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={cellfin} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={nagad} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={rocket} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={upay} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={bkash} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={nagad} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={rocket} className='h-auto w-full' alt="" />
-                            </div>
-                            <div className='bg-white shadow p-1 flex justify-center items-center'>
-                                <img src={upay} className='h-auto w-full' alt="" />
-                            </div>
-                        </div> */}
                         <div>
                             <img src={ssl} alt="" />
                         </div>
@@ -545,28 +504,26 @@ const Home = () => {
 
                 <div className='flex flex-col items-center'>
                     <CiFaceSmile className='text-5xl mb-5' />
-                    <p className='grostesk text-center font-semibold text-2xl mb-5 uppercase'>Satisfaction Guaranteed</p>
+                    <p className='poppins text-center font-semibold text-2xl mb-5 uppercase'>Satisfaction Guaranteed</p>
                     <p className='montserrat font-semibold text-slate-500 mb-4'>made with love with bangladesh</p>
-                    <p className='grostesk text-center font-semibold text-xl uppercase'>Mul tee verse of dropshoulders</p>
+                    <p className='poppins text-center font-semibold text-xl uppercase'>Mul tee verse of dropshoulders</p>
                 </div>
 
                 <div className='flex flex-col items-center'>
                     <FaShippingFast className='text-5xl mb-5' />
-                    <p className='grostesk text-center font-semibold text-2xl mb-10 uppercase'>We deliver worldwide</p>
+                    <p className='poppins text-center font-semibold text-2xl mb-10 uppercase'>We deliver worldwide</p>
 
-                    <div className='grid grid-cols-5 gap-5 '>
-                        <img src={fedex} className='h-full w-auto' alt="" />
-                        <img src={pathao} className='h-full w-auto' alt="" />
-                        <img src={steadfast} className='h-full w-auto' alt="" />
-                        <img src={ecourier} className='h-full w-auto' alt="" />
-                        <img src={paperly} className='h-full w-auto' alt="" />
+                    <div className='grid grid-cols-5 gap-5 items-center'>
+                        <img src={fedex} className='h-auto w-full' alt="" />
+                        <img src={pathao} className='h-auto w-full' alt="" />
+                        <img src={steadfast} className='h-auto w-full' alt="" />
+                        <img src={ecourier} className='h-auto w-full' alt="" />
+                        <img src={paperly} className='h-auto w-full' alt="" />
                     </div>
                 </div>
 
 
             </div>
-
-
 
             <Footer />
         </>
