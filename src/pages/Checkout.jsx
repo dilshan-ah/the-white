@@ -21,9 +21,6 @@ const Checkout = () => {
 
   const [outsideBd, setOutsideBd] = useState(false)
 
-  console.log(outsideBd);
-
-
   const [divisionDistricts, setDivisionDistricts] = useState([]);
   const uniqueDivisions = [...new Set(addressesData.map(address => address.division))];
 
@@ -97,7 +94,12 @@ const Checkout = () => {
     } else {
       setUserId(1)
     }
-  }, [user]);
+
+    if (!cart || cart.length === 0) {
+      navigate('/');
+    }
+
+  }, [user, cart, navigate]);
 
   const [hasFreeDeliveryWithoutCode, setHasFreeDeliveryWithoutCode] = useState(false);
   const [redeemCode, setRedeemCode] = useState('');
@@ -161,8 +163,40 @@ const Checkout = () => {
     setDiscount(loyalty / 10)
   }
 
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!email) newErrors.email = "Email is required";
+    if (!phone) newErrors.phone = "Phone number is required";
+    if (!fname) newErrors.fname = "First name is required";
+    if (!lname) newErrors.lname = "Last name is required";
+    if (!address) newErrors.address = "Address is required";
+    if (!selectedDivision) newErrors.selectedDivision = "Please select a division";
+    if (!selectedDistrict) newErrors.selectedDistrict = "Please select a district";
+
+    // Add more validation logic as needed
+    if (differentShipping) {
+      if (!sfname) newErrors.sfname = "Shipping first name is required";
+      if (!slname) newErrors.slname = "Shipping last name is required";
+      if (!sphone) newErrors.sphone = "Shipping phone number is required";
+      if (!saddress) newErrors.saddress = "Shipping address is required";
+      if (!selectedSdivision) newErrors.selectedSdivision = "Please select a shipping division";
+      if (!selectedSdistrict) newErrors.selectedSdistrict = "Please select a shipping district";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const MakeOrder = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      console.log("Form contains errors");
+      return;
+    }
 
     const uniqueOrderId = useId().slice(0, 10);
 
@@ -241,7 +275,6 @@ const Checkout = () => {
         return updatedOrders;
       });
 
-      // navigate('/track-order')
       document.getElementById('my_modal_1').showModal()
       setCart([])
 
@@ -324,9 +357,10 @@ const Checkout = () => {
             </h3>
 
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
-              <input type="text" onChange={(e) => setEmail(e.target.value)} value={user.email ?? ''} placeholder='Email Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
-
+              <input type="email" onChange={(e) => setEmail(e.target.value)} value={user.email ?? ''} placeholder='Email Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+              {errors.email && <span className="text-red-500">{errors.email}</span>}
               <input type="tel" onChange={(e) => setPhone(e.target.value)} placeholder='Phone number' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+              {errors.phone && <span className="text-red-500">{errors.phone}</span>}
             </div>
 
             <h3 className='poppins font-semibold text-2xl uppercase'>
@@ -337,31 +371,42 @@ const Checkout = () => {
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
 
               <div className='grid grid-cols-2 gap-5 mb-5'>
-                <input type="text" onChange={(e) => setFname(e.target.value)} placeholder='First Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
-
-                <input type="text" onChange={(e) => setLname(e.target.value)} placeholder='Last Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                <div>
+                  <input type="text" onChange={(e) => setFname(e.target.value)} placeholder='First Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                  {errors.fname && <span className="text-red-500">{errors.fname}</span>}
+                </div>
+                <div>
+                  <input type="text" onChange={(e) => setLname(e.target.value)} placeholder='Last Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                  {errors.lname && <span className="text-red-500">{errors.lname}</span>}
+                </div>
               </div>
 
-              <input type="text" onChange={(e) => setAddress(e.target.value)} placeholder='Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+              <div className='mb-5'>
+                <input type="text" onChange={(e) => setAddress(e.target.value)} placeholder='Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                {errors.address && <span className="text-red-500">{errors.address}</span>}
+              </div>
 
               <div className='grid grid-cols-2 gap-5 mb-5'>
 
-                <select value={selectedDivision} onChange={handleDivisionChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
-                  <option value="">--Select Division--</option>
-                  {uniqueDivisions.map((division, index) => (
-                    <option key={index} value={division}>{division}</option>
-                  ))}
-                </select>
+                <div className='mb-5'>
+                  <select value={selectedDivision} onChange={handleDivisionChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded'>
+                    <option value="">--Select Division--</option>
+                    {uniqueDivisions.map((division, index) => (
+                      <option key={index} value={division}>{division}</option>
+                    ))}
+                  </select>
+                  {errors.selectedDivision && <span className="text-red-500">{errors.selectedDivision}</span>}
+                </div>
 
-                <select value={selectedDistrict} onChange={handleDistrictChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
-                  <option value="">--Select District--</option>
-                  {divisionDistricts.map((address, index) => (
-                    <option key={index} value={address.district}>{address.district}</option>
-                  ))}
-                </select>
-
-
-
+                <div className='mb-5'>
+                  <select value={selectedDistrict} onChange={handleDistrictChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded'>
+                    <option value="">--Select District--</option>
+                    {divisionDistricts.map((address, index) => (
+                      <option key={index} value={address.district}>{address.district}</option>
+                    ))}
+                  </select>
+                  {errors.selectedDistrict && <span className="text-red-500">{errors.selectedDistrict}</span>}
+                </div>
 
               </div>
 
@@ -380,33 +425,49 @@ const Checkout = () => {
                   </h3>
 
                   <div className='grid grid-cols-2 gap-5 mb-5'>
-                    <input type="text" onChange={(e) => setSfname(e.target.value)} placeholder='First Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                    <div>
+                      <input type="text" onChange={(e) => setSfname(e.target.value)} placeholder='First Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                      {errors.sfname && <span className="text-red-500">{errors.sfname}</span>}
+                    </div>
 
-                    <input type="text" onChange={(e) => setSlname(e.target.value)} placeholder='Last Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                    <div>
+                      <input type="text" onChange={(e) => setSlname(e.target.value)} placeholder='Last Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                      {errors.slname && <span className="text-red-500">{errors.slname}</span>}
+                    </div>
+
                   </div>
 
-                  <input type="text" onChange={(e) => setSphone(e.target.value)} placeholder='Phone number' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+                  <div className='mb-5'>
+                    <input type="text" onChange={(e) => setSphone(e.target.value)} placeholder='Phone number' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                    {errors.sphone && <span className="text-red-500">{errors.sphone}</span>}
+                  </div>
 
-                  <input type="text" onChange={(e) => setSaddress(e.target.value)} placeholder='Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5' />
+                  <div className='mb-5'>
+                    <input type="text" onChange={(e) => setSaddress(e.target.value)} placeholder='Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
+                    {errors.selectedSdivision && <span className="text-red-500">{errors.selectedSdivision}</span>}
+                  </div>
 
                   <div className='grid sm:grid-cols-2 gap-5 mb-5'>
 
-                    <select value={selectedSdivision} onChange={handleSdivisionChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
-                      <option value="">--Select Division--</option>
-                      {uniqueDivisions.map((division, index) => (
-                        <option key={index} value={division}>{division}</option>
-                      ))}
-                    </select>
+                    <div>
+                      <select value={selectedSdivision} onChange={handleSdivisionChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded'>
+                        <option value="">--Select Division--</option>
+                        {uniqueDivisions.map((division, index) => (
+                          <option key={index} value={division}>{division}</option>
+                        ))}
+                      </select>
+                      {errors.selectedSdivision && <span className="text-red-500">{errors.selectedSdivision}</span>}
+                    </div>
 
-                    <select value={selectedSdistrict} onChange={handleSdistrictChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded mb-5'>
-                      <option value="">--Select District--</option>
-                      {sDivisionDistricts.map((address, index) => (
-                        <option key={index} value={address.district}>{address.district}</option>
-                      ))}
-                    </select>
-
-
-
+                    <div>
+                      <select value={selectedSdistrict} onChange={handleSdistrictChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded'>
+                        <option value="">--Select District--</option>
+                        {sDivisionDistricts.map((address, index) => (
+                          <option key={index} value={address.district}>{address.district}</option>
+                        ))}
+                      </select>
+                      {errors.selectedSdistrict && <span className="text-red-500">{errors.selectedSdistrict}</span>}
+                    </div>
 
                   </div>
                 </div>

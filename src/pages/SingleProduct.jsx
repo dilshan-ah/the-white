@@ -81,7 +81,7 @@ const SingleProduct = () => {
         } else {
             setCart([...cart, item]);
         }
-        // window.location.reload();
+        document.getElementById('my-drawer-4').checked = true;
     };
 
     const buyNow = (item) => {
