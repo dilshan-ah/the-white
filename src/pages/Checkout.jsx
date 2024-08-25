@@ -105,7 +105,7 @@ const Checkout = () => {
   const [redeemCode, setRedeemCode] = useState('');
 
   // user details
-  const [email, setEmail] = useState(user.email ?? '');
+  const [email, setEmail] = useState(user?.email || '');
   const [phone, setPhone] = useState();
 
   const [userId, setUserId] = useState();
@@ -357,7 +357,7 @@ const Checkout = () => {
             </h3>
 
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
-              <input type="email" onChange={(e) => setEmail(e.target.value)} value={user.email ?? ''} placeholder='Email Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
+              <input type="email" onChange={(e) => setEmail(e.target.value)} value={user?.email} placeholder='Email Address' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 mb-5 rounded' />
               {errors.email && <span className="text-red-500">{errors.email}</span>}
               <input type="tel" onChange={(e) => setPhone(e.target.value)} placeholder='Phone number' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
               {errors.phone && <span className="text-red-500">{errors.phone}</span>}
