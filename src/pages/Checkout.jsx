@@ -95,9 +95,9 @@ const Checkout = () => {
       setUserId(1)
     }
 
-    if (!cart || cart.length === 0) {
-      navigate('/');
-    }
+    // if (!cart || cart.length === 0) {
+    //   navigate('/');
+    // }
 
   }, [user, cart, navigate]);
 

@@ -43,31 +43,31 @@ const Home = () => {
 
     const { http, setToken, user } = AuthUser();
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [name, setName] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
 
-    const SignUp = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await http.post('/register', { email: email, password: password, name: name });
-            setToken(res.data.user, res.data.access_token);
-            window.location.reload()
-        } catch (error) {
-            console.error('Register failed:', error);
-        }
-    }
+    // const SignUp = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const res = await http.post('/register', { email: email, password: password, name: name });
+    //         setToken(res.data.user, res.data.access_token);
+    //         window.location.reload()
+    //     } catch (error) {
+    //         console.error('Register failed:', error);
+    //     }
+    // }
 
-    const SignIn = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await http.post('/login', { email: email, password: password, remember_token: rememberMeToken });
-            setToken(res.data.user, res.data.access_token);
-            window.location.reload()
-        } catch (error) {
-            console.error('Login failed:', error);
-        }
-    }
+    // const SignIn = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const res = await http.post('/login', { email: email, password: password, remember_token: rememberMeToken });
+    //         setToken(res.data.user, res.data.access_token);
+    //         window.location.reload()
+    //     } catch (error) {
+    //         console.error('Login failed:', error);
+    //     }
+    // }
 
     const rememberMeToken = isRemembered ? localStorage.getItem('rememberMeToken') : null;
 
@@ -190,77 +190,7 @@ const Home = () => {
 
                 <h3 className='text-white text-sm font-bold uppercase grostesk flex items-center gap-2'>we deliver all over bangladesh<FaShippingFast /></h3>
 
-                <dialog id="authlog" className="modal">
-                    <div className="modal-box p-0 rounded-none">
-
-                        <Tabs>
-                            <TabList className='flex'>
-                                <Tab className='w-1/2 cursor-pointer border-2 border-black rounded-none p-3 font-bold text-xl poppins text-center'>Register</Tab>
-                                <Tab className='w-1/2 cursor-pointer border-2 border-black rounded-none p-3 font-bold text-xl poppins text-center'>Login</Tab>
-                            </TabList>
-
-                            <TabPanel>
-
-                                <label className="input input-bordered flex items-center gap-2 mb-5 mt-5">
-                                    <FaUser />
-
-                                    <input type="text" onChange={(e) => setName(e.target.value)} className="grow" placeholder="Full Name" name='name' />
-                                </label>
-
-                                <label className="input input-bordered flex items-center gap-2 mb-5">
-                                    <FaEnvelope />
-
-                                    <input type="text" onChange={(e) => setEmail(e.target.value)} className="grow" placeholder="Email address" name='email' />
-                                </label>
-
-                                <label className="input input-bordered flex items-center gap-2 mb-5">
-                                    <FaKey />
-
-                                    <input type="password" onChange={(e) => setPassword(e.target.value)} className="grow" placeholder="password" name='password' />
-                                </label>
-
-                                <div className='flex gap-5 justify-end items-center'>
-                                    <form method="dialog">
-                                        {/* if there is a button in form, it will close the modal */}
-                                        <button className="btn">Close</button>
-                                    </form>
-
-                                    <button onClick={(e) => SignUp(e)} className='btn bg-black text-white'>Register</button>
-                                </div>
-                            </TabPanel>
-                            <TabPanel>
-
-                                <label className="input input-bordered flex items-center gap-2 mb-5">
-                                    <FaEnvelope />
-
-                                    <input onChange={(e) => setEmail(e.target.value)} type="text" className="grow" placeholder="Email address" name='email' />
-                                </label>
-
-                                <label className="input input-bordered flex items-center gap-2 mb-5">
-                                    <FaKey />
-
-                                    <input onChange={(e) => setPassword(e.target.value)} type="password" className="grow" placeholder="password" name='password' />
-                                </label>
-
-                                <div className="form-control mb-5">
-                                    <label className="label cursor-pointer justify-start">
-                                        <input onChange={() => setIsRemembered(!isRemembered)} type="checkbox" className="checkbox mr-5" />
-                                        <span className="label-text">Remember me</span>
-                                    </label>
-                                </div>
-
-                                <div className='flex gap-5 justify-end items-center'>
-                                    <form method="dialog">
-                                        {/* if there is a button in form, it will close the modal */}
-                                        <button className="btn">Close</button>
-                                    </form>
-
-                                    <button onClick={(e) => SignIn(e)} className='btn bg-black text-white'>Login</button>
-                                </div>
-                            </TabPanel>
-                        </Tabs>
-                    </div>
-                </dialog>
+                
             </div>
             <div className='relative'>
                 <Header absolute={'absolute'} />

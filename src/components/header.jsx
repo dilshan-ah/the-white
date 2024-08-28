@@ -34,6 +34,29 @@ const Header = ({ absolute }) => {
 
     const { http, setToken, user } = AuthUser();
 
+    const [errors, setErrors] = useState({});
+
+    // const validateSignIn = () => {
+    //     const newErrors = {};
+
+    //     // Validate email
+    //     if (!email) {
+    //         newErrors.email = "Email is required.";
+    //     } else if (!/\S+@\S+\.\S+/.test(email)) {
+    //         newErrors.email = "Please enter a valid email address.";
+    //     }
+
+    //     // Validate password
+    //     if (!password) {
+    //         newErrors.password = "Password is required.";
+    //     } else if (password.length < 6) {
+    //         newErrors.password = "Password must be at least 6 characters long.";
+    //     }
+
+    //     setErrors(newErrors);
+    //     return Object.keys(newErrors).length === 0;
+    // };
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -51,14 +74,31 @@ const Header = ({ absolute }) => {
 
     const SignIn = async (e) => {
         e.preventDefault();
+
         try {
-            const res = await http.post('/login', { email: email, password: password, remember_token: rememberMeToken });
-            setToken(res.data.user, res.data.access_token);
-            window.location.reload()
+            const res = await http.post('/login', {
+                email: email,
+                password: password,
+                remember_token: isRemembered
+            });
+
+            setToken(res.data.user, res.data.access_token); // Ensure setToken function is defined
+            window.location.reload();
         } catch (error) {
-            console.error('Login failed:', error);
+            if (error.response && error.response.status === 422) {
+                // Handle validation errors from Laravel
+                setErrors(error.response.data.errors);
+            } else if (error.response && error.response.status === 401) {
+                // Handle unauthorized errors
+                setErrors({ general: "Credentials doesn't match" });
+            } else {
+                console.error('Login failed:', error);
+                setErrors({ general: 'An unexpected error occurred. Please try again later.' });
+            }
         }
-    }
+    };
+    console.log(errors);
+
 
     const rememberMeToken = isRemembered ? localStorage.getItem('rememberMeToken') : null;
 
@@ -223,33 +263,53 @@ const Header = ({ absolute }) => {
                                 </TabPanel>
                                 <TabPanel>
 
-                                    <label className="input input-bordered flex items-center gap-2 mb-5">
-                                        <FaEnvelope />
-
-                                        <input onChange={(e) => setEmail(e.target.value)} type="text" className="grow" placeholder="Email address" name='email' />
-                                    </label>
-
-                                    <label className="input input-bordered flex items-center gap-2 mb-5">
-                                        <FaKey />
-
-                                        <input onChange={(e) => setPassword(e.target.value)} type="password" className="grow" placeholder="password" name='password' />
-                                    </label>
-
-                                    <div className="form-control mb-5">
-                                        <label className="label cursor-pointer justify-start">
-                                            <input onChange={() => setIsRemembered(!isRemembered)} type="checkbox" className="checkbox mr-5" />
-                                            <span className="label-text">Remember me</span>
+                                    <form onSubmit={SignIn}>
+                                        <label className="input input-bordered flex items-center gap-2 mb-5">
+                                            <FaEnvelope />
+                                            <input
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                type="text"
+                                                className="grow"
+                                                placeholder="Email address"
+                                                name='email'
+                                            />
                                         </label>
-                                    </div>
+                                        {errors.email && <p className="text-red-500 -mt-5 mb-5">{errors.email[0]}</p>}
+                                        {errors.general && <p className="text-red-500 -mt-5 mb-5">{errors.general}</p>}
 
-                                    <div className='flex gap-5 justify-end items-center'>
-                                        <form method="dialog">
-                                            {/* if there is a button in form, it will close the modal */}
-                                            <button className="btn">Close</button>
-                                        </form>
+                                        <label className="input input-bordered flex items-center gap-2 mb-5">
+                                            <FaKey />
+                                            <input
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                type="password"
+                                                className="grow"
+                                                placeholder="Password"
+                                                name='password'
+                                            />
+                                        </label>
+                                        {errors.password && <p className="text-red-500 -mt-5 mb-5">{errors.password[0]}</p>}
 
-                                        <button onClick={(e) => SignIn(e)} className='btn bg-black text-white'>Login</button>
-                                    </div>
+                                        <div className="form-control mb-5">
+                                            <label className="label cursor-pointer justify-start">
+                                                <input
+                                                    onChange={() => setIsRemembered(!isRemembered)}
+                                                    type="checkbox"
+                                                    className="checkbox mr-5"
+                                                />
+                                                <span className="label-text">Remember me</span>
+                                            </label>
+                                        </div>
+
+                                        <div className='flex gap-5 justify-end items-center'>
+                                            <button type="button" className="btn" onClick={() => window.history.back()}>
+                                                Close
+                                            </button>
+                                            <button type="submit" className='btn bg-black text-white'>
+                                                Login
+                                            </button>
+                                        </div>
+                                    </form>
+
                                 </TabPanel>
                             </Tabs>
                         </div>

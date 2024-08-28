@@ -65,10 +65,10 @@ const TrackOrder = () => {
                             </tr>
                         </thead>
                         {
-                            authOrder?.filter(order => order?.user_id == user?.id) ?
+                            user?.id ?
 
                                 authOrder?.map((orderItem) => (
-                                    orderItem.user_id == user.id &&
+                                    orderItem.user_id == user?.id &&
                                     <tbody key={orderItem.order_id}>
                                         <tr>
                                             <td>{orderItem.order_id}</td>
