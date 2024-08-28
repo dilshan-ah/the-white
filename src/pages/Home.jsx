@@ -195,8 +195,8 @@ const Home = () => {
 
                         <Tabs>
                             <TabList className='flex'>
-                                <Tab className='w-1/2 cursor-pointer border-2 border-black rounded-none p-3 font-bold text-xl grostesk text-center'>Register</Tab>
-                                <Tab className='w-1/2 cursor-pointer border-2 border-black rounded-none p-3 font-bold text-xl grostesk text-center'>Login</Tab>
+                                <Tab className='w-1/2 cursor-pointer border-2 border-black rounded-none p-3 font-bold text-xl poppins text-center'>Register</Tab>
+                                <Tab className='w-1/2 cursor-pointer border-2 border-black rounded-none p-3 font-bold text-xl poppins text-center'>Login</Tab>
                             </TabList>
 
                             <TabPanel>

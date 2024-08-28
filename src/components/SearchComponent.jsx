@@ -44,8 +44,8 @@ const SearchComponent = () => {
                                     <img src={`https://adminpanel.thewhitebd.com/uploads/product-thumbs/${product.thumbnail}`} className='w-10' alt="" />
 
                                     <div>
-                                        <h5 className='grostesk font-bold text-lg'>{product.title}</h5>
-                                        <p className='grostest font-semibold'>{product.variations[0].regular_price} ৳</p>
+                                        <h5 className='poppins font-semibold text-lg'>{product.title}</h5>
+                                        <p className='aldrich-regular font-semibold'>{product.variations[0].regular_price} ৳</p>
                                     </div>
                                 </Link>
                             </div>

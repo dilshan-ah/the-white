@@ -370,7 +370,7 @@ const Checkout = () => {
 
             <div className='border-l ml-2 pl-8 pt-5 pb-10'>
 
-              <div className='grid grid-cols-2 gap-5 mb-5'>
+              <div className='grid sm:grid-cols-2 gap-5 mb-5'>
                 <div>
                   <input type="text" onChange={(e) => setFname(e.target.value)} placeholder='First Name' className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded' />
                   {errors.fname && <span className="text-red-500">{errors.fname}</span>}
@@ -386,7 +386,7 @@ const Checkout = () => {
                 {errors.address && <span className="text-red-500">{errors.address}</span>}
               </div>
 
-              <div className='grid grid-cols-2 gap-5 mb-5'>
+              <div className='grid lg:grid-cols-2 gap-5 mb-5'>
 
                 <div className='mb-5'>
                   <select value={selectedDivision} onChange={handleDivisionChange} className='poppins font-bold w-full outline-none border-2 border-black px-5 py-3 rounded'>

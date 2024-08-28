@@ -103,7 +103,7 @@ const Header = ({ absolute }) => {
                                 <li className='category-item'>
                                     {
                                         user ?
-                                            <Link to='/contact' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>My Account</Link> :
+                                            <Link to='/my-account' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>My Account</Link> :
                                             <button onClick={() => document.getElementById('authlog').showModal()} className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Sign in/up</button>}
                                 </li>
                             </ul>
@@ -180,7 +180,7 @@ const Header = ({ absolute }) => {
                     <li className='category-item'>
                         {
                             user ?
-                                <Link to='/contact' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>My Account</Link> :
+                                <Link to='/my-account' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>My Account</Link> :
                                 <button onClick={() => document.getElementById('authlog').showModal()} className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Sign in/up</button>}
                     </li>
                     <dialog id="authlog" className="modal">

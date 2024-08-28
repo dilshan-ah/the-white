@@ -12,6 +12,7 @@ import About from '../pages/About'
 import Return from '../pages/Return'
 import CustomerReview from '../pages/CustomerReview'
 import { Privacy } from '../pages/Privacy'
+import Account from '../pages/Account';
 
 const Router = () => {
   useScrollToTop();
@@ -28,6 +29,7 @@ const Router = () => {
         <Route path="/return-and-refund" element={<Return/>}/>
         <Route path="/customer-review" element={<CustomerReview/>}/>
         <Route path="/privacy-policy" element={<Privacy/>}/>
+        <Route path="/my-account" element={<Account/>}/>
     </Routes>
   )
 }
