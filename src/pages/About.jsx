@@ -6,6 +6,7 @@ import abtimgtwo from '../assets/2148176505.jpg'
 import abtimgthree from '../assets/multiverse-copy.png'
 import Footer from '../components/Footer'
 import { Helmet } from 'react-helmet'
+import WhatsappChat from '../components/WhatsappChat'
 
 const About = () => {
     return (
@@ -37,7 +38,7 @@ const About = () => {
                     <img src={abtimgone} alt="" />
                 </div>
 
-                <div className='md:w-1/2 w-full'>
+                <div className='md:w-1/2 w-full flex flex-col justify-center'>
                     <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         Our Journey
                     </h3>
@@ -48,7 +49,7 @@ const About = () => {
 
             <div className='container mx-auto px-5 py-10 flex flex-col md:flex-row gap-10'>
                 <div className='w-full'>
-                    <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10 text-center'>
                         Our Roles
                     </h3>
 
@@ -87,7 +88,7 @@ const About = () => {
                     <img src={abtimgtwo} alt="" />
                 </div>
 
-                <div className='md:w-1/2 w-full'>
+                <div className='md:w-1/2 w-full flex flex-col justify-center'>
                     <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         Our Mission
                     </h3>
@@ -98,7 +99,7 @@ const About = () => {
 
             <div className='container mx-auto px-5 py-10 flex flex-col-reverse md:flex-row gap-10'>
 
-                <div className='md:w-1/2 w-full'>
+                <div className='md:w-1/2 w-full flex flex-col justify-center'>
                     <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
                         Our Vision
                     </h3>
@@ -126,6 +127,7 @@ const About = () => {
             </div>
 
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }

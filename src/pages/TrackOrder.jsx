@@ -5,6 +5,7 @@ import AuthUser from '../../auth/AuthUser'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import { FaEnvelope, FaKey, FaUser } from 'react-icons/fa'
 import { Helmet } from 'react-helmet'
+import WhatsappChat from '../components/WhatsappChat'
 
 const TrackOrder = () => {
     const { order, allProducts, authOrder, userData } = useContext(DataContext)
@@ -267,6 +268,7 @@ const TrackOrder = () => {
                     </table>
                 </div>
             </div>
+            <WhatsappChat/>
         </>
     )
 }

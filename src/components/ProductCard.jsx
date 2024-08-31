@@ -36,7 +36,7 @@ const ProductCard = ({ product }) => {
                 </figure>
             </Link>
 
-            <div className="card-body">
+            <div className="card-body justify-between">
                 <Link to={`/single-product/${product.slug}`} className="card-title poppins sm:text-xl text-sm">{product.title}</Link>
                 <p className='sm:text-sm text-xs montserrat w-4/6 sm:block hidden'>{product.short_description}</p>
                 <h4 className="aldrich-regular font-bold sm:text-lg text-xs">
@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
                 </h4>
 
                 <div className="card-actions lg:absolute right-5 bottom-5 justify-end">
-                    <Link to={`/single-product/${product.slug}`} className='btn sm:px-4 px-2 sm:py-2 py-1 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase sm:text-sm text-xs shadow-lg shadow-zinc-600'>Select Option</Link>
+                    <Link to={`/single-product/${product.slug}`} className='btn sm:px-4 px-2 sm:py-2 py-1 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase sm:text-sm text-xs shadow-lg shadow-zinc-600 sm:w-auto w-full'>Select Option</Link>
                 </div>
             </div>
         </div>

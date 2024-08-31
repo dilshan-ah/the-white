@@ -36,31 +36,11 @@ const Header = ({ absolute }) => {
 
     const [errors, setErrors] = useState({});
 
-    // const validateSignIn = () => {
-    //     const newErrors = {};
-
-    //     // Validate email
-    //     if (!email) {
-    //         newErrors.email = "Email is required.";
-    //     } else if (!/\S+@\S+\.\S+/.test(email)) {
-    //         newErrors.email = "Please enter a valid email address.";
-    //     }
-
-    //     // Validate password
-    //     if (!password) {
-    //         newErrors.password = "Password is required.";
-    //     } else if (password.length < 6) {
-    //         newErrors.password = "Password must be at least 6 characters long.";
-    //     }
-
-    //     setErrors(newErrors);
-    //     return Object.keys(newErrors).length === 0;
-    // };
-
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isRemembered, setIsRemembered] = useState(false)
+
     const SignUp = async (e) => {
         e.preventDefault();
         try {
@@ -97,10 +77,24 @@ const Header = ({ absolute }) => {
             }
         }
     };
-    console.log(errors);
 
 
     const rememberMeToken = isRemembered ? localStorage.getItem('rememberMeToken') : null;
+
+    const mobileSign = () => {
+
+        const drawer = document.getElementById('my-drawer');
+        if (drawer && drawer.checked) {
+            drawer.checked = false;
+            if (drawer.checked = false) {
+                const authLogModal = document.getElementById('authlog');
+                if (authLogModal) {
+                    authLogModal.showModal();
+                }
+            }
+        }
+    };
+
 
     return (
         <div className={`${absolute} w-full z-40`}>
@@ -144,7 +138,7 @@ const Header = ({ absolute }) => {
                                     {
                                         user ?
                                             <Link to='/my-account' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>My Account</Link> :
-                                            <button onClick={() => document.getElementById('authlog').showModal()} className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Sign in/up</button>}
+                                            <Link to='/sign-up-in' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase'>Sign in/up</Link>}
                                 </li>
                             </ul>
                         </div>

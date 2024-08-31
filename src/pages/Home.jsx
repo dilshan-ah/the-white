@@ -31,6 +31,7 @@ import { MdFilterListOff, MdLock } from 'react-icons/md';
 import { GoQuestion } from 'react-icons/go';
 import { CiFaceSmile } from 'react-icons/ci';
 import { Helmet } from 'react-helmet';
+import WhatsappChat from '../components/WhatsappChat';
 
 const Home = () => {
 
@@ -43,31 +44,6 @@ const Home = () => {
 
     const { http, setToken, user } = AuthUser();
 
-    // const [name, setName] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-
-    // const SignUp = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const res = await http.post('/register', { email: email, password: password, name: name });
-    //         setToken(res.data.user, res.data.access_token);
-    //         window.location.reload()
-    //     } catch (error) {
-    //         console.error('Register failed:', error);
-    //     }
-    // }
-
-    // const SignIn = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const res = await http.post('/login', { email: email, password: password, remember_token: rememberMeToken });
-    //         setToken(res.data.user, res.data.access_token);
-    //         window.location.reload()
-    //     } catch (error) {
-    //         console.error('Login failed:', error);
-    //     }
-    // }
 
     const rememberMeToken = isRemembered ? localStorage.getItem('rememberMeToken') : null;
 
@@ -190,7 +166,7 @@ const Home = () => {
 
                 <h3 className='text-white text-sm font-bold uppercase grostesk flex items-center gap-2'>we deliver all over bangladesh<FaShippingFast /></h3>
 
-                
+
             </div>
             <div className='relative'>
                 <Header absolute={'absolute'} />
@@ -225,7 +201,7 @@ const Home = () => {
                                             </figure>
                                         </Link>
 
-                                        <div className="card-body">
+                                        <div className="card-body justify-between">
                                             <Link to={`/single-product/${latest.slug}`}>
                                                 <h2 className="card-title poppins sm:text-xl text-sm">{latest.title}</h2>
                                             </Link>
@@ -242,7 +218,7 @@ const Home = () => {
                                             </h4>
 
                                             <div className="card-actions md:absolute right-5 bottom-5 justify-end">
-                                                <Link to={`/single-product/${latest.slug}`} className='btn sm:px-4 px-2 sm:py-2 py-1 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase sm:text-sm text-xs shadow-lg shadow-zinc-600'>Select Option</Link>
+                                                <Link to={`/single-product/${latest.slug}`} className='btn sm:px-4 px-2 sm:py-2 py-1 border-2 border-black font-bold hover:bg-white hover:text-black hover:border-black rounded-none bg-black text-white uppercase sm:text-sm text-xs shadow-lg shadow-zinc-600 sm:w-auto w-full'>Select Option</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -456,6 +432,7 @@ const Home = () => {
             </div>
 
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }

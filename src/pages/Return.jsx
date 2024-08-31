@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/header'
 import Footer from '../components/Footer'
 import { Helmet } from 'react-helmet'
+import WhatsappChat from '../components/WhatsappChat'
 
 const Return = () => {
     return (
@@ -81,6 +82,7 @@ const Return = () => {
             </div>
 
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }

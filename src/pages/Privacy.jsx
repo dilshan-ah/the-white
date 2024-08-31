@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/header'
 import Footer from '../components/Footer'
 import { Helmet } from 'react-helmet'
+import WhatsappChat from '../components/WhatsappChat'
 
 export const Privacy = () => {
     return (
@@ -114,6 +115,7 @@ export const Privacy = () => {
                 <p className='montserrat font-semibold text-gray-500 mb-5'>Thank you for choosing The White BD. We value your trust and are committed to protecting your privacy.</p>
             </div>
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }

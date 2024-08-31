@@ -33,7 +33,7 @@ const BannerSlider = () => {
                     disableOnInteraction: false,
                 }}
                 modules={[Autoplay, EffectFade]}
-                className="mySwiper sm:pt-0 pt-14"
+                className="mySwiper sm:pt-0 pt-24"
             >
                 {banner?.map((bnr) => (
                     <SwiperSlide>

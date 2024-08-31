@@ -5,6 +5,7 @@ import ReviewCard from '../components/ReviewCard'
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa'
 import Footer from '../components/Footer'
 import { Helmet } from 'react-helmet'
+import WhatsappChat from '../components/WhatsappChat'
 
 const CustomerReview = () => {
 
@@ -46,6 +47,7 @@ const CustomerReview = () => {
             </div>
 
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }

@@ -10,6 +10,7 @@ import { DataContext } from '../../context/Context';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import DOMPurify from 'dompurify';
+import WhatsappChat from '../components/WhatsappChat';
 
 
 const SingleProduct = () => {
@@ -251,6 +252,7 @@ const SingleProduct = () => {
                 </div>
             </div>
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }

@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { DataContext } from '../../context/Context';
 import { MdFilterListOff } from 'react-icons/md';
 import { Helmet } from 'react-helmet';
+import WhatsappChat from '../components/WhatsappChat';
 
 const SearchResult = () => {
 
@@ -232,6 +233,7 @@ const SearchResult = () => {
             </div>
 
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }

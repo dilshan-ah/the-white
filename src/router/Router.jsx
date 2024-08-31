@@ -15,6 +15,7 @@ import { Privacy } from '../pages/Privacy'
 import Account from '../pages/Account';
 import { DataContext } from '../../context/Context';
 import CheckoutRoute from './CheckoutRoute';
+import SignInUp from '../pages/SignInUp';
 
 const Router = () => {
   useScrollToTop();
@@ -35,6 +36,7 @@ const Router = () => {
       <Route path="/customer-review" element={<CustomerReview />} />
       <Route path="/privacy-policy" element={<Privacy />} />
       <Route path="/my-account" element={<Account />} />
+      <Route path="/sign-up-in" element={<SignInUp />} />
     </Routes>
   )
 }

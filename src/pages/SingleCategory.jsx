@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { MdFilterListOff } from 'react-icons/md';
 import { GoQuestion } from 'react-icons/go';
 import { Helmet } from 'react-helmet';
+import WhatsappChat from '../components/WhatsappChat';
 
 const SingleCategory = () => {
     const { slug } = useParams();
@@ -243,6 +244,7 @@ const SingleCategory = () => {
             </div>
 
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }

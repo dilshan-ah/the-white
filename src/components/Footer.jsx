@@ -39,7 +39,7 @@ const Footer = () => {
               <FaInstagram className='text-white text-2xl' />
             </a>
 
-            <a href="https://wa.me/01779744512" target='_blank'>
+            <a href="https://wa.me/+8801779744512" target='_blank'>
               <FaWhatsapp className='text-white text-2xl' />
             </a>
 

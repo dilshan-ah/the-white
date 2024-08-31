@@ -12,6 +12,7 @@ import { RiTiktokLine } from 'react-icons/ri';
 import { FiYoutube } from 'react-icons/fi';
 import { FaXTwitter } from 'react-icons/fa6';
 import { SlSocialLinkedin } from 'react-icons/sl';
+import WhatsappChat from '../components/WhatsappChat';
 
 const Contact = () => {
 
@@ -62,7 +63,7 @@ const Contact = () => {
 
             <div className='container mx-auto py-20 grid lg:grid-cols-2 gap-20 px-5'>
                 <div>
-                    <h3 className='poppins font-semibold text-3xl uppercase mb-10'>
+                    <h3 className='poppins font-semibold text-3xl uppercase mb-10 md:text-start text-center'>
                         GET In touch
                     </h3>
                     <form ref={form} onSubmit={sendMail}>
@@ -108,7 +109,7 @@ const Contact = () => {
                         Social Media
                     </h3>
 
-                    <div className='flex gap-5 mb-10'>
+                    <div className='flex flex-wrap gap-5 mb-10'>
                         <Link to='https://www.facebook.com/thewhite.apparel' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
                             <FaFacebookF className='text-lg' />
                         </Link>
@@ -117,7 +118,7 @@ const Contact = () => {
                             <FaInstagram className='text-lg' />
                         </Link>
 
-                        <Link to='https://wa.me/01779744512' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
+                        <Link to='https://wa.me/+8801779744512' target='_blank' className='btn rounded-full bg-black text-white p-0 w-10 min-h-10 h-10 hover:bg-white hover:text-black border-2 border-black hover:border-black'>
                             <FaWhatsapp className='text-lg' />
                         </Link>
 
@@ -187,6 +188,7 @@ const Contact = () => {
             </div>
 
             <Footer />
+            <WhatsappChat/>
         </>
     )
 }
