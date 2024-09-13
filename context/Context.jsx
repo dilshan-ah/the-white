@@ -23,12 +23,12 @@ const Context = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('order', JSON.stringify(order));
-
+    
+    fetchBanner();
     fetchAllCategories();
     fetchAllProducts();
     fetchUserDetail();
     fetchAllAttributes();
-    fetchBanner();
     fetchReview();
     fetchOffer();
     fetchOrder();

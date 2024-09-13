@@ -23,17 +23,18 @@ const BannerSlider = () => {
     return (
         <>
             {loading && (
-                <div className="skeleton h-screen w-full"></div>
+                <div className="skeleton h-screen w-full mt-5"></div>
             )}
 
             <Swiper
-                effect={'fade'}
+                // effect={'fade'}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
                 }}
+                loop={true}
                 modules={[Autoplay, EffectFade]}
-                className="mySwiper sm:pt-0 pt-24"
+                className="mySwiper pt-5"
             >
                 {banner?.map((bnr) => (
                     <SwiperSlide>

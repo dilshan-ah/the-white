@@ -125,7 +125,7 @@ const Header = ({ absolute }) => {
                                     ))
                                 }
                                 <li className='category-item'>
-                                    <Link to='/track-order' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase flex gap-2 items-center'>Track your order <FaShippingFast />
+                                    <Link to='/track-order' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase flex gap-2 items-center'>Track order <FaShippingFast />
                                     </Link>
                                 </li>
                                 <li className='category-item'>
@@ -202,7 +202,7 @@ const Header = ({ absolute }) => {
                         ))
                     }
                     <li className='category-item'>
-                        <Link to='/track-order' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase flex gap-2 items-center'>Track your order <FaShippingFast />
+                        <Link to='/track-order' className='grostesk text-xl text-black font-bold hover:animate-pulse uppercase flex gap-2 items-center'>Track order <FaShippingFast />
                         </Link>
                     </li>
                     <li className='category-item'>

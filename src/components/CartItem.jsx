@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import blacktee from '../assets/black.png'
 import { useEffect } from 'react';
 import { DataContext } from '../../context/Context';
 import { Link } from 'react-router-dom';

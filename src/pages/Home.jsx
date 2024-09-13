@@ -2,14 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import Header from '../components/header'
 import BannerSlider from '../components/BannerSlider'
-import { FaEnvelope } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import ProductCard from '../components/ProductCard';
 import Footer from '../components/Footer';
-import { FaUser } from "react-icons/fa";
 import Testimonial from '../components/Testimonial';
 import { FaShippingFast } from 'react-icons/fa';
-import { FaKey } from "react-icons/fa";
 
 import fedex from '../assets/fedex.png'
 import pathao from '../assets/pathao.png'
@@ -24,7 +21,6 @@ import ssl from '../assets/SSLCommerz-Pay-With-logo-All-Size-01.png'
 import { Link } from 'react-router-dom';
 import { DataContext } from '../../context/Context';
 
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import AuthUser from '../../auth/AuthUser';
 import { MdFilterListOff, MdLock } from 'react-icons/md';
@@ -32,6 +28,8 @@ import { GoQuestion } from 'react-icons/go';
 import { CiFaceSmile } from 'react-icons/ci';
 import { Helmet } from 'react-helmet';
 import WhatsappChat from '../components/WhatsappChat';
+
+import bd from '../assets/bangladesh-flag.png'
 
 const Home = () => {
 
@@ -169,7 +167,7 @@ const Home = () => {
 
             </div>
             <div className='relative'>
-                <Header absolute={'absolute'} />
+                <Header />
                 <BannerSlider />
             </div>
 
@@ -411,7 +409,10 @@ const Home = () => {
                 <div className='flex flex-col items-center'>
                     <CiFaceSmile className='text-5xl mb-5' />
                     <p className='poppins text-center font-semibold text-2xl mb-5 uppercase'>Satisfaction Guaranteed</p>
-                    <p className='montserrat font-semibold text-slate-500 mb-4'>made with love with bangladesh</p>
+                    <p className='montserrat font-semibold text-slate-500 mb-4 flex items-center gap-1'>
+                        made with love with bangladesh
+                        <img src={bd} className='w-5 h-max' alt="" srcset="" />
+                        </p>
                     <p className='poppins text-center font-semibold text-xl uppercase'>Mul tee verse of dropshoulders</p>
                 </div>
 

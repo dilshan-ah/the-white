@@ -5,7 +5,7 @@ import bkash from '../assets/bkash-logo.webp'
 import nagad from '../assets/Nagad-Logo.png'
 import rocket from '../assets/rocket-logo.png'
 import upay from '../assets/upay_logo.png'
-import blacktee from '../assets/black.png'
+
 import Footer from '../components/Footer';
 import { DataContext } from '../../context/Context';
 import AuthUser from '../../auth/AuthUser';

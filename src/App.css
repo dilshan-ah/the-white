@@ -62,7 +62,7 @@
 }
 
 .welcome-banner {
-    background-image: url('./assets/multiverse.png');
+    background-image: url('./assets/multiverse-copy.webp');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -96,8 +96,16 @@
     border: 2px solid;
 }
 
+.about-banner {
+    background-image: url('./assets/bg-overlay.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+}
+
 .contact-banner {
-    background-image: url('./assets/bg-overlay-2.png');
+    background-image: url('./assets/bg-overlay-2.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

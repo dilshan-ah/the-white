@@ -129,8 +129,8 @@ const SingleProduct = () => {
                             <div className="skeleton h-4 w-60 my-4"></div>
                     }
 
-
-                    <p className='poppins flex items-center text-md text-red-500 mb-3'> <RiFireLine /> 110 sold in last 24 hours</p>
+{/* 
+                    <p className='poppins flex items-center text-md text-red-500 mb-3'> <RiFireLine /> 110 sold in last 24 hours</p> */}
 
                     <div className='aldrich-regular flex gap-4 text-3xl font-bold mb-3'>
                         {

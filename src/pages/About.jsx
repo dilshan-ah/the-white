@@ -1,9 +1,9 @@
 import React from 'react'
 import Header from '../components/header'
 
-import abtimgone from '../assets/welcome.jpg'
+import abtimgone from '../assets/welcome.webp'
 import abtimgtwo from '../assets/2148176505.jpg'
-import abtimgthree from '../assets/multiverse-copy.png'
+import abtimgthree from '../assets/multiverse-copy.webp'
 import Footer from '../components/Footer'
 import { Helmet } from 'react-helmet'
 import WhatsappChat from '../components/WhatsappChat'
@@ -17,7 +17,7 @@ const About = () => {
 
             <Header />
 
-            <div className='contact-banner py-48 mt-10 relative flex justify-center'>
+            <div className='about-banner py-48 mt-10 relative flex justify-center'>
                 <h1 className='poppins font-bold sm:text-6xl text-4xl px-5 uppercase text-white z-40 relative'>About us</h1>
                 <div className='w-full h-full bg-black/50 absolute top-0 left-0'></div>
             </div>
